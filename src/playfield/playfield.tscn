@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba2pvj1teds3"]
+
+[ext_resource type="Script" path="res://src/playfield/playfield.gd" id="1_5ynuc"]
+
+[node name="Playfield" type="AspectRatioContainer"]
+ratio = 0.4545
+stretch_mode = 1
+script = ExtResource("1_5ynuc")
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.243137, 0.243137, 0.243137, 1)
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 10

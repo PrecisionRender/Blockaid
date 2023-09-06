@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/playfield/grid_cell.gd" id="2_x4c40"]
 
-[node name="GridCell" type="TextureRect"]
+[node name="GridCell" type="TextureRect" groups=["grid_cells"]]
 texture_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -22,4 +22,5 @@ button_mask = 3
 keep_pressed_outside = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="TriggerButton" to="." method="_on_texture_button_pressed"]

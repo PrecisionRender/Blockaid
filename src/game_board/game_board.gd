@@ -1,4 +1,4 @@
-class_name Grid
+class_name GameBoard
 extends AspectRatioContainer
 
 
@@ -11,7 +11,7 @@ const PLAYFIELD_HEIGHT: int = 22
 var grid_cells: Array[GridCell] = []
 
 
-@onready var grid: GridContainer = $GridContainer
+@onready var playfield_grid: GridContainer = $HBoxContainer/Playfield/PlayfieldGrid
 
 
 # Called when the node enters the scene tree for the first time.
@@ -38,7 +38,7 @@ func _initialize_grid() -> void:
 		if x < PLAYFIELD_WIDTH * 2:
 			grid_cell.hide_when_empty = true
 		
-		grid.add_child(grid_cell)
+		playfield_grid.add_child(grid_cell)
 		grid_cells.append(grid_cell)
 
 

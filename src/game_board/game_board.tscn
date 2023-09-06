@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://crfedg2jxu4tl"]
+
+[ext_resource type="Script" path="res://src/game_board/game_board.gd" id="1_eelt4"]
+
+[node name="GameBoard" type="AspectRatioContainer"]
+offset_right = 8.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+ratio = 0.9
+stretch_mode = 1
+script = ExtResource("1_eelt4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment_vertical = 0
+
+[node name="Panel" type="Panel" parent="HBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Playfield" type="AspectRatioContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+ratio = 0.4545
+alignment_vertical = 0
+
+[node name="BackgroundColor" type="ColorRect" parent="HBoxContainer/Playfield"]
+layout_mode = 2
+color = Color(0.243137, 0.243137, 0.243137, 1)
+
+[node name="PlayfieldGrid" type="GridContainer" parent="HBoxContainer/Playfield"]
+layout_mode = 2
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+ratio = 0.333
+alignment_vertical = 0
+
+[node name="Panel" type="Panel" parent="HBoxContainer/VBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+size_flags_vertical = 3

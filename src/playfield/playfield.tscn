@@ -1,10 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://ba2pvj1teds3"]
+[gd_scene load_steps=2 format=3 uid="uid://b6iis32pmjeyd"]
 
 [ext_resource type="Script" path="res://src/playfield/playfield.gd" id="1_5ynuc"]
 
 [node name="Playfield" type="AspectRatioContainer"]
 ratio = 0.4545
 stretch_mode = 1
+alignment_vertical = 0
 script = ExtResource("1_5ynuc")
 
 [node name="BackgroundColor" type="ColorRect" parent="."]

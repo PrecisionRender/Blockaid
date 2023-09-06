@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1074n7kaj0gn"]
+
+[ext_resource type="Script" path="res://src/game_board/mino/queue_mino.gd" id="1_aoly7"]
+
+[node name="QueueMino" type="AspectRatioContainer"]
+offset_right = 192.0
+offset_bottom = 84.0
+ratio = 2.0
+script = ExtResource("1_aoly7")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+theme_override_constants/h_separation = 1
+columns = 4

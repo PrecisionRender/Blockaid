@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://brp604jfxsnt2"]
+
+[ext_resource type="Script" path="res://src/game_board/mino/mino.gd" id="1_h78bf"]
+
+[node name="Mino" type="TextureRect"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand_mode = 1
+script = ExtResource("1_h78bf")

@@ -1,0 +1,380 @@
+[gd_scene load_steps=29 format=3 uid="uid://cvumy8oxxhyeu"]
+
+[ext_resource type="PackedScene" uid="uid://crfedg2jxu4tl" path="res://src/game_board/game_board.tscn" id="1_87u0c"]
+[ext_resource type="Script" path="res://src/editor/editor.gd" id="1_xmbpy"]
+[ext_resource type="Script" path="res://src/edit_panel/edit_panel.gd" id="4_jgu38"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4lp7g"]
+bg_color = Color(0.6, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxdel"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8wtd"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ds0b1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uq8lo"]
+bg_color = Color(0.6, 0.33, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jg74t"]
+bg_color = Color(0.996094, 0.542969, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oiexk"]
+bg_color = Color(0.996094, 0.542969, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6o2y"]
+bg_color = Color(0.6, 0.56, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwvfu"]
+bg_color = Color(0.996094, 0.929688, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bk235"]
+bg_color = Color(0.996094, 0.929688, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7fbvb"]
+bg_color = Color(0.1683, 0.51, 0.1683, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7umg5"]
+bg_color = Color(0.300781, 0.90625, 0.296875, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v13hd"]
+bg_color = Color(0.300781, 0.90625, 0.296875, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0aip8"]
+bg_color = Color(0, 0.454333, 0.58, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16fbm"]
+bg_color = Color(0, 0.757813, 0.976563, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4qvr"]
+bg_color = Color(0, 0.757813, 0.976563, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iq7af"]
+bg_color = Color(0.132, 0.3036, 0.6, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ymad"]
+bg_color = Color(0.214844, 0.507813, 0.996094, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n02v0"]
+bg_color = Color(0.214844, 0.507813, 0.996094, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nvgyr"]
+bg_color = Color(0.26496, 0.1728, 0.48, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_11x3a"]
+bg_color = Color(0.480469, 0.316406, 0.878906, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpupo"]
+bg_color = Color(0.480469, 0.316406, 0.878906, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j42hs"]
+bg_color = Color(0.42, 0.42, 0.42, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0hwfr"]
+bg_color = Color(0.71875, 0.71875, 0.71875, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ns780"]
+bg_color = Color(0.71875, 0.71875, 0.71875, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[node name="Editor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xmbpy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SidePanel" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/SidePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.439216, 0.439216, 0.439216, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/SidePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="CheckButton" type="CheckButton" parent="HBoxContainer/SidePanel/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Edit mode"
+
+[node name="BoardContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="TopMargin" type="Control" parent="HBoxContainer/BoardContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.03
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/BoardContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="GameBoard" parent="HBoxContainer/BoardContainer/HBoxContainer" instance=ExtResource("1_87u0c")]
+layout_mode = 2
+stretch_mode = 2
+
+[node name="BottomMargin" type="Control" parent="HBoxContainer/BoardContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.03
+
+[node name="EditPanel" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+script = ExtResource("4_jgu38")
+
+[node name="Panel" type="Panel" parent="HBoxContainer/EditPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/EditPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftMargin" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/EditPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.02
+
+[node name="Button" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.08
+focus_mode = 0
+text = "Capture board"
+
+[node name="Control4" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.02
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorSelector" type="GridContainer" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 3
+
+[node name="Button" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_4lp7g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lxdel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m8wtd")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_ds0b1")
+
+[node name="Button2" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_uq8lo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jg74t")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oiexk")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_ds0b1")
+
+[node name="Button3" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_m6o2y")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bwvfu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bk235")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_ds0b1")
+
+[node name="Button4" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_7fbvb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7umg5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_v13hd")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_ds0b1")
+
+[node name="Button5" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_0aip8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_16fbm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q4qvr")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_ds0b1")
+
+[node name="Button6" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_iq7af")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0ymad")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_n02v0")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_ds0b1")
+
+[node name="Button7" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_nvgyr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_11x3a")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gpupo")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_ds0b1")
+
+[node name="Button8" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_j42hs")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0hwfr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ns780")
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_ds0b1")
+
+[node name="Button9" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+
+[node name="Control" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="Button" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Erase"
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control3" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Control2" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="RightMargin" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1

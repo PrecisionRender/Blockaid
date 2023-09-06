@@ -10,5 +10,4 @@ script = ExtResource("1_aoly7")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 2
-theme_override_constants/h_separation = 1
 columns = 4

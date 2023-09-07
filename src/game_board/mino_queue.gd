@@ -17,10 +17,12 @@ func _ready() -> void:
 	for x in range(queue_size):
 		var queue_mino = QUEUE_MINO.instantiate()
 		queue_minos.append(queue_mino)
+		# Initialize the defualt queues to hold one of each mino
 		queue_mino.type = x if queue_size == 1 else x + 1
 		$HBoxContainer/MinoContainer.add_child(queue_mino)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func update_mino_queue(types: Array[Constants.Minos]) -> void:
+	assert(types.size() == queue_size, "Incorrect quantity of mino types supplied!")
+	for x in range(queue_size):
+		queue_minos[x].type = types[x]

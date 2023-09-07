@@ -13,7 +13,11 @@ var type: Constants.Minos:
 		_update_texture_region()
 
 
-@onready var atlas_texture: AtlasTexture = AtlasTexture.new()
+var atlas_texture: AtlasTexture:
+	get:
+		if !atlas_texture:
+			atlas_texture = AtlasTexture.new() 
+		return atlas_texture
 
 
 func _ready() -> void:

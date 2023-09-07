@@ -4,7 +4,10 @@ extends AspectRatioContainer
 
 const MINO: PackedScene = preload("res://src/game_board/mino/mino.tscn")
 
-var type: Constants.Minos = Constants.Minos.J
+var type: Constants.Minos = Constants.Minos.Z:
+	set(value):
+		type = value
+		_refresh_cells()
 var mino_states: Dictionary = {
 	Constants.Minos.Z: QueueMinoState.new(3, [1, 1, 0, 0, 1, 1]),
 	Constants.Minos.L: QueueMinoState.new(3, [0, 0, 1, 1, 1, 1]),

@@ -1,9 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://cvumy8oxxhyeu"]
+[gd_scene load_steps=31 format=3 uid="uid://cvumy8oxxhyeu"]
 
 [ext_resource type="Script" path="res://src/editor/editor.gd" id="1_xmbpy"]
 [ext_resource type="Script" path="res://src/game_board/game_board.gd" id="2_8jijw"]
 [ext_resource type="PackedScene" uid="uid://d0snh5yocg5hr" path="res://src/game_board/mino_queue.tscn" id="3_4qqo7"]
 [ext_resource type="Script" path="res://src/edit_panel/edit_panel.gd" id="4_jgu38"]
+[ext_resource type="Script" path="res://src/editor/QueueInputDialogue.gd" id="5_3pvlv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4lp7g"]
 bg_color = Color(0.6, 0, 0, 1)
@@ -296,24 +297,29 @@ size_flags_stretch_ratio = 0.02
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+[node name="Control6" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.02
+
+[node name="BoardTools" type="HBoxContainer" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorSelector" type="GridContainer" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer"]
+[node name="ColorSelector" type="GridContainer" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools/AspectRatioContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 4
 theme_override_constants/v_separation = 4
 columns = 3
 
-[node name="Button" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -324,7 +330,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_m8wtd")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button2" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button2" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -335,7 +341,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_oiexk")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button3" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button3" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -346,7 +352,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_bk235")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button4" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button4" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -357,7 +363,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_v13hd")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button5" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button5" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -368,7 +374,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_q4qvr")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button6" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button6" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -379,7 +385,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_n02v0")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button7" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button7" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -390,7 +396,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_gpupo")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button8" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button8" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -402,25 +408,49 @@ toggle_mode = true
 button_pressed = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button9" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector"]
+[node name="Button9" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools/AspectRatioContainer/ColorSelector"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_mode = 0
 
-[node name="Control" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
-[node name="Button" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/BoardTools"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 text = "Erase"
 
+[node name="Control7" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.02
+
 [node name="HSeparator2" type="HSeparator" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="Control5" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.02
+
+[node name="EditHoldQueue" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.08
+focus_mode = 0
+text = "Edit Hold Queue"
+
+[node name="EditNextQueue" type="Button" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.08
+focus_mode = 0
+text = "Edit Next Queue"
 
 [node name="Control3" type="Control" parent="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -435,3 +465,30 @@ size_flags_stretch_ratio = 0.25
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
+
+[node name="QueueInputDialogue" type="ConfirmationDialog" parent="."]
+disable_3d = true
+handle_input_locally = false
+initial_position = 2
+size = Vector2i(300, 90)
+visible = true
+unresizable = true
+borderless = true
+popup_window = true
+ok_button_text = "Continue"
+script = ExtResource("5_3pvlv")
+
+[node name="LineEdit" type="LineEdit" parent="QueueInputDialogue"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 292.0
+offset_bottom = 41.0
+size_flags_vertical = 3
+focus_mode = 1
+placeholder_text = "Enter queue..."
+
+[connection signal="pressed" from="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/EditHoldQueue" to="HBoxContainer/EditPanel" method="_on_edit_hold_queue_pressed"]
+[connection signal="pressed" from="HBoxContainer/EditPanel/HBoxContainer/VBoxContainer/EditNextQueue" to="HBoxContainer/EditPanel" method="_on_edit_next_queue_pressed"]
+[connection signal="confirmed" from="QueueInputDialogue" to="QueueInputDialogue" method="_on_confirmed"]
+[connection signal="text_changed" from="QueueInputDialogue/LineEdit" to="QueueInputDialogue" method="_on_line_edit_text_changed"]
+[connection signal="text_submitted" from="QueueInputDialogue/LineEdit" to="QueueInputDialogue" method="_on_line_edit_text_submitted"]

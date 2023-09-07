@@ -1,7 +1,7 @@
 [gd_scene load_steps=27 format=3 uid="uid://civnu80bpedr0"]
 
-[ext_resource type="Script" path="res://src/edit_panel/edit_panel.gd" id="1_bkeeq"]
-[ext_resource type="ButtonGroup" uid="uid://cy78cc7jkv7k1" path="res://src/edit_panel/color_palette_button_group.tres" id="1_mtiji"]
+[ext_resource type="Script" path="res://source/edit_panel/edit_panel.gd" id="1_bkeeq"]
+[ext_resource type="ButtonGroup" uid="uid://cy78cc7jkv7k1" path="res://source/edit_panel/color_palette_button_group.tres" id="1_mtiji"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4lp7g"]
 bg_color = Color(0.6, 0, 0, 1)

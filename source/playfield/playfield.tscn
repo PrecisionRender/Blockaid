@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b6iis32pmjeyd"]
 
-[ext_resource type="Script" path="res://src/playfield/playfield.gd" id="1_5ynuc"]
+[ext_resource type="Script" path="res://source/playfield/playfield.gd" id="1_5ynuc"]
 
 [node name="Playfield" type="AspectRatioContainer"]
 ratio = 0.4545

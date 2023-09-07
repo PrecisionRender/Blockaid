@@ -3,8 +3,7 @@ extends Control
 
 
 signal brush_changed(type: Constants.Minos)
-signal hold_queue_edit_requested
-signal next_queue_edit_requested
+signal mino_queue_edit_requested(queue_type: Constants.MinoQueues)
 
 
 const DEFAULT_BRUSH: Constants.Minos = Constants.Minos.GARBAGE
@@ -24,8 +23,8 @@ func _on_brush_button_pressed(index: int) -> void:
 
 
 func _on_edit_hold_queue_pressed() -> void:
-	hold_queue_edit_requested.emit()
+	mino_queue_edit_requested.emit(Constants.MinoQueues.HOLD)
 
 
 func _on_edit_next_queue_pressed() -> void:
-	next_queue_edit_requested.emit()
+	mino_queue_edit_requested.emit(Constants.MinoQueues.NEXT)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://crfedg2jxu4tl"]
 
-[ext_resource type="Script" path="res://src/game_board/game_board.gd" id="1_eelt4"]
+[ext_resource type="Script" path="res://source/game_board/game_board.gd" id="1_galjm"]
 
 [node name="GameBoard" type="AspectRatioContainer"]
 offset_right = 8.0
@@ -8,7 +8,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 ratio = 0.9
 stretch_mode = 1
-script = ExtResource("1_eelt4")
+script = ExtResource("1_galjm")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2

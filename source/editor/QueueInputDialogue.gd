@@ -2,14 +2,28 @@ class_name QueueInputDialogue
 extends ConfirmationDialog
 
 
+signal queue_sumbitted(queue: Constants.MinoQueues, tpyes: String)
+
+
 const ACCEPTED_CHARS: String = "[ZLOSIJTzlosijt]"
+const HOLD_QUEUE_LENGTH: int = 1
+const NEXT_QUEUE_LENGTH: int = 6
 
 
-var queue_length: int = 6:
+var queue_length: int = 1:
 	set(value):
 		queue_length = value
 		line_edit.call_deferred("set_max_length", value)
+var queue_type: Constants.MinoQueues = Constants.MinoQueues.HOLD:
+	set(value):
+		queue_type = value
+		match value:
+			Constants.MinoQueues.HOLD:
+				queue_length = HOLD_QUEUE_LENGTH
+			Constants.MinoQueues.NEXT:
+				queue_length = NEXT_QUEUE_LENGTH
 var previous_caret_column: int = 0
+
 
 @onready var line_edit: LineEdit = $LineEdit
 
@@ -20,6 +34,7 @@ func _ready() -> void:
 	get_cancel_button().focus_mode = Control.FOCUS_NONE
 	line_edit.max_length = queue_length
 	get_ok_button().disabled = true
+	line_edit.grab_focus()
 
 
 func _on_line_edit_text_changed(new_text: String) -> void:
@@ -47,3 +62,7 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 	# Hacky solution to confirm the dialogue box when the enter key is pressed
 	if !get_ok_button().disabled:
 		get_ok_button().pressed.emit()
+
+
+func _on_confirmed() -> void:
+	queue_sumbitted.emit(queue_type, $LineEdit.text.to_lower())

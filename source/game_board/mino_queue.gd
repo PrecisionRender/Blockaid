@@ -2,7 +2,7 @@ class_name MinoQueue
 extends PanelContainer
 
 
-const QUEUE_MINO: PackedScene = preload("res://src/game_board/mino/queue_mino.tscn")
+const QUEUE_MINO: PackedScene = preload("res://source/game_board/mino/queue_mino.tscn")
 
 
 @export var queue_size: int = 1

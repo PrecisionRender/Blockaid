@@ -1,8 +1,7 @@
 class_name GameBoard
 extends AspectRatioContainer
 
-
-const GRID_CELL: PackedScene = preload("res://src/playfield/grid_cell.tscn")
+const GRID_CELL: PackedScene = preload("res://source/playfield/grid_cell.tscn")
 
 const PLAYFIELD_WIDTH: int = 10
 const PLAYFIELD_HEIGHT: int = 22
@@ -12,6 +11,8 @@ var grid_cells: Array[GridCell] = []
 
 
 @onready var playfield_grid: GridContainer = $HBoxContainer/Playfield/PlayfieldGrid
+@onready var hold_queue: MinoQueue = $HBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer/HoldQueue
+@onready var next_queue: MinoQueue = $HBoxContainer/VBoxContainer/AspectRatioContainer/NextQueue
 
 
 # Called when the node enters the scene tree for the first time.
@@ -27,6 +28,16 @@ func save_board(board: BoardState) -> void:
 func load_board(board: BoardState) -> void:
 	for x in range(grid_cells.size()):
 		grid_cells[x].type = board.board[x]
+
+
+func update_mino_queue(queue: Constants.MinoQueues, types: Array[Constants.Minos]):
+	match queue:
+		Constants.MinoQueues.HOLD:
+			hold_queue.update_mino_queue(types)
+		Constants.MinoQueues.NEXT:
+			next_queue.update_mino_queue(types)
+		_:
+			pass
 
 
 func _initialize_grid() -> void:

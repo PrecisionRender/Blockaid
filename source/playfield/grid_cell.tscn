@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://conoohubrtv5f"]
 
-[ext_resource type="Script" path="res://src/playfield/grid_cell.gd" id="2_x4c40"]
+[ext_resource type="Script" path="res://source/playfield/grid_cell.gd" id="2_x4c40"]
 
 [node name="GridCell" type="TextureRect" groups=["grid_cells"]]
 texture_filter = 1

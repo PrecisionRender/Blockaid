@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://d0snh5yocg5hr"]
 
-[ext_resource type="Script" path="res://src/game_board/mino_queue.gd" id="1_ufe4w"]
+[ext_resource type="Script" path="res://source/game_board/mino_queue.gd" id="1_ea0l2"]
 
 [node name="MinoQueue" type="PanelContainer"]
 size_flags_vertical = 3
-script = ExtResource("1_ufe4w")
+script = ExtResource("1_ea0l2")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2

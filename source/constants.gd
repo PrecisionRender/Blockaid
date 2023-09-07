@@ -14,3 +14,9 @@ enum Minos
 	GARBAGE,
 	EMPTY
 }
+
+enum MinoQueues
+{
+	HOLD,
+	NEXT
+}

@@ -22,7 +22,6 @@ func _on_brush_button_pressed(index: int) -> void:
 	brush_changed.emit(index)
 
 
-
 func _on_edit_hold_queue_pressed() -> void:
 	mino_queue_edit_requested.emit(Constants.MinoQueues.HOLD)
 

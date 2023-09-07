@@ -30,7 +30,7 @@ func load_board(board: BoardState) -> void:
 		grid_cells[x].type = board.board[x]
 
 
-func update_mino_queue(queue: Constants.MinoQueues, types: Array[Constants.Minos]):
+func update_mino_queue(queue: Constants.MinoQueues, types: Array[Constants.Minos]) -> void:
 	match queue:
 		Constants.MinoQueues.HOLD:
 			hold_queue.update_mino_queue(types)

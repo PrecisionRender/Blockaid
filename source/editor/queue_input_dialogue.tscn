@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bfajn2hhaj2bj"]
 
-[ext_resource type="Script" path="res://source/editor/QueueInputDialogue.gd" id="1_7pbpa"]
+[ext_resource type="Script" path="res://source/editor/queue_input_dialogue.gd" id="1_7pbpa"]
 
 [node name="QueueInputDialogue" type="ConfirmationDialog"]
 disable_3d = true

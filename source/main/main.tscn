@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgjcwc2hcb222"]
+[gd_scene load_steps=4 format=3 uid="uid://bgjcwc2hcb222"]
 
 [ext_resource type="Script" path="res://source/main/main.gd" id="1_6c76s"]
 [ext_resource type="PackedScene" uid="uid://cvumy8oxxhyeu" path="res://source/editor/editor.tscn" id="2_jyck0"]
+[ext_resource type="PackedScene" uid="uid://cmwg4vtfbf7ju" path="res://source/screen_capture_tool/screen_capture_tool.tscn" id="3_cjlud"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_6c76s")
 
 [node name="Editor" parent="." instance=ExtResource("2_jyck0")]
+
+[node name="ScreenCaptureTool" parent="." instance=ExtResource("3_cjlud")]
+visible = false

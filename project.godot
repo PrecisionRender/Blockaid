@@ -25,7 +25,6 @@ Settings="*res://source/globals/settings.gd"
 [display]
 
 window/subwindows/embed_subwindows=false
-window/per_pixel_transparency/allowed=true
 
 [rendering]
 

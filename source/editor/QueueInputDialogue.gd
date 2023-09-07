@@ -22,7 +22,6 @@ var queue_type: Constants.MinoQueues = Constants.MinoQueues.HOLD:
 				queue_length = HOLD_QUEUE_LENGTH
 			Constants.MinoQueues.NEXT:
 				queue_length = NEXT_QUEUE_LENGTH
-var previous_caret_column: int = 0
 
 
 @onready var line_edit: LineEdit = $LineEdit
@@ -58,7 +57,7 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 	get_ok_button().disabled = filtered_string.length() != queue_length
 
 
-func _on_line_edit_text_submitted(new_text: String) -> void:
+func _on_line_edit_text_submitted(_new_text: String) -> void:
 	# Hacky solution to confirm the dialogue box when the enter key is pressed
 	if !get_ok_button().disabled:
 		get_ok_button().pressed.emit()

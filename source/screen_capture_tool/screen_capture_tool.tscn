@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmwg4vtfbf7ju"]
+
+[ext_resource type="Script" path="res://source/screen_capture_tool/screen_capture_tool.gd" id="1_5xtbf"]
+
+[node name="ScreenCaptureTool" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5xtbf")
+
+[node name="ScreenTexture" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SelectionHint" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 3
+
+[connection signal="draw" from="SelectionHint" to="." method="_on_selection_hint_draw"]
+[connection signal="gui_input" from="SelectionHint" to="." method="_on_selection_hint_gui_input"]

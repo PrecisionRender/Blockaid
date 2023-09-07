@@ -2,6 +2,9 @@ class_name Editor
 extends Control
 
 
+signal screen_capture_requested
+
+
 enum EditorState
 {
 	VIEW,
@@ -18,6 +21,7 @@ const QUEUE_INPUT_DIALOGUE: PackedScene = preload("res://source/editor/queue_inp
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	edit_panel.screen_capture_requested.connect(_on_editor_screen_capture_requested)
 	edit_panel.brush_changed.connect(_on_brush_changed)
 	edit_panel.mino_queue_edit_requested.connect(_on_mino_queue_edit_requested)
 
@@ -35,8 +39,8 @@ func _on_brush_changed(type: Constants.Minos):
 
 func _on_queue_input_dialogue_queue_sumbitted(queue: Constants.MinoQueues, types: String) -> void:
 	var mino_queue: Array[Constants.Minos] = []
-	for char in types:
-		match char:
+	for letter in types:
+		match letter:
 			"z":
 				mino_queue.append(Constants.Minos.Z)
 			"l":
@@ -52,3 +56,7 @@ func _on_queue_input_dialogue_queue_sumbitted(queue: Constants.MinoQueues, types
 			"t":
 				mino_queue.append(Constants.Minos.T)
 	game_board.update_mino_queue(queue, mino_queue)
+
+
+func _on_editor_screen_capture_requested() -> void:
+	screen_capture_requested.emit()

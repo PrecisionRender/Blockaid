@@ -269,12 +269,13 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.02
 
-[node name="Button" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer"]
+[node name="ScreenCaptureButton" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.08
+tooltip_text = "Capture board from the screen"
 focus_mode = 0
-text = "Capture board"
+text = "Screen capture"
 
 [node name="Control4" type="Control" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -448,5 +449,6 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
 
+[connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/ScreenCaptureButton" to="HBoxContainer/EditPanel" method="_on_screen_capture_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/EditHoldQueue" to="HBoxContainer/EditPanel" method="_on_edit_hold_queue_pressed"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/EditNextQueue" to="HBoxContainer/EditPanel" method="_on_edit_next_queue_pressed"]

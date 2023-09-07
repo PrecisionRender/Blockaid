@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0snh5yocg5hr"]
+
+[ext_resource type="Script" path="res://src/game_board/mino_queue.gd" id="1_ufe4w"]
+
+[node name="MinoQueue" type="PanelContainer"]
+size_flags_vertical = 3
+script = ExtResource("1_ufe4w")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftMargin" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15
+
+[node name="MinoContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightMargin" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15

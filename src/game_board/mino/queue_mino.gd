@@ -4,7 +4,7 @@ extends AspectRatioContainer
 
 const MINO: PackedScene = preload("res://src/game_board/mino/mino.tscn")
 
-var type: Constants.Minos = Constants.Minos.S
+var type: Constants.Minos = Constants.Minos.J
 var mino_states: Dictionary = {
 	Constants.Minos.Z: QueueMinoState.new(3, [1, 1, 0, 0, 1, 1]),
 	Constants.Minos.L: QueueMinoState.new(3, [0, 0, 1, 1, 1, 1]),
@@ -22,18 +22,18 @@ func _ready() -> void:
 
 
 func _refresh_cells() -> void:
-	for child in $GridContainer.get_children():
+	for child in $AspectRatioContainer/GridContainer.get_children():
 		child.queue_free()
 
 	var mino_state: QueueMinoState = mino_states[type]
 	var cell_count: int = mino_state.active_cells.size()
 
-	$GridContainer.columns = mino_state.grid_columns
-	ratio = float(mino_state.grid_columns) / float(cell_count / mino_state.grid_columns)
+	$AspectRatioContainer/GridContainer.columns = mino_state.grid_columns
+	$AspectRatioContainer.ratio = float(mino_state.grid_columns) / float(cell_count / mino_state.grid_columns)
 
 	for x in range(cell_count):
 		var cell: Mino = MINO.instantiate()
-		$GridContainer.add_child(cell)
+		$AspectRatioContainer/GridContainer.add_child(cell)
 		if mino_state.active_cells[x] == 0:
 			cell.hide_when_empty = true
 			cell.type = Constants.Minos.EMPTY

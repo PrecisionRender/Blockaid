@@ -25,6 +25,7 @@ func _ready() -> void:
 	get_window().set_min_size(Vector2(960, 576))
 	editor.screen_capture_requested.connect(_on_screen_capture_requested)
 	screen_capture_tool.screen_captured.connect(_on_screen_capture_tool_screen_captured)
+	screen_capture_tool.screen_capture_canceled.connect(_on_screen_capture_tool_screen_capture_canceled)
 
 
 func _process(delta: float) -> void:
@@ -55,5 +56,9 @@ func _on_screen_capture_requested() -> void:
 
 
 func _on_screen_capture_tool_screen_captured(result_image: Image) -> void:
+	restore_window_state()
+	editor.show()
+
+func _on_screen_capture_tool_screen_capture_canceled():
 	restore_window_state()
 	editor.show()

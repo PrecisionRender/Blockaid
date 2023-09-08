@@ -3,6 +3,7 @@ extends Control
 
 
 signal screen_captured(result_image: Image)
+signal screen_capture_canceled
 
 
 const SCREEN_TEXTURE_BRIGHTNESS: float = 0.5
@@ -19,6 +20,13 @@ var capture_rect: Rect2i = Rect2i()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hide()
+
+
+func _input(event) -> void:
+	if event.is_action("ui_cancel"):
+		hide()
+		get_window().borderless = false
+		screen_capture_canceled.emit()
 
 
 func start_screen_capture(screen_index: int) -> void:
@@ -41,6 +49,8 @@ func start_screen_capture(screen_index: int) -> void:
 	tween.tween_property(screen_texture, "modulate", new_color, 0.25)
 	tween.set_trans(Tween.TRANS_LINEAR)
 	tween.play()
+
+	selection_hint.grab_focus()
 
 
 func _capture_screen() -> void:

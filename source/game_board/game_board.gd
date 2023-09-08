@@ -27,15 +27,19 @@ func clear_board() -> void:
 
 
 func save_board(board: BoardState) -> void:
+	board.board = []
 	for x in range(grid_cells.size()):
-		return
-		#board.board[x] = grid_cells[x].type
+		board.board.append([])
+		for y in grid_cells[x].size():
+			board.board[x][y] = grid_cells[x][y].type
 
 
 func load_board(board: BoardState) -> void:
-	for x in range(grid_cells.size()):
-		return
-		#grid_cells[x].type = board.board[x]
+	grid_cells = []
+	for x in range(board.board.size()):
+		grid_cells.append([])
+		for y in grid_cells[x]:
+			grid_cells[x][y].type = board.board[x][y]
 
 
 func convert_image_to_board(image: Image) -> void:

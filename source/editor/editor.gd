@@ -15,7 +15,7 @@ enum EditorState
 const QUEUE_INPUT_DIALOGUE: PackedScene = preload("res://source/editor/queue_input_dialogue.tscn")
 
 
-@onready var game_board: GameBoard = $HBoxContainer/BoardContainer/HBoxContainer/GameBoard
+@onready var game_board: GameBoard = $HBoxContainer/BoardContainer/GameBoard
 @onready var edit_panel: EditPanel = $HBoxContainer/EditPanel
 
 
@@ -23,7 +23,12 @@ const QUEUE_INPUT_DIALOGUE: PackedScene = preload("res://source/editor/queue_inp
 func _ready() -> void:
 	edit_panel.screen_capture_requested.connect(_on_editor_screen_capture_requested)
 	edit_panel.brush_changed.connect(_on_brush_changed)
+	edit_panel.board_clear_requested.connect(_on_board_clear_requested)
 	edit_panel.mino_queue_edit_requested.connect(_on_mino_queue_edit_requested)
+
+
+func convert_image_to_board(image: Image) -> void:
+	game_board.convert_image_to_board(image)
 
 
 func _on_mino_queue_edit_requested(queue_type: Constants.MinoQueues) -> void:
@@ -60,3 +65,7 @@ func _on_queue_input_dialogue_queue_sumbitted(queue: Constants.MinoQueues, types
 
 func _on_editor_screen_capture_requested() -> void:
 	screen_capture_requested.emit()
+
+
+func _on_board_clear_requested() -> void:
+	game_board.clear_board()

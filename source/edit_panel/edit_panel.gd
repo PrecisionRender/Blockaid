@@ -1,10 +1,10 @@
 class_name EditPanel
 extends Control
 
-
-signal brush_changed(type: Constants.Minos)
-signal mino_queue_edit_requested(queue_type: Constants.MinoQueues)
 signal screen_capture_requested
+signal brush_changed(type: Constants.Minos)
+signal board_clear_requested
+signal mino_queue_edit_requested(queue_type: Constants.MinoQueues)
 
 
 const DEFAULT_BRUSH: Constants.Minos = Constants.Minos.GARBAGE
@@ -32,3 +32,7 @@ func _on_edit_next_queue_pressed() -> void:
 
 func _on_screen_capture_button_pressed() -> void:
 	screen_capture_requested.emit()
+
+
+func _on_clear_board_button_pressed() -> void:
+	board_clear_requested.emit()

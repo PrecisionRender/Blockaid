@@ -15,7 +15,7 @@ func change_brush(brush_type: Constants.Minos) -> void:
 	brush = brush_type
 
 
-func _update_cell_type(new_type: Constants.Minos) -> void:
+func update_cell_type(new_type: Constants.Minos) -> void:
 		modulate = Color.WHITE
 		type = new_type
 		is_occupied = new_type != Constants.Minos.EMPTY
@@ -28,10 +28,10 @@ func _is_mouse_button_pressed(button_mask: int) -> bool:
 
 func _handle_cell_clicked() -> void:
 	if _is_mouse_button_pressed(MOUSE_BUTTON_MASK_LEFT):
-		_update_cell_type(brush)
+		update_cell_type(brush)
 	elif _is_mouse_button_pressed(MOUSE_BUTTON_MASK_RIGHT):
 		type = Constants.Minos.EMPTY
-		_update_cell_type(Constants.Minos.EMPTY)
+		update_cell_type(Constants.Minos.EMPTY)
 
 
 func _on_texture_button_pressed() -> void:

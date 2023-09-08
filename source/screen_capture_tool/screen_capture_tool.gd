@@ -50,8 +50,6 @@ func start_screen_capture(screen_index: int) -> void:
 	tween.set_trans(Tween.TRANS_LINEAR)
 	tween.play()
 
-	selection_hint.grab_focus()
-
 
 func _capture_screen() -> void:
 	hide()

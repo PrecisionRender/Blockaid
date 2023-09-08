@@ -171,68 +171,63 @@ size_flags_horizontal = 3
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/BoardContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="GameBoard" type="AspectRatioContainer" parent="HBoxContainer/BoardContainer/HBoxContainer"]
+[node name="GameBoard" type="AspectRatioContainer" parent="HBoxContainer/BoardContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 ratio = 0.9
 script = ExtResource("2_6r8gu")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/BoardContainer/HBoxContainer/GameBoard"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/BoardContainer/GameBoard"]
 layout_mode = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/BoardContainer/HBoxContainer/GameBoard/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/BoardContainer/HBoxContainer/GameBoard/HBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/BoardContainer/HBoxContainer/GameBoard/HBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment_vertical = 0
 
-[node name="HoldQueue" parent="HBoxContainer/BoardContainer/HBoxContainer/GameBoard/HBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer" instance=ExtResource("3_wpwhj")]
+[node name="HoldQueue" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer" instance=ExtResource("3_wpwhj")]
 layout_mode = 2
 
-[node name="Playfield" type="AspectRatioContainer" parent="HBoxContainer/BoardContainer/HBoxContainer/GameBoard/HBoxContainer"]
+[node name="Playfield" type="AspectRatioContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 ratio = 0.4545
 alignment_vertical = 0
 
-[node name="BackgroundColor" type="ColorRect" parent="HBoxContainer/BoardContainer/HBoxContainer/GameBoard/HBoxContainer/Playfield"]
+[node name="BackgroundColor" type="ColorRect" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/Playfield"]
 layout_mode = 2
 color = Color(0.243137, 0.243137, 0.243137, 1)
 
-[node name="PlayfieldGrid" type="GridContainer" parent="HBoxContainer/BoardContainer/HBoxContainer/GameBoard/HBoxContainer/Playfield"]
+[node name="PlayfieldGrid" type="GridContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/Playfield"]
 layout_mode = 2
 theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/BoardContainer/HBoxContainer/GameBoard/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/BoardContainer/HBoxContainer/GameBoard/HBoxContainer/VBoxContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 ratio = 0.25
 alignment_vertical = 0
 
-[node name="NextQueue" parent="HBoxContainer/BoardContainer/HBoxContainer/GameBoard/HBoxContainer/VBoxContainer/AspectRatioContainer" instance=ExtResource("3_wpwhj")]
+[node name="NextQueue" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/VBoxContainer/AspectRatioContainer" instance=ExtResource("3_wpwhj")]
 layout_mode = 2
 queue_size = 6
 
@@ -407,11 +402,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 
-[node name="Button" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardTools"]
+[node name="ClearBoardButton" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardTools"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
-text = "Erase"
+text = "Clear"
 
 [node name="Control7" type="Control" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -450,5 +445,6 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
 
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/ScreenCaptureButton" to="HBoxContainer/EditPanel" method="_on_screen_capture_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardTools/ClearBoardButton" to="HBoxContainer/EditPanel" method="_on_clear_board_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/EditHoldQueue" to="HBoxContainer/EditPanel" method="_on_edit_hold_queue_pressed"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/EditNextQueue" to="HBoxContainer/EditPanel" method="_on_edit_next_queue_pressed"]

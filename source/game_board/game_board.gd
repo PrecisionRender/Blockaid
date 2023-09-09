@@ -48,7 +48,7 @@ func convert_image_to_board(image: Image) -> void:
 	aspect_ratio = round(aspect_ratio)
 	aspect_ratio /= 10
 	var height: float = min(PLAYFIELD_WIDTH * aspect_ratio, PLAYFIELD_HEIGHT)
-	image.resize(PLAYFIELD_WIDTH, height)
+	image.resize(PLAYFIELD_WIDTH, height, Image.INTERPOLATE_LANCZOS)
 
 	clear_board()
 
@@ -58,7 +58,7 @@ func convert_image_to_board(image: Image) -> void:
 			var current_pixel: Color = image.get_pixel(x, (height - 1) - y)
 
 			# Dark pixel, most likely empty
-			if current_pixel.v < 0.2:
+			if current_pixel.v < 0.3:
 				current_cell.update_cell_type(Constants.Minos.EMPTY)
 			# Gray pixel, most likely garbage
 			elif current_pixel.s < 0.5:
@@ -69,7 +69,7 @@ func convert_image_to_board(image: Image) -> void:
 				if hue < 0.0529 or hue > 0.8623:
 					current_cell.update_cell_type(Constants.Minos.Z)
 				#Orange
-				elif hue < 0.1253:
+				elif hue < 0.1114:
 					current_cell.update_cell_type(Constants.Minos.L)
 				# Yellow
 				elif hue < 0.1810:
@@ -78,7 +78,7 @@ func convert_image_to_board(image: Image) -> void:
 				elif hue < 0.4373:
 					current_cell.update_cell_type(Constants.Minos.S)
 				# Light blue
-				elif hue < 0.5348:
+				elif hue < 0.5766:
 					current_cell.update_cell_type(Constants.Minos.I)
 				# Dark blue
 				elif hue < 0.713:

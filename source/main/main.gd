@@ -23,6 +23,7 @@ var screen_texture: ImageTexture
 
 func _ready() -> void:
 	get_window().set_min_size(Vector2(960, 576))
+	get_window().title = "Blockaid - TestProject*"
 	editor.screen_capture_requested.connect(_on_screen_capture_requested)
 	screen_capture_tool.screen_captured.connect(_on_screen_capture_tool_screen_captured)
 	screen_capture_tool.screen_capture_canceled.connect(_on_screen_capture_tool_screen_capture_canceled)

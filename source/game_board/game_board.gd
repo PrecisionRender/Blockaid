@@ -26,20 +26,27 @@ func clear_board() -> void:
 			cell.update_cell_type(Constants.Minos.EMPTY)
 
 
-func save_board(board: BoardState) -> void:
+func save_board(board: BoardInfo) -> void:
+	board.hold_queue = hold_queue.queue_minos[0].type
+	for x in range(next_queue.queue_minos.size()):
+		board.next_queue[x] = next_queue.queue_minos[x].type
+	
 	board.board = []
 	for x in range(grid_cells.size()):
 		board.board.append([])
 		for y in grid_cells[x].size():
-			board.board[x][y] = grid_cells[x][y].type
+			board.board[x].append(grid_cells[x][y].type)
 
 
-func load_board(board: BoardState) -> void:
-	grid_cells = []
+func load_board(board: BoardInfo) -> void:
+	hold_queue.update_mino_queue([board.hold_queue])
+	next_queue.update_mino_queue(board.next_queue)
+	
+	if grid_cells.is_empty():
+		_initialize_grid()
 	for x in range(board.board.size()):
-		grid_cells.append([])
-		for y in grid_cells[x]:
-			grid_cells[x][y].type = board.board[x][y]
+		for y in range(board.board[x].size()):
+			grid_cells[x][y].update_cell_type(board.board[x][y])
 
 
 func convert_image_to_board(image: Image) -> void:
@@ -58,10 +65,10 @@ func convert_image_to_board(image: Image) -> void:
 			var current_pixel: Color = image.get_pixel(x, (height - 1) - y)
 
 			# Dark pixel, most likely empty
-			if current_pixel.v < 0.3:
+			if current_pixel.v < 0.2:
 				current_cell.update_cell_type(Constants.Minos.EMPTY)
 			# Gray pixel, most likely garbage
-			elif current_pixel.s < 0.5:
+			elif current_pixel.s < 0.4:
 				current_cell.update_cell_type(Constants.Minos.GARBAGE)
 			else:
 				var hue: float = current_pixel.h

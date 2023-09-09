@@ -22,11 +22,13 @@ var screen_texture: ImageTexture
 
 
 func _ready() -> void:
-	get_window().set_min_size(Vector2(960, 576))
-	get_window().title = "Blockaid - TestProject*"
+	SessionInfo.session_name_changed.connect(_on_session_name_changed)
 	editor.screen_capture_requested.connect(_on_screen_capture_requested)
-	screen_capture_tool.screen_captured.connect(_on_screen_capture_tool_screen_captured)
-	screen_capture_tool.screen_capture_canceled.connect(_on_screen_capture_tool_screen_capture_canceled)
+	screen_capture_tool.screen_captured.connect(_on_screen_captured)
+	screen_capture_tool.screen_capture_canceled.connect(_screen_capture_canceled)
+
+	get_window().set_min_size(Vector2(960, 576))
+	_update_window_title(SessionInfo.session_name)
 
 
 func _process(delta: float) -> void:
@@ -50,17 +52,25 @@ func restore_window_state() -> void:
 	window.size = window_size
 
 
+func _update_window_title(new_title: String) -> void:
+	get_window().title = "Blockaid - %s*" % new_title
+
+
+func _on_session_name_changed(new_name: String) -> void:
+	_update_window_title(new_name)
+
+
 func _on_screen_capture_requested() -> void:
 	save_window_state()
 	editor.hide()
 	screen_capture_tool.start_screen_capture(get_window().current_screen)
 
 
-func _on_screen_capture_tool_screen_captured(result_image: Image) -> void:
+func _on_screen_captured(result_image: Image) -> void:
 	restore_window_state()
 	editor.show()
 	editor.convert_image_to_board(result_image)
 
-func _on_screen_capture_tool_screen_capture_canceled():
+func _screen_capture_canceled():
 	restore_window_state()
 	editor.show()

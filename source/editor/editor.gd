@@ -1,20 +1,27 @@
 class_name Editor
-extends Control
+extends PanelContainer
 
 
 signal screen_capture_requested
 
 
-enum EditorState
+enum BoardState
 {
-	VIEW,
-	EDIT
+	INITIAL,
+	SOLUTION,
+	ALTERNATE_SOLUTION
 }
 
 
 const QUEUE_INPUT_DIALOGUE: PackedScene = preload("res://source/editor/queue_input_dialogue.tscn")
 
+var current_board_state: BoardState = BoardState.INITIAL
+var initial_board_info: BoardInfo = BoardInfo.new()
+var board_solution_info: BoardInfo = BoardInfo.new()
+var alternate_board_solution_info: BoardInfo = BoardInfo.new()
 
+
+@onready var board_manager: BoardManager = $HBoxContainer/BoardManager
 @onready var game_board: GameBoard = $HBoxContainer/BoardContainer/GameBoard
 @onready var edit_panel: EditPanel = $HBoxContainer/EditPanel
 
@@ -25,10 +32,39 @@ func _ready() -> void:
 	edit_panel.brush_changed.connect(_on_brush_changed)
 	edit_panel.board_clear_requested.connect(_on_board_clear_requested)
 	edit_panel.mino_queue_edit_requested.connect(_on_mino_queue_edit_requested)
+	edit_panel.board_state_change_requested.connect(_on_board_state_change_requested)
+
+	_update_game_board(current_board_state)
 
 
 func convert_image_to_board(image: Image) -> void:
 	game_board.convert_image_to_board(image)
+
+
+func _update_game_board(state: BoardState) -> void:
+	current_board_state = state
+
+	match current_board_state:
+		BoardState.INITIAL:
+			game_board.load_board(initial_board_info)
+		BoardState.SOLUTION:
+			game_board.load_board(board_solution_info)
+		BoardState.ALTERNATE_SOLUTION:
+			game_board.load_board(alternate_board_solution_info)
+		_:
+			pass
+
+
+func _save_current_board_state():
+	match current_board_state:
+		BoardState.INITIAL:
+			game_board.save_board(initial_board_info)
+		BoardState.SOLUTION:
+			game_board.save_board(board_solution_info)
+		BoardState.ALTERNATE_SOLUTION:
+			game_board.save_board(alternate_board_solution_info)
+		_:
+			pass
 
 
 func _on_mino_queue_edit_requested(queue_type: Constants.MinoQueues) -> void:
@@ -38,8 +74,16 @@ func _on_mino_queue_edit_requested(queue_type: Constants.MinoQueues) -> void:
 	input_dialogue.queue_sumbitted.connect(_on_queue_input_dialogue_queue_sumbitted)
 
 
+func _on_editor_screen_capture_requested() -> void:
+	screen_capture_requested.emit()
+
+
 func _on_brush_changed(type: Constants.Minos) -> void:
 	get_tree().call_group("grid_cells", "change_brush", type)
+
+
+func _on_board_clear_requested() -> void:
+	game_board.clear_board()
 
 
 func _on_queue_input_dialogue_queue_sumbitted(queue: Constants.MinoQueues, types: String) -> void:
@@ -63,9 +107,9 @@ func _on_queue_input_dialogue_queue_sumbitted(queue: Constants.MinoQueues, types
 	game_board.update_mino_queue(queue, mino_queue)
 
 
-func _on_editor_screen_capture_requested() -> void:
-	screen_capture_requested.emit()
+func _on_board_state_change_requested(state: int) -> void:
+	if state == current_board_state:
+		return
 
-
-func _on_board_clear_requested() -> void:
-	game_board.clear_board()
+	_save_current_board_state()
+	_update_game_board(state)

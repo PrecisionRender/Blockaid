@@ -20,6 +20,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+SessionInfo="*res://source/globals/session_info.gd"
 Settings="*res://source/globals/settings.gd"
 
 [display]

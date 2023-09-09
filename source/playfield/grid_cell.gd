@@ -9,6 +9,7 @@ var id: int = -1
 
 var brush: Constants.Minos = Constants.Minos.GARBAGE
 var is_occupied: bool = false
+var is_editable: bool = true
 
 
 func change_brush(brush_type: Constants.Minos) -> void:
@@ -22,11 +23,18 @@ func update_cell_type(new_type: Constants.Minos) -> void:
 		cell_updated.emit(id, type)
 
 
+func set_editable(value: bool) -> void:
+	is_editable = value
+
+
 func _is_mouse_button_pressed(button_mask: int) -> bool:
 	return (Input.get_mouse_button_mask() & button_mask) != 0
 
 
 func _handle_cell_clicked() -> void:
+	if !is_editable:
+		return
+
 	if _is_mouse_button_pressed(MOUSE_BUTTON_MASK_LEFT):
 		update_cell_type(brush)
 	elif _is_mouse_button_pressed(MOUSE_BUTTON_MASK_RIGHT):
@@ -39,6 +47,8 @@ func _on_texture_button_pressed() -> void:
 
 
 func _on_mouse_entered() -> void:
+	if !is_editable:
+		return
 	if !is_occupied and !_is_mouse_button_pressed(MOUSE_BUTTON_MASK_LEFT):
 		type = brush
 		modulate = modulate.darkened(.5)

@@ -23,7 +23,7 @@ func _ready() -> void:
 
 
 func _input(event) -> void:
-	if event.is_action("ui_cancel"):
+	if event.is_action("ui_cancel") and visible == true:
 		hide()
 		get_window().borderless = false
 		screen_capture_canceled.emit()

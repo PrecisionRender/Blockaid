@@ -17,23 +17,29 @@ const QUEUE_INPUT_DIALOGUE: PackedScene = preload("res://source/editor/queue_inp
 
 var current_board_state: BoardState = BoardState.INITIAL
 var initial_board_info: BoardInfo = BoardInfo.new()
-var board_solution_info: BoardInfo = BoardInfo.new()
-var alternate_board_solution_info: BoardInfo = BoardInfo.new()
+var solution_board_info: BoardInfo = BoardInfo.new()
+var alternate_solution_board_info: BoardInfo = BoardInfo.new()
 
 
 @onready var board_manager: BoardManager = $HBoxContainer/BoardManager
 @onready var game_board: GameBoard = $HBoxContainer/BoardContainer/GameBoard
 @onready var edit_panel: EditPanel = $HBoxContainer/EditPanel
+@onready var side_margin: Control = $HBoxContainer/SideMargin
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	SessionInfo.current_board_changed.connect(_on_current_board_changed)
 	edit_panel.screen_capture_requested.connect(_on_editor_screen_capture_requested)
 	edit_panel.brush_changed.connect(_on_brush_changed)
 	edit_panel.board_clear_requested.connect(_on_board_clear_requested)
 	edit_panel.mino_queue_edit_requested.connect(_on_mino_queue_edit_requested)
 	edit_panel.board_state_change_requested.connect(_on_board_state_change_requested)
 
+	if (SessionInfo.current_board == -1):
+		side_margin.show()
+		$HBoxContainer/BoardContainer.hide()
+		$HBoxContainer/EditPanel.hide()
 	_update_game_board(current_board_state)
 
 
@@ -48,9 +54,9 @@ func _update_game_board(state: BoardState) -> void:
 		BoardState.INITIAL:
 			game_board.load_board(initial_board_info)
 		BoardState.SOLUTION:
-			game_board.load_board(board_solution_info)
+			game_board.load_board(solution_board_info)
 		BoardState.ALTERNATE_SOLUTION:
-			game_board.load_board(alternate_board_solution_info)
+			game_board.load_board(alternate_solution_board_info)
 		_:
 			pass
 
@@ -60,11 +66,27 @@ func _save_current_board_state():
 		BoardState.INITIAL:
 			game_board.save_board(initial_board_info)
 		BoardState.SOLUTION:
-			game_board.save_board(board_solution_info)
+			game_board.save_board(solution_board_info)
 		BoardState.ALTERNATE_SOLUTION:
-			game_board.save_board(alternate_board_solution_info)
+			game_board.save_board(alternate_solution_board_info)
 		_:
 			pass
+
+
+func _on_current_board_changed(_new_board: int, _old_board: int) -> void:
+	side_margin.hide()
+	$HBoxContainer/BoardContainer.show()
+	$HBoxContainer/EditPanel.show()
+	
+	_save_current_board_state()
+	SessionInfo.boards[_old_board].initial_board_info = initial_board_info
+	SessionInfo.boards[_old_board].solution_board_info = solution_board_info
+	SessionInfo.boards[_old_board].alternate_solution_board_info = alternate_solution_board_info
+	var current_board: SessionInfo.Board = SessionInfo.boards[SessionInfo.current_board]
+	initial_board_info = current_board.initial_board_info
+	solution_board_info = current_board.solution_board_info
+	alternate_solution_board_info = current_board.alternate_solution_board_info
+	_update_game_board(current_board_state)
 
 
 func _on_mino_queue_edit_requested(queue_type: Constants.MinoQueues) -> void:

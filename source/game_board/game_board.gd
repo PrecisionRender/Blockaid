@@ -65,15 +65,15 @@ func convert_image_to_board(image: Image) -> void:
 			var current_pixel: Color = image.get_pixel(x, (height - 1) - y)
 
 			# Dark pixel, most likely empty
-			if current_pixel.v < 0.2:
+			if current_pixel.v < 0.25:
 				current_cell.update_cell_type(Constants.Minos.EMPTY)
 			# Gray pixel, most likely garbage
-			elif current_pixel.s < 0.4:
+			elif current_pixel.s < 0.3:
 				current_cell.update_cell_type(Constants.Minos.GARBAGE)
 			else:
 				var hue: float = current_pixel.h
 				# Red
-				if hue < 0.0529 or hue > 0.8623:
+				if hue < 0.03 or hue > 0.9192:
 					current_cell.update_cell_type(Constants.Minos.Z)
 				#Orange
 				elif hue < 0.1114:
@@ -82,16 +82,16 @@ func convert_image_to_board(image: Image) -> void:
 				elif hue < 0.1810:
 					current_cell.update_cell_type(Constants.Minos.O)
 				# Green
-				elif hue < 0.4373:
+				elif hue < 0.4122:
 					current_cell.update_cell_type(Constants.Minos.S)
 				# Light blue
 				elif hue < 0.5766:
 					current_cell.update_cell_type(Constants.Minos.I)
 				# Dark blue
-				elif hue < 0.713:
+				elif hue < 0.7715:
 					current_cell.update_cell_type(Constants.Minos.J)
 				# Purple
-				elif hue < 0.8623:
+				elif hue < 0.9192:
 					current_cell.update_cell_type(Constants.Minos.T)
 				# Most likely garbage
 				else:

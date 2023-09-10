@@ -19,6 +19,7 @@ var current_board: int = -1:
 
 func create_new_board() -> void:
 	boards.append(Board.new())
+	current_board = boards.size() - 1
 	if current_board == -1:
 		current_board = 0
 

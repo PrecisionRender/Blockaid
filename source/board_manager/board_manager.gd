@@ -17,8 +17,11 @@ func _ready() -> void:
 func _update_session_title() -> void:
 	session_title_edit.hide()
 	session_title_label.show()
-	session_title_label.text = session_title_edit.text
-	SessionInfo.session_name = session_title_edit.text
+	var new_title: String = session_title_edit.text
+	if new_title.is_empty():
+		return
+	session_title_label.text = new_title
+	SessionInfo.session_name = new_title
 
 
 func _on_board_tree_item_selected() -> void:

@@ -57,5 +57,6 @@ func _on_new_board_button_pressed() -> void:
 	item.set_editable(0, false)
 	item.set_text(0, "New board")
 	item.custom_minimum_height = 25
+	item.add_button(0, preload("res://assets/images/icons/x-square.svg"), -1, false, "Delete board")
 	board_tree.set_selected(item, 0)
 	SessionInfo.create_new_board()

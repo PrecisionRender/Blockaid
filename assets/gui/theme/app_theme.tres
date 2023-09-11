@@ -1,22 +1,86 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cvuqe0agi44tm"]
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://cvuqe0agi44tm"]
 
-[ext_resource type="StyleBox" uid="uid://d2ap0ttv4jbjg" path="res://assets/gui/theme/focus.tres" id="1_u4nm6"]
+[ext_resource type="StyleBox" uid="uid://p1gqc67l5lb6" path="res://assets/gui/theme/focus.tres" id="1_u4nm6"]
 [ext_resource type="StyleBox" uid="uid://4o5m0weugbhk" path="res://assets/gui/theme/panel_style_box.tres" id="1_ym0q3"]
 [ext_resource type="StyleBox" uid="uid://dcov48bsbfhh2" path="res://assets/gui/theme/button/button_hover.tres" id="2_5dig8"]
 [ext_resource type="StyleBox" uid="uid://c8wabanf021o5" path="res://assets/gui/theme/button/button_normal.tres" id="2_vska6"]
+[ext_resource type="Texture2D" uid="uid://bbkftdsjdnut4" path="res://assets/images/icons/toggle-right.svg" id="4_24hf7"]
+[ext_resource type="Texture2D" uid="uid://d0fs08vvskov" path="res://assets/images/icons/toggle-left.svg" id="5_bfyun"]
+[ext_resource type="StyleBox" uid="uid://36km23q32njc" path="res://assets/gui/theme/button/check_button_hover.tres" id="6_8ohlw"]
+[ext_resource type="StyleBox" uid="uid://bw280ssh1esil" path="res://assets/gui/theme/button/check_button_normal.tres" id="7_6wxhh"]
+[ext_resource type="StyleBox" uid="uid://dlcd0siiwrr1b" path="res://assets/gui/theme/text_edit/text_edit_normal.tres" id="8_h3rvb"]
+[ext_resource type="StyleBox" uid="uid://dlvvbnuyr6fx2" path="res://assets/gui/theme/text_edit/text_edit_focus.tres" id="9_aebub"]
+[ext_resource type="FontFile" uid="uid://bbmfjhlilt8tf" path="res://assets/gui/fonts/roboto/ROBOTO-MEDIUM.TTF" id="9_upwfw"]
+[ext_resource type="StyleBox" uid="uid://cst6a075pvbgw" path="res://assets/gui/theme/scroll_bar/scroll_back.tres" id="10_uenoh"]
+[ext_resource type="StyleBox" uid="uid://cmuf7wbjf2vkq" path="res://assets/gui/theme/scroll_bar/grabber_normal.tres" id="12_jn0ck"]
+[ext_resource type="StyleBox" uid="uid://bbghjpqvi3kag" path="res://assets/gui/theme/scroll_bar/grabber_highlight.tres" id="13_uami2"]
+[ext_resource type="Texture2D" uid="uid://dfsdg158gbtkx" path="res://assets/images/icons/check-circle.svg" id="14_3qhco"]
+[ext_resource type="StyleBox" uid="uid://dqxx5sixaleqw" path="res://assets/gui/theme/popup_menu/popup_menu_normal.tres" id="14_c3rxu"]
+[ext_resource type="Texture2D" uid="uid://c0itt00ktltec" path="res://assets/images/icons/circle.svg" id="15_go7wi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6wdlw"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.152941, 0.152941, 0.152941, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_a510o"]
+color = Color(0.345098, 0.345098, 0.345098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uo18"]
+bg_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+border_width_left = 5
+border_width_top = 2
+border_width_right = 5
+border_width_bottom = 2
+border_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
 
 [resource]
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_6wdlw")
+Button/constants/h_separation = 10
 Button/styles/focus = ExtResource("1_u4nm6")
 Button/styles/hover = ExtResource("2_5dig8")
 Button/styles/normal = ExtResource("2_vska6")
 Button/styles/pressed = ExtResource("2_5dig8")
-CheckButton/styles/hover = ExtResource("2_5dig8")
-CheckButton/styles/hover_pressed = ExtResource("2_5dig8")
-CheckButton/styles/normal = ExtResource("2_vska6")
-CheckButton/styles/pressed = ExtResource("2_vska6")
+CheckButton/icons/checked = ExtResource("4_24hf7")
+CheckButton/icons/unchecked = ExtResource("5_bfyun")
+CheckButton/styles/hover = ExtResource("6_8ohlw")
+CheckButton/styles/hover_pressed = ExtResource("6_8ohlw")
+CheckButton/styles/normal = ExtResource("7_6wxhh")
+CheckButton/styles/pressed = ExtResource("7_6wxhh")
+HScrollBar/styles/grabber = ExtResource("12_jn0ck")
+HScrollBar/styles/grabber_highlight = ExtResource("13_uami2")
+HScrollBar/styles/grabber_pressed = ExtResource("13_uami2")
+HScrollBar/styles/scroll = ExtResource("10_uenoh")
+HScrollBar/styles/scroll_focus = ExtResource("10_uenoh")
+LineEdit/styles/focus = ExtResource("9_aebub")
+LineEdit/styles/normal = ExtResource("8_h3rvb")
 PanelContainer/styles/panel = ExtResource("1_ym0q3")
+PopupMenu/constants/v_separation = 8
+PopupMenu/icons/radio_checked = ExtResource("14_3qhco")
+PopupMenu/icons/radio_unchecked = ExtResource("15_go7wi")
+PopupMenu/styles/hover = ExtResource("2_5dig8")
+PopupMenu/styles/panel = ExtResource("14_c3rxu")
+PopupMenu/styles/separator = SubResource("StyleBoxLine_a510o")
+TextEdit/styles/focus = ExtResource("9_aebub")
+TextEdit/styles/normal = ExtResource("8_h3rvb")
+TooltipLabel/fonts/font = ExtResource("9_upwfw")
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_5uo18")
 Tree/constants/draw_guides = 1
 Tree/constants/item_margin = 0
-Tree/constants/v_separation = 0
+Tree/constants/v_separation = 2
+Tree/styles/button_pressed = ExtResource("2_5dig8")
+Tree/styles/custom_button = ExtResource("2_vska6")
+Tree/styles/custom_button_hover = ExtResource("2_5dig8")
+Tree/styles/custom_button_pressed = ExtResource("2_5dig8")
 Tree/styles/focus = ExtResource("1_u4nm6")
 Tree/styles/panel = ExtResource("1_ym0q3")
+Tree/styles/selected = ExtResource("2_5dig8")
+Tree/styles/selected_focus = ExtResource("2_5dig8")
+Tree/styles/title_button_hover = ExtResource("2_5dig8")
+VScrollBar/styles/grabber = ExtResource("12_jn0ck")
+VScrollBar/styles/grabber_highlight = ExtResource("13_uami2")
+VScrollBar/styles/grabber_pressed = ExtResource("13_uami2")
+VScrollBar/styles/scroll = ExtResource("10_uenoh")
+VScrollBar/styles/scroll_focus = ExtResource("10_uenoh")

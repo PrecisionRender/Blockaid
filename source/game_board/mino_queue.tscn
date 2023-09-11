@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://source/game_board/mino_queue.gd" id="1_ea0l2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iw7jd"]
-bg_color = Color(0.152941, 0.152941, 0.152941, 1)
+bg_color = Color(0.196078, 0.196078, 0.196078, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5

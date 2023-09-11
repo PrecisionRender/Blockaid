@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://do8vi6gdgjuep"
-path="res://.godot/imported/pencil-2.svg-04c8a8d4779d7b8b582c9ea95ec16608.ctex"
+uid="uid://c6xujbsy6647c"
+path="res://.godot/imported/edit.svg-7feec0174b8a6a8b515c6ff625464925.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/pencil-2.svg"
-dest_files=["res://.godot/imported/pencil-2.svg-04c8a8d4779d7b8b582c9ea95ec16608.ctex"]
+source_file="res://assets/images/icons/edit.svg"
+dest_files=["res://.godot/imported/edit.svg-7feec0174b8a6a8b515c6ff625464925.ctex"]
 
 [params]
 
@@ -32,6 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.5
+svg/scale=0.7
 editor/scale_with_editor_scale=false
 editor/convert_colors_with_editor_theme=false

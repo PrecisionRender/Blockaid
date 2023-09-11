@@ -1,12 +1,20 @@
-[gd_scene load_steps=36 format=3 uid="uid://cvumy8oxxhyeu"]
+[gd_scene load_steps=43 format=3 uid="uid://cvumy8oxxhyeu"]
 
 [ext_resource type="Script" path="res://source/editor/editor.gd" id="1_xl6wk"]
 [ext_resource type="Script" path="res://source/game_board/game_board.gd" id="2_6r8gu"]
 [ext_resource type="Script" path="res://source/board_manager/board_manager.gd" id="2_msfw6"]
 [ext_resource type="FontFile" uid="uid://wxcifpkw68ul" path="res://assets/gui/fonts/roboto/ROBOTO-BOLD.TTF" id="3_a2hql"]
 [ext_resource type="PackedScene" uid="uid://d0snh5yocg5hr" path="res://source/game_board/mino_queue.tscn" id="3_wpwhj"]
+[ext_resource type="Texture2D" uid="uid://c6xujbsy6647c" path="res://assets/images/icons/edit.svg" id="4_86qqq"]
 [ext_resource type="Script" path="res://source/edit_panel/edit_panel.gd" id="4_awhx0"]
-[ext_resource type="Texture2D" uid="uid://cvimft8kx6d02" path="res://assets/images/pencil-3.svg" id="4_e7nfj"]
+[ext_resource type="Texture2D" uid="uid://ch0oy3vaw3nr3" path="res://assets/images/icons/plus-square.svg" id="4_i38qm"]
+[ext_resource type="Texture2D" uid="uid://gtqbvj5jj5vi" path="res://assets/images/icons/save.svg" id="5_c666q"]
+[ext_resource type="Texture2D" uid="uid://c7q0570jykohd" path="res://assets/images/icons/folder.svg" id="6_j6b8h"]
+[ext_resource type="Texture2D" uid="uid://bfago1xqpsify" path="res://assets/images/icons/settings.svg" id="7_2w41h"]
+[ext_resource type="Texture2D" uid="uid://3jl1750g3ygm" path="res://assets/images/icons/maximize.svg" id="10_nnygt"]
+[ext_resource type="Texture2D" uid="uid://bbkftdsjdnut4" path="res://assets/images/icons/toggle-right.svg" id="11_myc1d"]
+[ext_resource type="Texture2D" uid="uid://dglhhbuuminyq" path="res://assets/images/icons/trash-2.svg" id="11_t37f3"]
+[ext_resource type="Texture2D" uid="uid://d0fs08vvskov" path="res://assets/images/icons/toggle-left.svg" id="12_j1mx5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuf2m"]
 bg_color = Color(0.113725, 0.113725, 0.113725, 1)
@@ -127,8 +135,6 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcsib"]
-
 [node name="Editor" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -187,27 +193,27 @@ layout_mode = 2
 
 [node name="NewBoardButton" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
 layout_mode = 2
+tooltip_text = "New board"
+icon = ExtResource("4_i38qm")
+icon_alignment = 1
+
+[node name="Control" type="Control" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
+layout_mode = 2
 size_flags_horizontal = 3
-icon = ExtResource("4_e7nfj")
+
+[node name="Open" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
+layout_mode = 2
+tooltip_text = "Open"
+icon = ExtResource("6_j6b8h")
+text_overrun_behavior = 3
 icon_alignment = 1
 
 [node name="Save" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Save"
+tooltip_text = "Save..."
+icon = ExtResource("5_c666q")
 text_overrun_behavior = 3
-
-[node name="SaveAs" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Save as..."
-text_overrun_behavior = 3
-
-[node name="Open" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Open"
-text_overrun_behavior = 3
+icon_alignment = 1
 
 [node name="BoardTree" type="Tree" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -216,9 +222,13 @@ allow_search = false
 hide_root = true
 scroll_horizontal_enabled = false
 
-[node name="Button" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Settings"
+
+[node name="SettingsButton" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Settings"
+icon = ExtResource("7_2w41h")
 alignment = 0
 icon_alignment = 2
 
@@ -311,7 +321,10 @@ theme_override_constants/separation = 5
 [node name="EditModeButton" type="CheckButton" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
+tooltip_text = "Toggle board edit tools"
 focus_mode = 0
+theme_override_icons/checked = ExtResource("11_myc1d")
+theme_override_icons/unchecked = ExtResource("12_j1mx5")
 text = "Edit mode"
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer"]
@@ -325,7 +338,7 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.33
+size_flags_stretch_ratio = 0.3
 theme_override_constants/separation = 5
 
 [node name="ScreenCaptureButton" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
@@ -334,17 +347,20 @@ layout_mode = 2
 tooltip_text = "Capture board from the screen"
 focus_mode = 1
 text = "Screen capture"
+icon = ExtResource("10_nnygt")
 alignment = 0
 
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
 [node name="Margin" type="Control" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
-custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 5
 
 [node name="ColorPalette" type="HBoxContainer" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer"]
@@ -442,38 +458,40 @@ toggle_mode = true
 button_pressed = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button9" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 1
-theme_override_styles/normal = SubResource("StyleBoxFlat_tcsib")
-
 [node name="ClearBoardButton" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
+tooltip_text = "Remove all minos from the board"
 focus_mode = 1
 text = "Clear board"
+icon = ExtResource("11_t37f3")
 alignment = 0
 
-[node name="Margin2" type="Control" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="EditHoldQueue" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
+tooltip_text = "Edit the mino in the Hold Queue"
 focus_mode = 1
 text = "Edit Hold Queue"
+icon = ExtResource("4_86qqq")
 alignment = 0
+text_overrun_behavior = 3
+clip_text = true
 
 [node name="EditNextQueue" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
+tooltip_text = "Edit the minos in the Next Queue"
 focus_mode = 1
 text = "Edit Next Queue"
+icon = ExtResource("4_86qqq")
 alignment = 0
 
-[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 
@@ -489,6 +507,7 @@ theme_override_constants/separation = 15
 [node name="BoardStateDropdown" type="OptionButton" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardStateMenu"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
+tooltip_text = "Current board state"
 focus_mode = 1
 text_overrun_behavior = 3
 item_count = 3

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=21 format=3 uid="uid://cvuqe0agi44tm"]
+[gd_resource type="Theme" load_steps=22 format=3 uid="uid://cvuqe0agi44tm"]
 
 [ext_resource type="StyleBox" uid="uid://p1gqc67l5lb6" path="res://assets/gui/theme/focus.tres" id="1_u4nm6"]
 [ext_resource type="StyleBox" uid="uid://4o5m0weugbhk" path="res://assets/gui/theme/panel_style_box.tres" id="1_ym0q3"]
@@ -13,6 +13,7 @@
 [ext_resource type="FontFile" uid="uid://bbmfjhlilt8tf" path="res://assets/gui/fonts/roboto/ROBOTO-MEDIUM.TTF" id="9_upwfw"]
 [ext_resource type="StyleBox" uid="uid://cst6a075pvbgw" path="res://assets/gui/theme/scroll_bar/scroll_back.tres" id="10_uenoh"]
 [ext_resource type="StyleBox" uid="uid://cmuf7wbjf2vkq" path="res://assets/gui/theme/scroll_bar/grabber_normal.tres" id="12_jn0ck"]
+[ext_resource type="StyleBox" uid="uid://m7g4urd6266a" path="res://assets/gui/theme/text_edit/text_edit_disabled.tres" id="13_5g6tp"]
 [ext_resource type="StyleBox" uid="uid://bbghjpqvi3kag" path="res://assets/gui/theme/scroll_bar/grabber_highlight.tres" id="13_uami2"]
 [ext_resource type="Texture2D" uid="uid://dfsdg158gbtkx" path="res://assets/images/icons/check-circle.svg" id="14_3qhco"]
 [ext_resource type="StyleBox" uid="uid://dqxx5sixaleqw" path="res://assets/gui/theme/popup_menu/popup_menu_normal.tres" id="14_c3rxu"]
@@ -54,8 +55,10 @@ HScrollBar/styles/grabber_highlight = ExtResource("13_uami2")
 HScrollBar/styles/grabber_pressed = ExtResource("13_uami2")
 HScrollBar/styles/scroll = ExtResource("10_uenoh")
 HScrollBar/styles/scroll_focus = ExtResource("10_uenoh")
+LineEdit/colors/font_uneditable_color = Color(0.878431, 0.878431, 0.878431, 0.784314)
 LineEdit/styles/focus = ExtResource("9_aebub")
 LineEdit/styles/normal = ExtResource("8_h3rvb")
+LineEdit/styles/read_only = ExtResource("13_5g6tp")
 PanelContainer/styles/panel = ExtResource("1_ym0q3")
 PopupMenu/constants/v_separation = 8
 PopupMenu/icons/radio_checked = ExtResource("14_3qhco")
@@ -63,8 +66,10 @@ PopupMenu/icons/radio_unchecked = ExtResource("15_go7wi")
 PopupMenu/styles/hover = ExtResource("2_5dig8")
 PopupMenu/styles/panel = ExtResource("14_c3rxu")
 PopupMenu/styles/separator = SubResource("StyleBoxLine_a510o")
+TextEdit/colors/font_readonly_color = Color(0.87, 0.87, 0.87, 0.784314)
 TextEdit/styles/focus = ExtResource("9_aebub")
 TextEdit/styles/normal = ExtResource("8_h3rvb")
+TextEdit/styles/read_only = ExtResource("13_5g6tp")
 TooltipLabel/fonts/font = ExtResource("9_upwfw")
 TooltipPanel/styles/panel = SubResource("StyleBoxFlat_5uo18")
 Tree/constants/draw_guides = 1

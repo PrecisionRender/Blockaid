@@ -520,7 +520,7 @@ popup/item_1/id = 1
 popup/item_2/text = "Alternate solution"
 popup/item_2/id = 2
 
-[node name="Notes" type="TextEdit" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardStateMenu"]
+[node name="NotesEdit" type="TextEdit" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardStateMenu"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
@@ -552,3 +552,4 @@ size_flags_stretch_ratio = 1.25
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/EditHoldQueue" to="HBoxContainer/EditPanel" method="_on_edit_hold_queue_pressed"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/EditNextQueue" to="HBoxContainer/EditPanel" method="_on_edit_next_queue_pressed"]
 [connection signal="item_selected" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardStateMenu/BoardStateDropdown" to="HBoxContainer/EditPanel" method="_on_board_state_dropdown_item_selected"]
+[connection signal="text_changed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardStateMenu/NotesEdit" to="HBoxContainer/EditPanel" method="_on_notes_edit_text_changed"]

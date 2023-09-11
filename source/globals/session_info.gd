@@ -24,8 +24,15 @@ func create_new_board() -> void:
 		current_board = 0
 
 
+func get_current_board() -> Board:
+	if current_board < 0:
+		return null
+	return boards[current_board]
+
+
 class Board:
 	var board_title: String = "New board"
+	var board_notes: String = ""
 	var initial_board_info: BoardInfo = BoardInfo.new()
 	var solution_board_info: BoardInfo = BoardInfo.new()
 	var alternate_solution_board_info: BoardInfo = BoardInfo.new()

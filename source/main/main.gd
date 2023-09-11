@@ -71,6 +71,6 @@ func _on_screen_captured(result_image: Image) -> void:
 	editor.show()
 	editor.convert_image_to_board(result_image)
 
-func _screen_capture_canceled():
+func _screen_capture_canceled() -> void:
 	restore_window_state()
 	editor.show()

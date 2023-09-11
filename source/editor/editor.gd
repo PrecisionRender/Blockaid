@@ -35,6 +35,7 @@ func _ready() -> void:
 	edit_panel.board_clear_requested.connect(_on_board_clear_requested)
 	edit_panel.mino_queue_edit_requested.connect(_on_mino_queue_edit_requested)
 	edit_panel.board_state_change_requested.connect(_on_board_state_change_requested)
+	edit_panel.board_notes_changed.connect(_on_board_notes_changed)
 
 	if (SessionInfo.current_board == -1):
 		side_margin.show()
@@ -82,11 +83,12 @@ func _on_current_board_changed(_new_board: int, _old_board: int) -> void:
 	SessionInfo.boards[_old_board].initial_board_info = initial_board_info
 	SessionInfo.boards[_old_board].solution_board_info = solution_board_info
 	SessionInfo.boards[_old_board].alternate_solution_board_info = alternate_solution_board_info
-	var current_board: SessionInfo.Board = SessionInfo.boards[SessionInfo.current_board]
+	var current_board: SessionInfo.Board = SessionInfo.get_current_board()
 	initial_board_info = current_board.initial_board_info
 	solution_board_info = current_board.solution_board_info
 	alternate_solution_board_info = current_board.alternate_solution_board_info
 	_update_game_board(current_board_state)
+	edit_panel.update_board_notes(SessionInfo.get_current_board().board_notes)
 
 
 func _on_mino_queue_edit_requested(queue_type: Constants.MinoQueues) -> void:
@@ -135,3 +137,7 @@ func _on_board_state_change_requested(state: int) -> void:
 
 	_save_current_board_state()
 	_update_game_board(state)
+
+
+func _on_board_notes_changed(new_text: String) -> void:
+	SessionInfo.get_current_board().board_notes = new_text

@@ -1,0 +1,22 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cvuqe0agi44tm"]
+
+[ext_resource type="StyleBox" uid="uid://d2ap0ttv4jbjg" path="res://assets/gui/theme/focus.tres" id="1_u4nm6"]
+[ext_resource type="StyleBox" uid="uid://4o5m0weugbhk" path="res://assets/gui/theme/panel_style_box.tres" id="1_ym0q3"]
+[ext_resource type="StyleBox" uid="uid://dcov48bsbfhh2" path="res://assets/gui/theme/button/button_hover.tres" id="2_5dig8"]
+[ext_resource type="StyleBox" uid="uid://c8wabanf021o5" path="res://assets/gui/theme/button/button_normal.tres" id="2_vska6"]
+
+[resource]
+Button/styles/focus = ExtResource("1_u4nm6")
+Button/styles/hover = ExtResource("2_5dig8")
+Button/styles/normal = ExtResource("2_vska6")
+Button/styles/pressed = ExtResource("2_5dig8")
+CheckButton/styles/hover = ExtResource("2_5dig8")
+CheckButton/styles/hover_pressed = ExtResource("2_5dig8")
+CheckButton/styles/normal = ExtResource("2_vska6")
+CheckButton/styles/pressed = ExtResource("2_vska6")
+PanelContainer/styles/panel = ExtResource("1_ym0q3")
+Tree/constants/draw_guides = 1
+Tree/constants/item_margin = 0
+Tree/constants/v_separation = 0
+Tree/styles/focus = ExtResource("1_u4nm6")
+Tree/styles/panel = ExtResource("1_ym0q3")

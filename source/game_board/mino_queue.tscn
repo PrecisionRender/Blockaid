@@ -1,9 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0snh5yocg5hr"]
+[gd_scene load_steps=3 format=3 uid="uid://d0snh5yocg5hr"]
 
 [ext_resource type="Script" path="res://source/game_board/mino_queue.gd" id="1_ea0l2"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iw7jd"]
+bg_color = Color(0.152941, 0.152941, 0.152941, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [node name="MinoQueue" type="PanelContainer"]
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_iw7jd")
 script = ExtResource("1_ea0l2")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

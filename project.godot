@@ -29,6 +29,11 @@ Settings="*res://source/globals/settings.gd"
 window/size/mode=2
 window/subwindows/embed_subwindows=false
 
+[gui]
+
+theme/custom="res://assets/gui/theme/app_theme.tres"
+theme/custom_font="res://assets/gui/fonts/roboto/ROBOTO-REGULAR.TTF"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

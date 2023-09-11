@@ -56,5 +56,6 @@ func _on_new_board_button_pressed() -> void:
 	var item = board_tree.create_item(null, board_tree.get_root().get_child_count())
 	item.set_editable(0, false)
 	item.set_text(0, "New board")
+	item.custom_minimum_height = 25
 	board_tree.set_selected(item, 0)
 	SessionInfo.create_new_board()

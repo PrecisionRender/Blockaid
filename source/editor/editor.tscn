@@ -1,10 +1,17 @@
-[gd_scene load_steps=31 format=3 uid="uid://cvumy8oxxhyeu"]
+[gd_scene load_steps=36 format=3 uid="uid://cvumy8oxxhyeu"]
 
 [ext_resource type="Script" path="res://source/editor/editor.gd" id="1_xl6wk"]
 [ext_resource type="Script" path="res://source/game_board/game_board.gd" id="2_6r8gu"]
 [ext_resource type="Script" path="res://source/board_manager/board_manager.gd" id="2_msfw6"]
+[ext_resource type="FontFile" uid="uid://wxcifpkw68ul" path="res://assets/gui/fonts/roboto/ROBOTO-BOLD.TTF" id="3_a2hql"]
 [ext_resource type="PackedScene" uid="uid://d0snh5yocg5hr" path="res://source/game_board/mino_queue.tscn" id="3_wpwhj"]
 [ext_resource type="Script" path="res://source/edit_panel/edit_panel.gd" id="4_awhx0"]
+[ext_resource type="Texture2D" uid="uid://cvimft8kx6d02" path="res://assets/images/pencil-3.svg" id="4_e7nfj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuf2m"]
+bg_color = Color(0.113725, 0.113725, 0.113725, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_r43l3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4lp7g"]
 bg_color = Color(0.6, 0, 0, 1)
@@ -120,6 +127,8 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcsib"]
+
 [node name="Editor" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -127,6 +136,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_xuf2m")
 script = ExtResource("1_xl6wk")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -155,7 +165,9 @@ theme_override_constants/separation = 15
 [node name="SessionTitleLabel" type="Label" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 1
+theme_override_fonts/font = ExtResource("3_a2hql")
 text = "CZSmall TETR.IO Cup 15*"
+label_settings = SubResource("LabelSettings_r43l3")
 horizontal_alignment = 1
 clip_text = true
 text_overrun_behavior = 3
@@ -164,6 +176,7 @@ text_overrun_behavior = 3
 visible = false
 layout_mode = 2
 focus_mode = 1
+theme_override_fonts/font = ExtResource("3_a2hql")
 text = "CZSmall TETR.IO Cup 15*"
 alignment = 1
 virtual_keyboard_enabled = false
@@ -175,8 +188,8 @@ layout_mode = 2
 [node name="NewBoardButton" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "New board state"
-text_overrun_behavior = 3
+icon = ExtResource("4_e7nfj")
+icon_alignment = 1
 
 [node name="Save" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
 layout_mode = 2
@@ -206,6 +219,7 @@ scroll_horizontal_enabled = false
 [node name="Button" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
+alignment = 0
 icon_alignment = 2
 
 [node name="BoardContainer" type="MarginContainer" parent="HBoxContainer"]
@@ -292,9 +306,10 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/EditPanel/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 5
 
 [node name="EditModeButton" type="CheckButton" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 focus_mode = 0
 text = "Edit mode"
@@ -304,32 +319,41 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="BoardEditor" type="VBoxContainer" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.56
-theme_override_constants/separation = 15
+size_flags_stretch_ratio = 0.33
+theme_override_constants/separation = 5
 
 [node name="ScreenCaptureButton" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 tooltip_text = "Capture board from the screen"
 focus_mode = 1
 text = "Screen capture"
+alignment = 0
 
 [node name="Margin" type="Control" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
-[node name="ColorPalette" type="HBoxContainer" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 5
+
+[node name="ColorPalette" type="HBoxContainer" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="Button" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ColorPalette" groups=["brush_buttons"]]
+[node name="Button" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -340,7 +364,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_m8wtd")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button2" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ColorPalette" groups=["brush_buttons"]]
+[node name="Button2" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -351,7 +375,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_oiexk")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button3" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ColorPalette" groups=["brush_buttons"]]
+[node name="Button3" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -362,7 +386,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_bk235")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button4" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ColorPalette" groups=["brush_buttons"]]
+[node name="Button4" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -373,7 +397,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_v13hd")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button5" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ColorPalette" groups=["brush_buttons"]]
+[node name="Button5" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -384,7 +408,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_q4qvr")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button6" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ColorPalette" groups=["brush_buttons"]]
+[node name="Button6" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -395,7 +419,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_n02v0")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button7" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ColorPalette" groups=["brush_buttons"]]
+[node name="Button7" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -406,7 +430,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_gpupo")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button8" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ColorPalette" groups=["brush_buttons"]]
+[node name="Button8" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -418,29 +442,36 @@ toggle_mode = true
 button_pressed = true
 button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button9" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ColorPalette"]
+[node name="Button9" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_mode = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_tcsib")
 
 [node name="ClearBoardButton" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 focus_mode = 1
 text = "Clear board"
+alignment = 0
 
 [node name="Margin2" type="Control" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
 layout_mode = 2
 
 [node name="EditHoldQueue" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 focus_mode = 1
 text = "Edit Hold Queue"
+alignment = 0
 
 [node name="EditNextQueue" type="Button" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 focus_mode = 1
 text = "Edit Next Queue"
+alignment = 0
 
 [node name="HSeparator2" type="HSeparator" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
 layout_mode = 2
@@ -456,6 +487,7 @@ layout_mode = 2
 theme_override_constants/separation = 15
 
 [node name="BoardStateDropdown" type="OptionButton" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardStateMenu"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 focus_mode = 1
 text_overrun_behavior = 3

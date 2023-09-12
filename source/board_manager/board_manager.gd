@@ -179,6 +179,7 @@ func _on_save_file_loaded() -> void:
 	
 	if tree_root.get_child_count() > 0:
 		board_list.set_selected(tree_root.get_child(0), 0)
+		SessionManager.set_current_board_index(0)
 
 
 func _on_tree_item_activated() -> void:

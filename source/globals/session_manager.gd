@@ -86,7 +86,7 @@ func save_to_file(file_path: String) -> void:
 	
 	var save_file: FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
 	
-	save_file.store_line(JSON.stringify(save_data, "\t", false))
+	save_file.store_line(JSON.stringify(save_data, "", false))
 	session_path = file_path
 
 
@@ -114,7 +114,7 @@ func load_from_file(file_path: String) -> void:
 		board.alternate_solution_board_info.from_dictionary(save_data["boards"][x]["alternate_solution_board_info"])
 		boards.append(board)
 
-	set_current_board_index(0 if boards.size() > 0 else -1)
+	_current_board_index = 0 if boards.size() > 0 else -1
 	session_path = file_path
 	save_file_loaded.emit()
 

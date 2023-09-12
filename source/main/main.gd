@@ -2,18 +2,10 @@ class_name Main
 extends Node
 
 
-enum WindowStates
-{
-	EDITOR,
-	CAPTURE
-}
-
-
 var window_position: Vector2 = Vector2(0, 0)
 var window_size: Vector2 = Vector2(1366, 768)
 var window_mode: int = Window.MODE_WINDOWED
 
-var current_window_state: WindowStates = WindowStates.EDITOR
 var screen_texture: ImageTexture
 
 
@@ -65,6 +57,7 @@ func _on_screen_captured(result_image: Image) -> void:
 	restore_window_state()
 	editor.show()
 	editor.convert_image_to_board(result_image)
+
 
 func _screen_capture_canceled() -> void:
 	restore_window_state()

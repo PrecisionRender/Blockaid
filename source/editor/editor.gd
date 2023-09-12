@@ -65,10 +65,10 @@ func _update_game_board(state: BoardState) -> void:
 
 
 func _save_current_board_state(board_idx: int = -1) -> void:
-	var board_to_save: int = board_idx if board_idx >= 0 else SessionManager.get_current_board_index()
-
-	if (SessionManager._current_board_index == -1):
+	if (SessionManager.get_current_board_index() == -1):
 		return
+
+	var board_to_save: int = board_idx if board_idx >= 0 else SessionManager.get_current_board_index()
 
 	match current_board_state:
 		BoardState.INITIAL:
@@ -94,7 +94,8 @@ func _on_current_board_changed(_new_board: int, _old_board: int) -> void:
 	if (_new_board == -1):
 		return
 
-	_save_current_board_state(_old_board)
+	if _new_board != _old_board and _new_board != -1:
+		_save_current_board_state(_old_board)
 	var current_board: SessionManager.Board = SessionManager.get_current_board()
 	initial_board_info = current_board.initial_board_info
 	solution_board_info = current_board.solution_board_info

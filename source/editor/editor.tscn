@@ -208,6 +208,7 @@ layout_mode = 2
 layout_mode = 2
 tooltip_text = "Add board"
 shortcut = SubResource("Shortcut_nv8w1")
+shortcut_feedback = false
 icon = ExtResource("4_i38qm")
 icon_alignment = 1
 
@@ -219,16 +220,16 @@ size_flags_horizontal = 3
 layout_mode = 2
 tooltip_text = "Open"
 shortcut = SubResource("Shortcut_0famq")
+shortcut_feedback = false
 icon = ExtResource("6_j6b8h")
 text_overrun_behavior = 3
 icon_alignment = 1
 
-[node name="SaveFile" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
+[node name="SaveFile" type="MenuButton" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
 layout_mode = 2
 tooltip_text = "Save..."
 icon = ExtResource("5_c666q")
-text_overrun_behavior = 3
-icon_alignment = 1
+flat = false
 
 [node name="BoardList" type="Tree" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -560,7 +561,6 @@ size_flags_stretch_ratio = 1.25
 [connection signal="text_submitted" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/SessionTitleEdit" to="HBoxContainer/BoardManager" method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar/AddBoardButton" to="HBoxContainer/BoardManager" method="_on_add_board_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar/OpenFile" to="HBoxContainer/BoardManager" method="_on_open_file_pressed"]
-[connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar/SaveFile" to="HBoxContainer/BoardManager" method="_on_save_file_pressed"]
 [connection signal="item_activated" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_tree_item_activated"]
 [connection signal="item_edited" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_tree_item_edited"]
 [connection signal="item_mouse_selected" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_board_list_item_mouse_selected"]

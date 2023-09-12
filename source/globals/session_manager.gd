@@ -8,6 +8,7 @@ signal board_save_queued
 signal save_file_loaded
 
 
+var session_path: String = ""
 var boards: Array[Board]
 var _session_name: String = "Untitled"
 var _current_board_index: int = -1
@@ -63,6 +64,9 @@ func move_current_board_to(to_idx: int) -> void:
 
 
 func save_to_file(file_path: String) -> void:
+	if !file_path.is_absolute_path():
+		return
+
 	board_save_queued.emit()
 
 	var save_data: Dictionary = {
@@ -83,6 +87,7 @@ func save_to_file(file_path: String) -> void:
 	var save_file: FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
 	
 	save_file.store_line(JSON.stringify(save_data, "\t", false))
+	session_path = file_path
 
 
 func load_from_file(file_path: String) -> void:
@@ -110,6 +115,7 @@ func load_from_file(file_path: String) -> void:
 		boards.append(board)
 
 	set_current_board_index(0 if boards.size() > 0 else -1)
+	session_path = file_path
 	save_file_loaded.emit()
 
 

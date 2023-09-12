@@ -20,3 +20,7 @@ enum MinoQueues
 	HOLD,
 	NEXT
 }
+
+
+# Blockaid Board Session file extension
+const FILE_EXTENSION: String = ".bbs"

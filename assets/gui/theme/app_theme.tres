@@ -2,11 +2,11 @@
 
 [ext_resource type="StyleBox" uid="uid://p1gqc67l5lb6" path="res://assets/gui/theme/focus.tres" id="1_u4nm6"]
 [ext_resource type="StyleBox" uid="uid://4o5m0weugbhk" path="res://assets/gui/theme/panel_style_box.tres" id="1_ym0q3"]
-[ext_resource type="StyleBox" uid="uid://dcov48bsbfhh2" path="res://assets/gui/theme/button/button_hover.tres" id="2_5dig8"]
+[ext_resource type="StyleBox" uid="uid://dcov48bsbfhh2" path="res://assets/gui/theme/button/button_highlight.tres" id="2_13jcj"]
 [ext_resource type="StyleBox" uid="uid://c8wabanf021o5" path="res://assets/gui/theme/button/button_normal.tres" id="2_vska6"]
 [ext_resource type="Texture2D" uid="uid://bbkftdsjdnut4" path="res://assets/images/icons/toggle-right.svg" id="4_24hf7"]
 [ext_resource type="Texture2D" uid="uid://d0fs08vvskov" path="res://assets/images/icons/toggle-left.svg" id="5_bfyun"]
-[ext_resource type="StyleBox" uid="uid://36km23q32njc" path="res://assets/gui/theme/button/check_button_hover.tres" id="6_8ohlw"]
+[ext_resource type="StyleBox" uid="uid://36km23q32njc" path="res://assets/gui/theme/button/check_button_highlight.tres" id="6_uf8f4"]
 [ext_resource type="StyleBox" uid="uid://bw280ssh1esil" path="res://assets/gui/theme/button/check_button_normal.tres" id="7_6wxhh"]
 [ext_resource type="StyleBox" uid="uid://dlcd0siiwrr1b" path="res://assets/gui/theme/text_edit/text_edit_normal.tres" id="8_h3rvb"]
 [ext_resource type="StyleBox" uid="uid://dlvvbnuyr6fx2" path="res://assets/gui/theme/text_edit/text_edit_focus.tres" id="9_aebub"]
@@ -41,13 +41,13 @@ border_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
 AcceptDialog/styles/panel = SubResource("StyleBoxFlat_6wdlw")
 Button/constants/h_separation = 10
 Button/styles/focus = ExtResource("1_u4nm6")
-Button/styles/hover = ExtResource("2_5dig8")
+Button/styles/hover = ExtResource("2_13jcj")
 Button/styles/normal = ExtResource("2_vska6")
-Button/styles/pressed = ExtResource("2_5dig8")
+Button/styles/pressed = ExtResource("2_13jcj")
 CheckButton/icons/checked = ExtResource("4_24hf7")
 CheckButton/icons/unchecked = ExtResource("5_bfyun")
-CheckButton/styles/hover = ExtResource("6_8ohlw")
-CheckButton/styles/hover_pressed = ExtResource("6_8ohlw")
+CheckButton/styles/hover = ExtResource("6_uf8f4")
+CheckButton/styles/hover_pressed = ExtResource("6_uf8f4")
 CheckButton/styles/normal = ExtResource("7_6wxhh")
 CheckButton/styles/pressed = ExtResource("7_6wxhh")
 HScrollBar/styles/grabber = ExtResource("12_jn0ck")
@@ -59,11 +59,14 @@ LineEdit/colors/font_uneditable_color = Color(0.878431, 0.878431, 0.878431, 0.78
 LineEdit/styles/focus = ExtResource("9_aebub")
 LineEdit/styles/normal = ExtResource("8_h3rvb")
 LineEdit/styles/read_only = ExtResource("13_5g6tp")
+MenuButton/styles/hover = ExtResource("2_13jcj")
+MenuButton/styles/normal = ExtResource("2_vska6")
+MenuButton/styles/pressed = ExtResource("2_13jcj")
 PanelContainer/styles/panel = ExtResource("1_ym0q3")
 PopupMenu/constants/v_separation = 8
 PopupMenu/icons/radio_checked = ExtResource("14_3qhco")
 PopupMenu/icons/radio_unchecked = ExtResource("15_go7wi")
-PopupMenu/styles/hover = ExtResource("2_5dig8")
+PopupMenu/styles/hover = ExtResource("2_13jcj")
 PopupMenu/styles/panel = ExtResource("14_c3rxu")
 PopupMenu/styles/panel_disabled = ExtResource("14_c3rxu")
 PopupMenu/styles/separator = SubResource("StyleBoxLine_a510o")
@@ -76,15 +79,15 @@ TooltipPanel/styles/panel = SubResource("StyleBoxFlat_5uo18")
 Tree/constants/draw_guides = 1
 Tree/constants/item_margin = 0
 Tree/constants/v_separation = 2
-Tree/styles/button_pressed = ExtResource("2_5dig8")
+Tree/styles/button_pressed = ExtResource("2_13jcj")
 Tree/styles/custom_button = ExtResource("2_vska6")
-Tree/styles/custom_button_hover = ExtResource("2_5dig8")
-Tree/styles/custom_button_pressed = ExtResource("2_5dig8")
+Tree/styles/custom_button_hover = ExtResource("2_13jcj")
+Tree/styles/custom_button_pressed = ExtResource("2_13jcj")
 Tree/styles/focus = ExtResource("1_u4nm6")
 Tree/styles/panel = ExtResource("1_ym0q3")
-Tree/styles/selected = ExtResource("2_5dig8")
-Tree/styles/selected_focus = ExtResource("2_5dig8")
-Tree/styles/title_button_hover = ExtResource("2_5dig8")
+Tree/styles/selected = ExtResource("2_13jcj")
+Tree/styles/selected_focus = ExtResource("2_13jcj")
+Tree/styles/title_button_hover = ExtResource("2_13jcj")
 VScrollBar/styles/grabber = ExtResource("12_jn0ck")
 VScrollBar/styles/grabber_highlight = ExtResource("13_uami2")
 VScrollBar/styles/grabber_pressed = ExtResource("13_uami2")

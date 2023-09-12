@@ -15,6 +15,5 @@ func _shortcut_input(event: InputEvent) -> void:
 		undo_redo.redo()
 		return
 	if event.keycode == KEY_Z and event.is_command_or_control_pressed():
-		print(undo_redo.get_method_list())
 		undo_redo.undo()
 		return

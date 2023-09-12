@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cvumy8oxxhyeu"]
+[gd_scene load_steps=48 format=3 uid="uid://cvumy8oxxhyeu"]
 
 [ext_resource type="Script" path="res://source/editor/editor.gd" id="1_xl6wk"]
 [ext_resource type="Script" path="res://source/game_board/game_board.gd" id="2_6r8gu"]
@@ -34,6 +34,13 @@ keycode = 79
 
 [sub_resource type="Shortcut" id="Shortcut_0famq"]
 events = [SubResource("InputEventKey_dbp26")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_t50ew"]
+device = -1
+keycode = 4194306
+
+[sub_resource type="Shortcut" id="Shortcut_0x6sb"]
+events = [SubResource("InputEventKey_t50ew")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4lp7g"]
 bg_color = Color(0.6, 0, 0, 1)
@@ -338,10 +345,12 @@ theme_override_constants/separation = 5
 [node name="EditModeButton" type="CheckButton" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-tooltip_text = "Toggle board edit tools"
+tooltip_text = "Toggle board edit mode"
 focus_mode = 0
 theme_override_icons/checked = ExtResource("11_myc1d")
 theme_override_icons/unchecked = ExtResource("12_j1mx5")
+shortcut = SubResource("Shortcut_0x6sb")
+shortcut_feedback = false
 text = "Edit mode"
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/EditPanel/MarginContainer/VBoxContainer"]

@@ -37,6 +37,13 @@ window/per_pixel_transparency/allowed=true
 theme/custom="res://assets/gui/theme/app_theme.tres"
 theme/custom_font="res://assets/gui/fonts/roboto/ROBOTO-REGULAR.TTF"
 
+[input]
+
+ui_focus_next={
+"deadzone": 0.5,
+"events": []
+}
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

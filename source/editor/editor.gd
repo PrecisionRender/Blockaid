@@ -75,7 +75,7 @@ func _save_current_board_state(board_idx: int = -1) -> void:
 			game_board.save_board(initial_board_info)
 			SessionManager.boards[board_to_save].initial_board_info = initial_board_info
 		BoardState.SOLUTION:
-			SessionManager.save_board(solution_board_info)
+			game_board.save_board(solution_board_info)
 			SessionManager.boards[board_to_save].solution_board_info = solution_board_info
 		BoardState.ALTERNATE_SOLUTION:
 			game_board.save_board(alternate_solution_board_info)

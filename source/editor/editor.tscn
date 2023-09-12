@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cvumy8oxxhyeu"]
+[gd_scene load_steps=47 format=3 uid="uid://cvumy8oxxhyeu"]
 
 [ext_resource type="Script" path="res://source/editor/editor.gd" id="1_xl6wk"]
 [ext_resource type="Script" path="res://source/game_board/game_board.gd" id="2_6r8gu"]
@@ -20,6 +20,22 @@
 bg_color = Color(0.113725, 0.113725, 0.113725, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_r43l3"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_w0r7i"]
+device = -1
+ctrl_pressed = true
+keycode = 65
+
+[sub_resource type="Shortcut" id="Shortcut_nv8w1"]
+events = [SubResource("InputEventKey_w0r7i")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_dbp26"]
+device = -1
+ctrl_pressed = true
+keycode = 79
+
+[sub_resource type="Shortcut" id="Shortcut_0famq"]
+events = [SubResource("InputEventKey_dbp26")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4lp7g"]
 bg_color = Color(0.6, 0, 0, 1)
@@ -194,6 +210,7 @@ layout_mode = 2
 [node name="AddBoardButton" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
 layout_mode = 2
 tooltip_text = "Add board"
+shortcut = SubResource("Shortcut_nv8w1")
 icon = ExtResource("4_i38qm")
 icon_alignment = 1
 
@@ -204,6 +221,7 @@ size_flags_horizontal = 3
 [node name="OpenFile" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
 layout_mode = 2
 tooltip_text = "Open"
+shortcut = SubResource("Shortcut_0famq")
 icon = ExtResource("6_j6b8h")
 text_overrun_behavior = 3
 icon_alignment = 1
@@ -545,6 +563,7 @@ size_flags_stretch_ratio = 1.25
 [connection signal="text_submitted" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/SessionTitleEdit" to="HBoxContainer/BoardManager" method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar/AddBoardButton" to="HBoxContainer/BoardManager" method="_on_add_board_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar/OpenFile" to="HBoxContainer/BoardManager" method="_on_open_file_pressed"]
+[connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar/SaveFile" to="HBoxContainer/BoardManager" method="_on_save_file_pressed"]
 [connection signal="item_activated" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_tree_item_activated"]
 [connection signal="item_edited" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_tree_item_edited"]
 [connection signal="item_mouse_selected" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_board_list_item_mouse_selected"]

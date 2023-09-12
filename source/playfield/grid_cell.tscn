@@ -6,21 +6,22 @@
 texture_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 expand_mode = 1
 script = ExtResource("2_x4c40")
 
-[node name="TriggerButton" type="TextureButton" parent="."]
+[node name="TriggerButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
 action_mode = 0
 button_mask = 3
 keep_pressed_outside = true
+flat = true
 
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="TriggerButton" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="TriggerButton" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="TriggerButton" to="." method="_on_texture_button_pressed"]

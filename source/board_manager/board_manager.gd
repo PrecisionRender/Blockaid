@@ -193,4 +193,28 @@ func _on_board_list_item_mouse_selected(position: Vector2, mouse_button_index: i
 
 
 func _on_open_file_pressed() -> void:
-	DisplayServer
+	DisplayServer.file_dialog_show("Open", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), "", false, DisplayServer.FILE_DIALOG_MODE_OPEN_FILE, PackedStringArray(["*.bbs"]), Callable(self, "_open_dialogue_confirmed"))
+
+
+func _on_save_file_pressed() -> void:
+	DisplayServer.file_dialog_show("Save as...", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), SessionManager.session_name, false, DisplayServer.FILE_DIALOG_MODE_SAVE_FILE, PackedStringArray(["*.bbs"]), Callable(self, "_save_dialogue_confirmed"))
+
+
+func _open_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -> void:
+	if !status:
+		return
+
+	var path: String = selected_paths[0]
+	if !path.ends_with(".bbs"):
+		path += ".bbs"
+	SessionManager.load_from_file(path)
+
+
+func _save_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -> void:
+	if !status:
+		return
+
+	var path: String = selected_paths[0]
+	if !path.ends_with(".bbs"):
+		path += ".bbs"
+	SessionManager.save_to_file(path)

@@ -41,7 +41,7 @@ func _can_drop_data_fw(at_position: Vector2, data: Variant) -> bool:
 		return false
 
 	
-	board_list.drop_mode_flags = Tree.DROP_MODE_INBETWEEN
+	board_list.drop_mode_flags = Tree.DROP_MODE_INBETWEEN | Tree.DROP_MODE_ON_ITEM
 	return true
 
 
@@ -56,7 +56,9 @@ func _drop_data_fw(at_position: Vector2, data: Variant) -> void:
 	if section < -1:
 		return
 
-	if section < 1:
+	var is_dragging_up: bool = item.get_index() < board_list.get_selected().get_index()
+
+	if section == -1 or (section == 0 and is_dragging_up):
 		board_list.get_selected().move_before(item)
 	else:
 		board_list.get_selected().move_after(item)
@@ -125,13 +127,17 @@ func _on_board_list_item_mouse_selected(position: Vector2, mouse_button_index: i
 	context_menu.initial_position = Window.WINDOW_INITIAL_POSITION_ABSOLUTE
 	
 	context_menu.position = get_screen_position() + get_viewport().get_mouse_position()
-	context_menu.min_size.x = 250
+	context_menu.min_size.x = 300
 
 	context_menu.add_item("Cut")
 	context_menu.add_item("Copy")
 	context_menu.add_item("Paste")
 	context_menu.add_separator()
 	context_menu.add_item("Delete")
+	context_menu.set_item_indent(0, 2)
+	context_menu.set_item_indent(1, 2)
+	context_menu.set_item_indent(2, 2)
+	context_menu.set_item_indent(4, 2)
 
 	context_menu.set_item_disabled(0, true)
 	context_menu.set_item_disabled(1, true)

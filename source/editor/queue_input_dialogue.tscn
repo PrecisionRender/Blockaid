@@ -15,9 +15,9 @@ ok_button_text = "Submit"
 script = ExtResource("1_7clfj")
 
 [node name="LineEdit" type="LineEdit" parent="."]
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 292.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 290.0
 offset_bottom = 41.0
 size_flags_vertical = 3
 focus_mode = 1

@@ -218,6 +218,7 @@ icon_alignment = 1
 [node name="BoardList" type="Tree" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+allow_rmb_select = true
 allow_search = false
 hide_root = true
 scroll_horizontal_enabled = false
@@ -545,6 +546,7 @@ size_flags_stretch_ratio = 1.25
 [connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar/AddBoardButton" to="HBoxContainer/BoardManager" method="_on_add_board_button_pressed"]
 [connection signal="item_activated" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_tree_item_activated"]
 [connection signal="item_edited" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_tree_item_edited"]
+[connection signal="item_mouse_selected" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_board_list_item_mouse_selected"]
 [connection signal="item_selected" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_board_list_item_selected"]
 [connection signal="toggled" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/EditModeButton" to="HBoxContainer/EditPanel" method="_on_edit_mode_button_toggled"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ScreenCaptureButton" to="HBoxContainer/EditPanel" method="_on_screen_capture_button_pressed"]

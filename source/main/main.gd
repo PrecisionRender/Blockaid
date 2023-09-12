@@ -22,13 +22,13 @@ var screen_texture: ImageTexture
 
 
 func _ready() -> void:
-	SessionInfo.session_name_changed.connect(_on_session_name_changed)
+	SessionManager.session_name_changed.connect(_on_session_name_changed)
 	editor.screen_capture_requested.connect(_on_screen_capture_requested)
 	screen_capture_tool.screen_captured.connect(_on_screen_captured)
 	screen_capture_tool.screen_capture_canceled.connect(_screen_capture_canceled)
 
 	get_window().set_min_size(Vector2(960, 576))
-	_update_window_title(SessionInfo.session_name)
+	_update_window_title(SessionManager.session_name)
 
 
 func _process(delta: float) -> void:

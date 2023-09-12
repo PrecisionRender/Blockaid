@@ -29,8 +29,9 @@ var alternate_solution_board_info: BoardInfo = BoardInfo.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SessionInfo.current_board_changed.connect(_on_current_board_changed)
-	SessionInfo.board_order_edit_queued.connect(_save_current_board_state)
+	SessionManager.current_board_changed.connect(_on_current_board_changed)
+	SessionManager.board_order_edit_queued.connect(_save_current_board_state)
+	SessionManager.board_save_queued.connect(_save_current_board_state)
 	edit_panel.screen_capture_requested.connect(_on_editor_screen_capture_requested)
 	edit_panel.brush_changed.connect(_on_brush_changed)
 	edit_panel.board_clear_requested.connect(_on_board_clear_requested)
@@ -38,7 +39,7 @@ func _ready() -> void:
 	edit_panel.board_state_change_requested.connect(_on_board_state_change_requested)
 	edit_panel.board_notes_changed.connect(_on_board_notes_changed)
 
-	if (SessionInfo.get_current_board_index() == -1):
+	if (SessionManager.get_current_board_index() == -1):
 		side_margin.show()
 		$HBoxContainer/BoardContainer.hide()
 		$HBoxContainer/EditPanel.hide()
@@ -64,34 +65,39 @@ func _update_game_board(state: BoardState) -> void:
 
 
 func _save_current_board_state(board_idx: int = -1):
-	var board_to_save: int = board_idx if board_idx >= 0 else SessionInfo.get_current_board_index()
+	var board_to_save: int = board_idx if board_idx >= 0 else SessionManager.get_current_board_index()
 	
 	match current_board_state:
 		BoardState.INITIAL:
 			game_board.save_board(initial_board_info)
-			SessionInfo.boards[board_to_save].initial_board_info = initial_board_info
+			SessionManager.boards[board_to_save].initial_board_info = initial_board_info
 		BoardState.SOLUTION:
-			game_board.save_board(solution_board_info)
-			SessionInfo.boards[board_to_save].solution_board_info = solution_board_info
+			SessionManager.save_board(solution_board_info)
+			SessionManager.boards[board_to_save].solution_board_info = solution_board_info
 		BoardState.ALTERNATE_SOLUTION:
 			game_board.save_board(alternate_solution_board_info)
-			SessionInfo.boards[board_to_save].alternate_solution_board_info = alternate_solution_board_info
+			SessionManager.boards[board_to_save].alternate_solution_board_info = alternate_solution_board_info
 		_:
 			pass
 
 
 func _on_current_board_changed(_new_board: int, _old_board: int) -> void:
-	side_margin.hide()
-	$HBoxContainer/BoardContainer.show()
-	$HBoxContainer/EditPanel.show()
 	
+	side_margin.visible = _new_board == -1
+	$HBoxContainer/BoardContainer.visible = !_new_board == -1
+	$HBoxContainer/EditPanel.visible = !_new_board == -1
+
+	# Empty board list, return
+	if (_new_board == -1):
+		return
+
 	_save_current_board_state(_old_board)
-	var current_board: SessionInfo.Board = SessionInfo.get_current_board()
+	var current_board: SessionManager.Board = SessionManager.get_current_board()
 	initial_board_info = current_board.initial_board_info
 	solution_board_info = current_board.solution_board_info
 	alternate_solution_board_info = current_board.alternate_solution_board_info
 	_update_game_board(current_board_state)
-	edit_panel.update_board_notes(SessionInfo.get_current_board().board_notes)
+	edit_panel.update_board_notes(SessionManager.get_current_board().board_notes)
 
 
 func _on_mino_queue_edit_requested(queue_type: Constants.MinoQueues) -> void:
@@ -143,4 +149,4 @@ func _on_board_state_change_requested(state: int) -> void:
 
 
 func _on_board_notes_changed(new_text: String) -> void:
-	SessionInfo.get_current_board().board_notes = new_text
+	SessionManager.get_current_board().board_notes = new_text

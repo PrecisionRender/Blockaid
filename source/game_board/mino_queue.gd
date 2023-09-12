@@ -22,7 +22,7 @@ func _ready() -> void:
 		$HBoxContainer/MinoContainer.add_child(queue_mino)
 
 
-func update_mino_queue(types: Array[Constants.Minos]) -> void:
+func update_mino_queue(types: Array) -> void:
 	assert(types.size() == queue_size, "Incorrect quantity of mino types supplied!")
 	for x in range(queue_size):
 		queue_minos[x].type = types[x]

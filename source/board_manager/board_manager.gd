@@ -8,7 +8,9 @@ extends PanelContainer
 
 
 func _ready() -> void:
-	session_title_label.text = SessionInfo.session_name
+	SessionManager.session_name_changed.connect(_on_session_name_changed)
+	SessionManager.save_file_loaded.connect(_on_save_file_loaded)
+	session_title_label.text = SessionManager.session_name
 
 	var root = board_list.create_item()
 	root.set_editable(0, false)
@@ -18,13 +20,21 @@ func _ready() -> void:
 			Callable(self, "_can_drop_data_fw"), Callable(self, "_drop_data_fw"))
 
 
+func _create_new_board(title: String = "New board") -> void:
+	var item = board_list.create_item(null, board_list.get_root().get_child_count())
+	item.set_editable(0, false)
+	item.set_text(0, title)
+	item.custom_minimum_height = 25
+	board_list.set_selected(item, 0)
+
+
 func _get_drag_data_fw(at_position: Vector2) -> Variant:
 	board_list.drop_mode_flags = board_list.DROP_MODE_INBETWEEN
 
 	var preview: MarginContainer = MarginContainer.new()
 	preview.add_theme_constant_override("margin_left", 15)
 	var label: Label = Label.new()
-	label.text = SessionInfo.get_current_board().board_title
+	label.text = SessionManager.get_current_board().board_title
 	preview.add_child(label)
 	board_list.set_drag_preview(preview)
 
@@ -63,7 +73,7 @@ func _drop_data_fw(at_position: Vector2, data: Variant) -> void:
 	else:
 		board_list.get_selected().move_after(item)
 
-	SessionInfo.move_current_board_to(board_list.get_selected().get_index())
+	SessionManager.move_current_board_to(board_list.get_selected().get_index())
 
 
 func _update_session_title() -> void:
@@ -73,11 +83,27 @@ func _update_session_title() -> void:
 	if new_title.is_empty():
 		return
 	session_title_label.text = new_title
-	SessionInfo.session_name = new_title
+	SessionManager.session_name = new_title
 
 
-func _on_board_list_item_selected() -> void:
-	pass
+func _on_session_name_changed(new_title: String) -> void:
+	session_title_label.text = new_title
+
+
+func _on_add_board_button_pressed() -> void:
+	_create_new_board()
+	SessionManager.create_new_board()
+
+
+func _on_save_file_loaded() -> void:
+	var tree_root: TreeItem = board_list.get_root()
+	for item in tree_root.get_children():
+		tree_root.remove_child(item)
+	for board in SessionManager.boards:
+		_create_new_board(board.board_title)
+	
+	if tree_root.get_child_count() > 0:
+		board_list.set_selected(tree_root.get_child(0), 0)
 
 
 func _on_tree_item_activated() -> void:
@@ -86,7 +112,7 @@ func _on_tree_item_activated() -> void:
 
 func _on_tree_item_edited() -> void:
 	board_list.get_edited().set_editable(0, false)
-	SessionInfo.get_current_board().board_title = board_list.get_edited().get_text(0)
+	SessionManager.get_current_board().board_title = board_list.get_edited().get_text(0)
 
 
 func _on_label_gui_input(event: InputEvent) -> void:
@@ -106,19 +132,10 @@ func _on_line_edit_focus_exited() -> void:
 	_update_session_title()
 
 
-func _on_add_board_button_pressed() -> void:
-	var item = board_list.create_item(null, board_list.get_root().get_child_count())
-	item.set_editable(0, false)
-	item.set_text(0, "New board")
-	item.custom_minimum_height = 25
-	board_list.set_selected(item, 0)
-	SessionInfo.create_new_board()
-
-
 func _on_board_list_item_mouse_selected(position: Vector2, mouse_button_index: int) -> void:
-	if SessionInfo.boards.size() - 1 < board_list.get_selected().get_index():
+	if SessionManager.boards.size() - 1 < board_list.get_selected().get_index():
 		return
-	SessionInfo.set_current_board_index(board_list.get_selected().get_index())
+	SessionManager.set_current_board_index(board_list.get_selected().get_index())
 
 	if mouse_button_index != MOUSE_BUTTON_MASK_RIGHT:
 		return
@@ -173,3 +190,7 @@ func _on_board_list_item_mouse_selected(position: Vector2, mouse_button_index: i
 
 	add_child(context_menu)
 	context_menu.show()
+
+
+func _on_open_file_pressed() -> void:
+	DisplayServer

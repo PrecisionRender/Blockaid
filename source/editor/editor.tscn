@@ -197,18 +197,18 @@ tooltip_text = "Add board"
 icon = ExtResource("4_i38qm")
 icon_alignment = 1
 
-[node name="Control" type="Control" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
+[node name="Margin" type="Control" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Open" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
+[node name="OpenFile" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
 layout_mode = 2
 tooltip_text = "Open"
 icon = ExtResource("6_j6b8h")
 text_overrun_behavior = 3
 icon_alignment = 1
 
-[node name="Save" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
+[node name="SaveFile" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
 layout_mode = 2
 tooltip_text = "Save..."
 icon = ExtResource("5_c666q")
@@ -544,10 +544,10 @@ size_flags_stretch_ratio = 1.25
 [connection signal="focus_exited" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/SessionTitleEdit" to="HBoxContainer/BoardManager" method="_on_line_edit_focus_exited"]
 [connection signal="text_submitted" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/SessionTitleEdit" to="HBoxContainer/BoardManager" method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar/AddBoardButton" to="HBoxContainer/BoardManager" method="_on_add_board_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar/OpenFile" to="HBoxContainer/BoardManager" method="_on_open_file_pressed"]
 [connection signal="item_activated" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_tree_item_activated"]
 [connection signal="item_edited" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_tree_item_edited"]
 [connection signal="item_mouse_selected" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_board_list_item_mouse_selected"]
-[connection signal="item_selected" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_board_list_item_selected"]
 [connection signal="toggled" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/EditModeButton" to="HBoxContainer/EditPanel" method="_on_edit_mode_button_toggled"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ScreenCaptureButton" to="HBoxContainer/EditPanel" method="_on_screen_capture_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ClearBoardButton" to="HBoxContainer/EditPanel" method="_on_clear_board_button_pressed"]

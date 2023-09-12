@@ -21,7 +21,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-SessionInfo="*res://source/globals/session_info.gd"
+SessionManager="*res://source/globals/session_manager.gd"
 Settings="*res://source/globals/settings.gd"
 
 [display]

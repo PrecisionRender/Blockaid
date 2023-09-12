@@ -28,12 +28,7 @@ func _ready() -> void:
 	screen_capture_tool.screen_capture_canceled.connect(_screen_capture_canceled)
 
 	get_window().set_min_size(Vector2(960, 576))
-	_update_window_title(SessionManager.session_name)
-
-
-func _process(delta: float) -> void:
-	return
-	$Control.queue_redraw()
+	_update_window_title(SessionManager.get_session_name())
 
 
 func save_window_state() -> void:

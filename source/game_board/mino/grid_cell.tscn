@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://conoohubrtv5f"]
 
-[ext_resource type="Script" path="res://source/playfield/grid_cell.gd" id="2_x4c40"]
+[ext_resource type="Script" path="res://source/game_board/mino/grid_cell.gd" id="1_nhv0k"]
 
 [node name="GridCell" type="TextureRect" groups=["grid_cells"]]
 texture_filter = 1
@@ -8,7 +8,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 expand_mode = 1
-script = ExtResource("2_x4c40")
+script = ExtResource("1_nhv0k")
 
 [node name="TriggerButton" type="Button" parent="."]
 layout_mode = 1

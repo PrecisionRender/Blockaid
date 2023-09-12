@@ -8,12 +8,26 @@ signal board_save_queued
 signal save_file_loaded
 
 
-var session_name: String = "Untitled":
-	set(value):
-		session_name = value
-		session_name_changed.emit(value)
 var boards: Array[Board]
+var _session_name: String = "Untitled"
 var _current_board_index: int = -1
+
+
+func get_session_name() -> String:
+	return _session_name
+
+
+func set_session_name(new_name: String) -> void:
+	if new_name == _session_name:
+		return
+	UndoRedoManager.undo_redo.create_action("Renmae session")
+	UndoRedoManager.undo_redo.add_do_property(self, "_session_name", new_name)
+	UndoRedoManager.undo_redo.add_undo_property(self, "_session_name", self._session_name)
+	UndoRedoManager.undo_redo.add_do_method(_on_session_name_undo_redo)
+	UndoRedoManager.undo_redo.add_undo_method(_on_session_name_undo_redo)
+	UndoRedoManager.undo_redo.commit_action()
+	_session_name = new_name
+	session_name_changed.emit(_session_name)
 
 
 func get_current_board_index() -> int:
@@ -52,7 +66,7 @@ func save_to_file(file_path: String) -> void:
 	board_save_queued.emit()
 
 	var save_data: Dictionary = {
-		"session_name": session_name,
+		"session_name": _session_name,
 		"boards": []
 	}
 	
@@ -84,7 +98,7 @@ func load_from_file(file_path: String) -> void:
 		return
 
 	var save_data: Dictionary = json.data
-	session_name = save_data["session_name"]
+	set_session_name(save_data["session_name"])
 	boards = []
 	for x in range(save_data["boards"].size()):
 		var board: Board = Board.new()
@@ -97,6 +111,10 @@ func load_from_file(file_path: String) -> void:
 
 	set_current_board_index(0 if boards.size() > 0 else -1)
 	save_file_loaded.emit()
+
+
+func _on_session_name_undo_redo() -> void:
+	session_name_changed.emit(_session_name)
 
 
 class Board:

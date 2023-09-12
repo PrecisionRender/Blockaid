@@ -10,14 +10,13 @@ extends PanelContainer
 func _ready() -> void:
 	SessionManager.session_name_changed.connect(_on_session_name_changed)
 	SessionManager.save_file_loaded.connect(_on_save_file_loaded)
-	session_title_label.text = SessionManager.session_name
+	session_title_label.text = SessionManager.get_session_name()
 
 	var root = board_list.create_item()
 	root.set_editable(0, false)
 	root.set_text(0, "Root")
 
-	board_list.set_drag_forwarding(Callable(self, "_get_drag_data_fw"), 
-			Callable(self, "_can_drop_data_fw"), Callable(self, "_drop_data_fw"))
+	board_list.set_drag_forwarding(_get_drag_data_fw, _can_drop_data_fw, _drop_data_fw)
 
 
 func _create_new_board(title: String = "New board") -> void:
@@ -82,8 +81,7 @@ func _update_session_title() -> void:
 	var new_title: String = session_title_edit.text
 	if new_title.is_empty():
 		return
-	session_title_label.text = new_title
-	SessionManager.session_name = new_title
+	SessionManager.set_session_name(new_title)
 
 
 func _on_session_name_changed(new_title: String) -> void:
@@ -197,7 +195,7 @@ func _on_open_file_pressed() -> void:
 
 
 func _on_save_file_pressed() -> void:
-	DisplayServer.file_dialog_show("Save as...", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), SessionManager.session_name, false, DisplayServer.FILE_DIALOG_MODE_SAVE_FILE, PackedStringArray(["*.bbs"]), Callable(self, "_save_dialogue_confirmed"))
+	DisplayServer.file_dialog_show("Save as...", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), SessionManager.get_session_name(), false, DisplayServer.FILE_DIALOG_MODE_SAVE_FILE, PackedStringArray(["*.bbs"]), Callable(self, "_save_dialogue_confirmed"))
 
 
 func _open_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -> void:

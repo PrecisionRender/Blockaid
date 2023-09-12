@@ -66,10 +66,10 @@ func _update_game_board(state: BoardState) -> void:
 
 func _save_current_board_state(board_idx: int = -1) -> void:
 	var board_to_save: int = board_idx if board_idx >= 0 else SessionManager.get_current_board_index()
-	
+
 	if (SessionManager._current_board_index == -1):
 		return
-	
+
 	match current_board_state:
 		BoardState.INITIAL:
 			game_board.save_board(initial_board_info)

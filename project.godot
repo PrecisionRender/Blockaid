@@ -22,8 +22,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-SessionManager="*res://source/globals/session_manager.gd"
+UndoRedoManager="*res://source/globals/undo_redo_manager.gd"
 Settings="*res://source/globals/settings.gd"
+SessionManager="*res://source/globals/session_manager.gd"
 
 [display]
 

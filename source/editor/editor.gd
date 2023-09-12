@@ -64,7 +64,7 @@ func _update_game_board(state: BoardState) -> void:
 			pass
 
 
-func _save_current_board_state(board_idx: int = -1):
+func _save_current_board_state(board_idx: int = -1) -> void:
 	var board_to_save: int = board_idx if board_idx >= 0 else SessionManager.get_current_board_index()
 	
 	if (SessionManager._current_board_index == -1):

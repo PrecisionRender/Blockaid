@@ -26,11 +26,13 @@ func set_current_board_index(new_index: int) -> void:
 	current_board_changed.emit(new_index, old_board)
 
 
-func create_new_board() -> void:
-	boards.append(Board.new())
-	set_current_board_index(boards.size() - 1)
-	if _current_board_index == -1:
-		set_current_board_index(0)
+func create_new_board(at_index: int = -1) -> void:
+	if at_index == -1 or _current_board_index == -1:
+		boards.append(Board.new())
+		set_current_board_index(boards.size() - 1)
+	else:
+		boards.insert(at_index, Board.new())
+		set_current_board_index(at_index)
 
 
 func get_current_board() -> Board:

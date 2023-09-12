@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cvumy8oxxhyeu"]
+[gd_scene load_steps=46 format=3 uid="uid://cvumy8oxxhyeu"]
 
 [ext_resource type="Script" path="res://source/editor/editor.gd" id="1_xl6wk"]
 [ext_resource type="Script" path="res://source/game_board/game_board.gd" id="2_6r8gu"]
@@ -18,8 +18,6 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuf2m"]
 bg_color = Color(0.113725, 0.113725, 0.113725, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_r43l3"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_w0r7i"]
 device = -1
@@ -188,8 +186,7 @@ theme_override_constants/separation = 15
 layout_mode = 2
 mouse_filter = 1
 theme_override_fonts/font = ExtResource("3_a2hql")
-text = "CZSmall TETR.IO Cup 15*"
-label_settings = SubResource("LabelSettings_r43l3")
+text = "Untitled"
 horizontal_alignment = 1
 clip_text = true
 text_overrun_behavior = 3

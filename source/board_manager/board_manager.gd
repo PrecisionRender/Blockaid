@@ -20,6 +20,7 @@ func _ready() -> void:
 	SessionManager.board_removed.connect(_on_board_removed)
 	SessionManager.board_moved.connect(_on_board_moved)
 	SessionManager.save_file_loaded.connect(_on_save_file_loaded)
+	UndoRedoManager.saved_state_changed.connect(_update_title_label)
 	session_title_label.text = SessionManager.get_session_name()
 
 	var root = board_list.create_item()
@@ -29,6 +30,7 @@ func _ready() -> void:
 	board_list.set_drag_forwarding(_get_drag_data_fw, _can_drop_data_fw, _drop_data_fw)
 
 	_initialize_context_menus()
+	_update_title_label()
 
 
 func _shortcut_input(event: InputEvent) -> void:
@@ -110,6 +112,12 @@ func _initialize_context_menus() -> void:
 	board_list_context_menu.id_pressed.connect(_on_board_menu_id_pressed)
 
 
+func _update_title_label(is_saved: bool = false) -> void:
+	session_title_label.text = SessionManager.get_session_name()
+	if not is_saved:
+		session_title_label.text += "*"
+
+
 func _add_board_item(title: String, index = -1) -> void:
 	index = index if not index == -1 else board_list.get_root().get_child_count()
 	var item = board_list.create_item(null, index)
@@ -151,7 +159,7 @@ func _on_board_moved(to_index: int, old_index: int) -> void:
 
 
 func _on_session_name_changed(new_title: String) -> void:
-	session_title_label.text = new_title
+	_update_title_label()
 
 
 func _on_add_board_button_pressed() -> void:
@@ -190,7 +198,7 @@ func _on_label_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.double_click == true:
 		session_title_label.hide()
 		session_title_edit.show()
-		session_title_edit.text = session_title_label.text
+		session_title_edit.text = session_title_label.text.trim_suffix("*")
 		session_title_edit.grab_focus()
 		session_title_edit.select_all()
 

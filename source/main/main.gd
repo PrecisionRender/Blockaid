@@ -15,12 +15,13 @@ var screen_texture: ImageTexture
 
 func _ready() -> void:
 	SessionManager.session_name_changed.connect(_on_session_name_changed)
+	UndoRedoManager.saved_state_changed.connect(_update_window_title)
 	editor.screen_capture_requested.connect(_on_screen_capture_requested)
 	screen_capture_tool.screen_captured.connect(_on_screen_captured)
 	screen_capture_tool.screen_capture_canceled.connect(_on_screen_capture_canceled)
 
 	get_window().set_min_size(Vector2(960, 576))
-	_update_window_title(SessionManager.get_session_name())
+	_update_window_title()
 
 	if OS.has_feature("editor"):
 		return
@@ -52,12 +53,15 @@ func restore_window_state() -> void:
 	window.size = window_size
 
 
-func _update_window_title(new_title: String) -> void:
-	get_window().title = "Blockaid - %s*" % new_title
+func _update_window_title(is_saved: bool = false) -> void:
+	var title: String = "Blockaid - %s" % SessionManager.get_session_name()
+	if not is_saved:
+		title += "*"
+	get_window().title = title
 
 
 func _on_session_name_changed(new_name: String) -> void:
-	_update_window_title(new_name)
+	_update_window_title()
 
 
 func _on_screen_capture_requested() -> void:

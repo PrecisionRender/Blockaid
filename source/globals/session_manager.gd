@@ -104,6 +104,7 @@ func save_to_file(file_path: String) -> void:
 	
 	save_file.store_line(JSON.stringify(save_data, "", false))
 	session_path = file_path
+	UndoRedoManager.save_version = UndoRedoManager.undo_redo.get_version()
 
 
 func load_from_file(file_path: String) -> void:
@@ -130,6 +131,7 @@ func load_from_file(file_path: String) -> void:
 	session_path = file_path
 	SessionManager._current_board_index = 0
 	UndoRedoManager.undo_redo.clear_history()
+	UndoRedoManager.save_version = UndoRedoManager.undo_redo.get_version()
 	save_file_loaded.emit()
 
 

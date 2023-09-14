@@ -52,7 +52,6 @@ func change_current_board(new_index: int) -> void:
 func add_board(at_index: int = -1, board: Board = Board.new()) -> void:
 	UndoRedoManager.undo_redo.create_action("Add board")
 	UndoRedoManager.undo_redo.add_do_method(_add_board_undo_redo.bind(at_index, board))
-	UndoRedoManager.undo_redo.add_do_reference(board)
 	UndoRedoManager.undo_redo.add_undo_method(_remove_current_board_undo_redo)
 	UndoRedoManager.undo_redo.commit_action()
 
@@ -141,7 +140,7 @@ func _add_board_undo_redo(at_index: int = -1, board: Board = Board.new()) -> voi
 		boards.append(board)
 		_current_board_index = boards.size() - 1
 	else:
-		boards.insert(max(at_index, boards.size()), board)
+		boards.insert(min(at_index, boards.size()), board)
 		_current_board_index = at_index
 
 	board_added.emit(_current_board_index, old_index)

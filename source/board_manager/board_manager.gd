@@ -16,6 +16,8 @@ var board_list_context_menu: PopupMenu
 
 func _ready() -> void:
 	SessionManager.session_name_changed.connect(_on_session_name_changed)
+	SessionManager.board_added.connect(_on_board_added)
+	SessionManager.board_removed.connect(_on_board_removed)
 	SessionManager.save_file_loaded.connect(_on_save_file_loaded)
 	session_title_label.text = SessionManager.get_session_name()
 
@@ -118,8 +120,9 @@ func _initialize_context_menus() -> void:
 	board_list_context_menu.id_pressed.connect(_on_board_menu_id_pressed)
 
 
-func _create_new_board(title: String = "New board") -> void:
-	var item = board_list.create_item(null, board_list.get_root().get_child_count())
+func _add_board_item(title: String, index = -1) -> void:
+	index = index if not index == -1 else board_list.get_root().get_child_count()
+	var item = board_list.create_item(null, index)
 	item.set_editable(0, false)
 	item.set_text(0, title)
 	item.custom_minimum_height = 25
@@ -135,11 +138,16 @@ func _update_session_title() -> void:
 	SessionManager.set_session_name(new_title)
 
 
-func _remove_current_board() -> void:
-	SessionManager.remove_current_board()
+func _on_board_added(index: int, old_index: int) -> void:
+	_add_board_item(SessionManager.get_current_board().board_title, index)
+
+
+func _on_board_removed(index: int) -> void:
 	board_list.get_root().remove_child(board_list.get_selected())
-	if not SessionManager.get_current_board_index() == -1:
-		board_list.set_selected(board_list.get_root().get_child(SessionManager.get_current_board_index()), 0)
+
+	var current_board_index: int = SessionManager.get_current_board_index()
+	if not current_board_index == -1:
+		board_list.set_selected(board_list.get_root().get_child(current_board_index), 0)
 
 
 func _on_session_name_changed(new_title: String) -> void:
@@ -147,7 +155,6 @@ func _on_session_name_changed(new_title: String) -> void:
 
 
 func _on_add_board_button_pressed() -> void:
-	_create_new_board()
 	SessionManager.add_board()
 
 
@@ -156,7 +163,7 @@ func _on_save_file_loaded() -> void:
 	for item in tree_root.get_children():
 		tree_root.remove_child(item)
 	for board in SessionManager.boards:
-		_create_new_board(board.board_title)
+		_add_board_item(board.board_title)
 	
 	if tree_root.get_child_count() > 0:
 		board_list.set_selected(tree_root.get_child(0), 0)
@@ -223,7 +230,7 @@ func _on_board_menu_id_pressed(menu_item_id: int) -> void:
 				board_cut_queued.emit()
 				var board_data: Dictionary = SessionManager.get_current_board().get_as_dictionary()
 				DisplayServer.clipboard_set(JSON.stringify(board_data, "", false))
-				_remove_current_board()
+				SessionManager.remove_current_board()
 		1:
 			if not SessionManager.get_current_board_index() == -1:
 				var board_data: Dictionary = SessionManager.get_current_board().get_as_dictionary()
@@ -236,12 +243,11 @@ func _on_board_menu_id_pressed(menu_item_id: int) -> void:
 			var board: SessionManager.Board = SessionManager.Board.new()
 			if board.set_from_dictionary(json.data):
 				SessionManager.add_board(-1, board)
-				_create_new_board(SessionManager.get_current_board().board_title)
 		3:
 			board_list.get_selected().set_editable(0, true)
 			board_list.edit_selected()
 		4:
-			_remove_current_board()
+			SessionManager.remove_current_board()
 
 
 func _open_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -> void:

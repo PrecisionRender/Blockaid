@@ -23,13 +23,12 @@ func get_session_name() -> String:
 func set_session_name(new_name: String) -> void:
 	if new_name == _session_name:
 		return
-	UndoRedoManager.undo_redo.create_action("Renmae session")
+	UndoRedoManager.undo_redo.create_action("Rename session")
 	UndoRedoManager.undo_redo.add_do_property(self, "_session_name", new_name)
 	UndoRedoManager.undo_redo.add_undo_property(self, "_session_name", self._session_name)
 	UndoRedoManager.undo_redo.add_do_method(_on_session_name_undo_redo)
 	UndoRedoManager.undo_redo.add_undo_method(_on_session_name_undo_redo)
 	UndoRedoManager.undo_redo.commit_action()
-	_session_name = new_name
 	session_name_changed.emit(_session_name)
 
 
@@ -50,26 +49,24 @@ func change_current_board(new_index: int) -> void:
 
 
 func add_board(at_index: int = -1, board: Board = Board.new()) -> void:
-	var old_index: int = _current_board_index
-
-	if at_index == -1 or _current_board_index == -1:
-		boards.append(board)
-		_current_board_index = boards.size() - 1
-	else:
-		boards.insert(at_index, board)
-		_current_board_index = at_index
-
-	board_added.emit(_current_board_index, old_index)
+	UndoRedoManager.undo_redo.create_action("Add board")
+	UndoRedoManager.undo_redo.add_do_method(_create_board.bind(at_index, board))
+	UndoRedoManager.undo_redo.add_do_reference(board)
+	UndoRedoManager.undo_redo.add_undo_method(_delete_current_board)
+	UndoRedoManager.undo_redo.commit_action()
+	print(UndoRedoManager.undo_redo.get_history_count())
 
 
 func remove_current_board() -> void:
-	var old_board_index: int = _current_board_index
-	boards.remove_at(_current_board_index)
-	if boards.is_empty():
-		_current_board_index = -1
-	else:
-		_current_board_index = min(_current_board_index, boards.size() - 1)
-	board_removed.emit(old_board_index)
+	if _current_board_index == -1:
+		return
+
+	UndoRedoManager.undo_redo.create_action("Remove board")
+	var current_board: Board = get_current_board()
+	UndoRedoManager.undo_redo.add_do_method(_delete_current_board)
+	UndoRedoManager.undo_redo.add_undo_reference(current_board)
+	UndoRedoManager.undo_redo.add_undo_method(_create_board.bind(_current_board_index, current_board))
+	UndoRedoManager.undo_redo.commit_action()
 
 
 func move_current_board_to(to_idx: int) -> void:
@@ -129,7 +126,32 @@ func load_from_file(file_path: String) -> void:
 	_current_board_index = 0 if boards.size() > 0 else -1
 	session_path = file_path
 	SessionManager._current_board_index = 0
+	UndoRedoManager.undo_redo.clear_history()
 	save_file_loaded.emit()
+
+
+func _create_board(at_index: int = -1, board: Board = Board.new()) -> void:
+	var old_index: int = _current_board_index
+
+	if at_index == -1 or _current_board_index == -1:
+		boards.append(board)
+		_current_board_index = boards.size() - 1
+	else:
+		boards.insert(max(at_index, boards.size()), board)
+		_current_board_index = at_index
+
+	board_added.emit(_current_board_index, old_index)
+
+
+func _delete_current_board() -> void:
+	var old_board_index: int = _current_board_index
+	boards.remove_at(_current_board_index)
+	
+	if boards.is_empty():
+		_current_board_index = -1
+	else:
+		_current_board_index = min(_current_board_index, boards.size() - 1)
+	board_removed.emit(old_board_index)
 
 
 func _on_session_name_undo_redo() -> void:

@@ -26,7 +26,7 @@ func _ready() -> void:
 
 
 func _shortcut_input(event: InputEvent) -> void:
-	if !event.is_pressed():
+	if not event.is_pressed():
 		return
 	board_list_context_menu.activate_item_by_event(event)
 
@@ -50,7 +50,7 @@ func _get_drag_data_fw(at_position: Vector2) -> Variant:
 
 func _can_drop_data_fw(at_position: Vector2, data: Variant) -> bool:
 	var tree_item: TreeItem = board_list.get_item_at_position(at_position)
-	if !tree_item:
+	if not tree_item:
 		return false
 
 	
@@ -62,7 +62,7 @@ func _drop_data_fw(at_position: Vector2, data: Variant) -> void:
 	board_list.drop_mode_flags = 0
 	
 	var item: TreeItem = board_list.get_item_at_position(at_position)
-	if !item:
+	if not item:
 		return
 
 	var section: int = board_list.get_drop_section_at_position(at_position)
@@ -135,7 +135,7 @@ func _update_session_title() -> void:
 func _remove_current_board() -> void:
 	SessionManager.remove_current_board()
 	board_list.get_root().remove_child(board_list.get_selected())
-	if !SessionManager.get_current_board_index() == -1:
+	if not SessionManager.get_current_board_index() == -1:
 		board_list.set_selected(board_list.get_root().get_child(SessionManager.get_current_board_index()), 0)
 
 
@@ -190,7 +190,7 @@ func _on_board_list_item_mouse_selected(position: Vector2, mouse_button_index: i
 		return
 	SessionManager.change_current_board(board_list.get_selected().get_index())
 
-	if mouse_button_index != MOUSE_BUTTON_MASK_RIGHT:
+	if not mouse_button_index == MOUSE_BUTTON_MASK_RIGHT:
 		return
 
 	board_list_context_menu.position = get_screen_position() + get_viewport().get_mouse_position()
@@ -204,7 +204,7 @@ func _on_open_file_pressed() -> void:
 
 
 func _on_save_menu_index_pressed(menu_item_index: int) -> void:
-	if menu_item_index > 0 or !SessionManager.session_path.is_absolute_path():
+	if menu_item_index > 0 or not SessionManager.session_path.is_absolute_path():
 		var file_extension: PackedStringArray = PackedStringArray(["*" + Constants.FILE_EXTENSION])
 		DisplayServer.file_dialog_show("Save as...", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), 
 				SessionManager.get_session_name(), false, DisplayServer.FILE_DIALOG_MODE_SAVE_FILE, 
@@ -216,18 +216,18 @@ func _on_save_menu_index_pressed(menu_item_index: int) -> void:
 func _on_board_menu_id_pressed(menu_item_id: int) -> void:
 	match menu_item_id:
 		0:
-			if !SessionManager.get_current_board_index() == -1:
+			if not SessionManager.get_current_board_index() == -1:
 				var board_data: Dictionary = SessionManager.get_current_board().get_as_dictionary()
 				DisplayServer.clipboard_set(JSON.stringify(board_data, "", false))
 				_remove_current_board()
 		1:
-			if !SessionManager.get_current_board_index() == -1:
+			if not SessionManager.get_current_board_index() == -1:
 				var board_data: Dictionary = SessionManager.get_current_board().get_as_dictionary()
 				DisplayServer.clipboard_set(JSON.stringify(board_data, "", false))
 		2:
 			var json: JSON = JSON.new()
 			var error: int = json.parse(DisplayServer.clipboard_get())
-			if error != OK:
+			if not error == OK:
 				return
 			var board: SessionManager.Board = SessionManager.Board.new()
 			if board.set_from_dictionary(json.data):
@@ -241,20 +241,20 @@ func _on_board_menu_id_pressed(menu_item_id: int) -> void:
 
 
 func _open_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -> void:
-	if !status:
+	if not status:
 		return
 
 	var path: String = selected_paths[0]
-	if !path.ends_with(".bbs"):
+	if not path.ends_with(".bbs"):
 		path += ".bbs"
 	SessionManager.load_from_file(path)
 
 
 func _save_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -> void:
-	if !status:
+	if not status:
 		return
 
 	var path: String = selected_paths[0]
-	if !path.ends_with(".bbs"):
+	if not path.ends_with(".bbs"):
 		path += ".bbs"
 	SessionManager.save_to_file(path)

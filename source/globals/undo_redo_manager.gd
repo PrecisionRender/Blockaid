@@ -5,7 +5,7 @@ var undo_redo: UndoRedo = UndoRedo.new()
 
 
 func _shortcut_input(event: InputEvent) -> void:
-	if !event is InputEventKey or not event.is_pressed():
+	if not event is InputEventKey or not event.is_pressed():
 		return
 
 	if event.keycode == KEY_Y and event.is_command_or_control_pressed():

@@ -9,11 +9,12 @@ enum BoardState
 {
 	INITIAL,
 	SOLUTION,
-	ALTERNATE_SOLUTION
+	ALTERNATE_SOLUTION,
 }
 
 
 const QUEUE_INPUT_DIALOGUE: PackedScene = preload("res://source/editor/queue_input_dialogue.tscn")
+
 
 var current_board_state: BoardState = BoardState.INITIAL
 var initial_board_info: BoardInfo = BoardInfo.new()
@@ -93,15 +94,15 @@ func _on_board_removed(index: int) -> void:
 
 func _on_save_file_loaded() -> void:
 	_update_editor_visibility()
-	if SessionManager._current_board_index != -1:
+	if not SessionManager._current_board_index == -1:
 		_load_new_board()
 
 
 func _update_editor_visibility() -> void:
 	var index: int = SessionManager.get_current_board_index()
 	side_margin.visible = index == -1
-	$HBoxContainer/BoardContainer.visible = !index == -1
-	$HBoxContainer/EditPanel.visible = !index == -1
+	$HBoxContainer/BoardContainer.visible = not index == -1
+	$HBoxContainer/EditPanel.visible = not index == -1
 
 
 func _save_current_board_state(board_idx: int = -1) -> void:

@@ -54,12 +54,12 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 	$LineEdit.caret_column = previous_caret_column - (new_text.length() - filtered_string.length())
 	
 	# Only enable the OK button once the character length matched the queue length
-	get_ok_button().disabled = filtered_string.length() != queue_length
+	get_ok_button().disabled = not filtered_string.length() == queue_length
 
 
 func _on_line_edit_text_submitted(_new_text: String) -> void:
 	# Hacky solution to confirm the dialogue box when the enter key is pressed
-	if !get_ok_button().disabled:
+	if not get_ok_button().disabled:
 		get_ok_button().pressed.emit()
 
 

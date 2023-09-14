@@ -6,7 +6,7 @@ var hide_when_empty: bool = false
 var type: Constants.Minos:
 	set(value):
 		type = value
-		if type != Constants.Minos.EMPTY:
+		if not type == Constants.Minos.EMPTY:
 			modulate.a = 255
 		elif hide_when_empty:
 			modulate.a = 0
@@ -15,7 +15,7 @@ var type: Constants.Minos:
 
 var atlas_texture: AtlasTexture:
 	get:
-		if !atlas_texture:
+		if not atlas_texture:
 			atlas_texture = AtlasTexture.new() 
 		return atlas_texture
 

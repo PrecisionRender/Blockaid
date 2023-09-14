@@ -12,13 +12,13 @@ enum Minos
 	J,
 	T,
 	GARBAGE,
-	EMPTY
+	EMPTY,
 }
 
 enum MinoQueues
 {
 	HOLD,
-	NEXT
+	NEXT,
 }
 
 

@@ -76,7 +76,7 @@ func move_current_board_to(to_idx: int) -> void:
 
 
 func save_to_file(file_path: String) -> void:
-	if !file_path.is_absolute_path():
+	if not file_path.is_absolute_path():
 		return
 
 	board_save_queued.emit()
@@ -103,7 +103,7 @@ func save_to_file(file_path: String) -> void:
 
 
 func load_from_file(file_path: String) -> void:
-	if !FileAccess.file_exists(file_path):
+	if not FileAccess.file_exists(file_path):
 		push_error("File path %s does not exist." % file_path)
 		return
 
@@ -149,7 +149,7 @@ class Board:
 		}
 
 	func set_from_dictionary(dict: Dictionary) -> bool:
-		if !dict.has_all(["title", "notes", "initial_board_info", "solution_board_info", 
+		if not dict.has_all(["title", "notes", "initial_board_info", "solution_board_info", 
 				"alternate_solution_board_info"]):
 			return false
 

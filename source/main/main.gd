@@ -17,16 +17,16 @@ func _ready() -> void:
 	SessionManager.session_name_changed.connect(_on_session_name_changed)
 	editor.screen_capture_requested.connect(_on_screen_capture_requested)
 	screen_capture_tool.screen_captured.connect(_on_screen_captured)
-	screen_capture_tool.screen_capture_canceled.connect(_screen_capture_canceled)
+	screen_capture_tool.screen_capture_canceled.connect(_on_screen_capture_canceled)
 
 	get_window().set_min_size(Vector2(960, 576))
 	_update_window_title(SessionManager.get_session_name())
 
 	var args: PackedStringArray = OS.get_cmdline_args()
 	for arg in args:
-		if !arg.is_absolute_path():
+		if not arg.is_absolute_path():
 			continue
-		if arg.get_extension() != "bbs":
+		if not arg.get_extension() == Constants.FILE_EXTENSION.trim_prefix("."):
 			OS.alert("Blockaid can't open files with extension .%s" % arg.get_extension())
 		SessionManager.load_from_file(arg)
 		break
@@ -68,6 +68,6 @@ func _on_screen_captured(result_image: Image) -> void:
 	editor.convert_image_to_board(result_image)
 
 
-func _screen_capture_canceled() -> void:
+func _on_screen_capture_canceled() -> void:
 	restore_window_state()
 	editor.show()

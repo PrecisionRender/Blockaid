@@ -22,12 +22,16 @@ func _ready() -> void:
 	get_window().set_min_size(Vector2(960, 576))
 	_update_window_title(SessionManager.get_session_name())
 
+	if OS.has_feature("editor"):
+		return
+
 	var args: PackedStringArray = OS.get_cmdline_args()
 	for arg in args:
 		if not arg.is_absolute_path():
 			continue
 		if not arg.get_extension() == Constants.FILE_EXTENSION.trim_prefix("."):
 			OS.alert("Blockaid can't open files with extension .%s" % arg.get_extension())
+			continue
 		SessionManager.load_from_file(arg)
 		break
 

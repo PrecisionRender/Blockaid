@@ -37,6 +37,8 @@ func _ready() -> void:
 	SessionManager.board_save_queued.connect(_save_current_board_state)
 	SessionManager.save_file_loaded.connect(_on_save_file_loaded)
 
+	board_manager.board_cut_queued.connect(_save_current_board_state)
+
 	edit_panel.screen_capture_requested.connect(_on_editor_screen_capture_requested)
 	edit_panel.brush_changed.connect(_on_brush_changed)
 	edit_panel.board_clear_requested.connect(_on_board_clear_requested)

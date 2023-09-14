@@ -2,6 +2,9 @@ class_name BoardManager
 extends PanelContainer
 
 
+signal board_cut_queued
+
+
 var board_list_context_menu: PopupMenu
 
 
@@ -217,6 +220,7 @@ func _on_board_menu_id_pressed(menu_item_id: int) -> void:
 	match menu_item_id:
 		0:
 			if not SessionManager.get_current_board_index() == -1:
+				board_cut_queued.emit()
 				var board_data: Dictionary = SessionManager.get_current_board().get_as_dictionary()
 				DisplayServer.clipboard_set(JSON.stringify(board_data, "", false))
 				_remove_current_board()

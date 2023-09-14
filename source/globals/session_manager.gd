@@ -6,6 +6,7 @@ signal current_board_changed(index: int, old_index: int)
 signal board_added(index: int, old_index: int)
 signal board_removed(index: int)
 signal board_order_edit_queued
+signal board_moved(to_index: int, old_index: int)
 signal board_save_queued
 signal save_file_loaded
 
@@ -50,11 +51,10 @@ func change_current_board(new_index: int) -> void:
 
 func add_board(at_index: int = -1, board: Board = Board.new()) -> void:
 	UndoRedoManager.undo_redo.create_action("Add board")
-	UndoRedoManager.undo_redo.add_do_method(_create_board.bind(at_index, board))
+	UndoRedoManager.undo_redo.add_do_method(_add_board_undo_redo.bind(at_index, board))
 	UndoRedoManager.undo_redo.add_do_reference(board)
-	UndoRedoManager.undo_redo.add_undo_method(_delete_current_board)
+	UndoRedoManager.undo_redo.add_undo_method(_remove_current_board_undo_redo)
 	UndoRedoManager.undo_redo.commit_action()
-	print(UndoRedoManager.undo_redo.get_history_count())
 
 
 func remove_current_board() -> void:
@@ -63,17 +63,19 @@ func remove_current_board() -> void:
 
 	UndoRedoManager.undo_redo.create_action("Remove board")
 	var current_board: Board = get_current_board()
-	UndoRedoManager.undo_redo.add_do_method(_delete_current_board)
+	UndoRedoManager.undo_redo.add_do_method(_remove_current_board_undo_redo)
 	UndoRedoManager.undo_redo.add_undo_reference(current_board)
-	UndoRedoManager.undo_redo.add_undo_method(_create_board.bind(_current_board_index, current_board))
+	UndoRedoManager.undo_redo.add_undo_method(_add_board_undo_redo.bind(
+			_current_board_index, current_board))
 	UndoRedoManager.undo_redo.commit_action()
 
 
-func move_current_board_to(to_idx: int) -> void:
-	board_order_edit_queued.emit()
-	var moved_board: Board = boards.pop_at(_current_board_index)
-	boards.insert(to_idx, moved_board)
-	_current_board_index = to_idx
+func move_current_board_to(to_index: int) -> void:
+	UndoRedoManager.undo_redo.create_action("Move board")
+	var old_index: int = _current_board_index
+	UndoRedoManager.undo_redo.add_do_method(_move_current_board_undo_redo.bind(to_index))
+	UndoRedoManager.undo_redo.add_undo_method(_move_current_board_undo_redo.bind(old_index))
+	UndoRedoManager.undo_redo.commit_action()
 
 
 func save_to_file(file_path: String) -> void:
@@ -130,7 +132,7 @@ func load_from_file(file_path: String) -> void:
 	save_file_loaded.emit()
 
 
-func _create_board(at_index: int = -1, board: Board = Board.new()) -> void:
+func _add_board_undo_redo(at_index: int = -1, board: Board = Board.new()) -> void:
 	var old_index: int = _current_board_index
 
 	if at_index == -1 or _current_board_index == -1:
@@ -143,7 +145,7 @@ func _create_board(at_index: int = -1, board: Board = Board.new()) -> void:
 	board_added.emit(_current_board_index, old_index)
 
 
-func _delete_current_board() -> void:
+func _remove_current_board_undo_redo() -> void:
 	var old_board_index: int = _current_board_index
 	boards.remove_at(_current_board_index)
 	
@@ -152,6 +154,19 @@ func _delete_current_board() -> void:
 	else:
 		_current_board_index = min(_current_board_index, boards.size() - 1)
 	board_removed.emit(old_board_index)
+
+
+func _move_current_board_undo_redo(to_index: int) -> void:
+	board_order_edit_queued.emit()
+	var moved_board: Board = boards.pop_at(_current_board_index)
+	if to_index >= boards.size():
+		boards.append(moved_board)
+		to_index = boards.size() - 1
+	else:
+		boards.insert(to_index, moved_board)
+	var old_index: int = _current_board_index
+	_current_board_index = to_index
+	board_moved.emit(_current_board_index, old_index)
 
 
 func _on_session_name_undo_redo() -> void:

@@ -18,6 +18,7 @@ func _ready() -> void:
 	SessionManager.session_name_changed.connect(_on_session_name_changed)
 	SessionManager.board_added.connect(_on_board_added)
 	SessionManager.board_removed.connect(_on_board_removed)
+	SessionManager.board_moved.connect(_on_board_moved)
 	SessionManager.save_file_loaded.connect(_on_save_file_loaded)
 	session_title_label.text = SessionManager.get_session_name()
 
@@ -70,18 +71,7 @@ func _drop_data_fw(at_position: Vector2, data: Variant) -> void:
 	if not item:
 		return
 
-	var section: int = board_list.get_drop_section_at_position(at_position)
-	if section < -1:
-		return
-
-	var is_dragging_up: bool = item.get_index() < board_list.get_selected().get_index()
-
-	if section == -1 or (section == 0 and is_dragging_up):
-		board_list.get_selected().move_before(item)
-	else:
-		board_list.get_selected().move_after(item)
-
-	SessionManager.move_current_board_to(board_list.get_selected().get_index())
+	SessionManager.move_current_board_to(item.get_index())
 
 
 func _initialize_context_menus() -> void:
@@ -129,6 +119,11 @@ func _add_board_item(title: String, index = -1) -> void:
 	board_list.set_selected(item, 0)
 
 
+func _update_item_name_from_board(board: SessionManager.Board) -> void:
+	var board_index: int = SessionManager.boards.find(board)
+	board_list.get_root().get_child(board_index).set_text(0, board.board_title)
+
+
 func _update_session_title() -> void:
 	session_title_edit.hide()
 	session_title_label.show()
@@ -148,6 +143,11 @@ func _on_board_removed(index: int) -> void:
 	var current_board_index: int = SessionManager.get_current_board_index()
 	if not current_board_index == -1:
 		board_list.set_selected(board_list.get_root().get_child(current_board_index), 0)
+
+
+func _on_board_moved(to_index: int, old_index: int) -> void:
+	board_list.get_root().remove_child(board_list.get_selected())
+	_add_board_item(SessionManager.get_current_board().board_title, to_index)
 
 
 func _on_session_name_changed(new_title: String) -> void:
@@ -175,7 +175,15 @@ func _on_tree_item_activated() -> void:
 
 func _on_tree_item_edited() -> void:
 	board_list.get_edited().set_editable(0, false)
-	SessionManager.get_current_board().board_title = board_list.get_edited().get_text(0)
+
+	UndoRedoManager.undo_redo.create_action("Rename board")
+	var board: SessionManager.Board = SessionManager.get_current_board()
+	var board_item: TreeItem = board_list.get_edited()
+	UndoRedoManager.undo_redo.add_do_property(board, "board_title", board_item.get_text(0))
+	UndoRedoManager.undo_redo.add_do_method(_update_item_name_from_board.bind(board))
+	UndoRedoManager.undo_redo.add_undo_property(board, "board_title", board.board_title)
+	UndoRedoManager.undo_redo.add_undo_method(_update_item_name_from_board.bind(board))
+	UndoRedoManager.undo_redo.commit_action()
 
 
 func _on_label_gui_input(event: InputEvent) -> void:

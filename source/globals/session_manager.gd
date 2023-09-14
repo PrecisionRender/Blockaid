@@ -50,12 +50,16 @@ func change_current_board(new_index: int) -> void:
 
 
 func add_board(at_index: int = -1, board: Board = Board.new()) -> void:
+	var old_index: int = _current_board_index
+
 	if at_index == -1 or _current_board_index == -1:
 		boards.append(board)
-		change_current_board(boards.size() - 1)
+		_current_board_index = boards.size() - 1
 	else:
 		boards.insert(at_index, board)
-		change_current_board(at_index)
+		_current_board_index = at_index
+
+	board_added.emit(_current_board_index, old_index)
 
 
 func remove_current_board() -> void:

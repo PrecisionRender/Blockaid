@@ -72,7 +72,10 @@ func _update_game_board(state: BoardState) -> void:
 
 
 func _on_board_added(index: int, old_index: int) -> void:
-	_save_current_board_state(old_index)
+	_update_editor_visibility()
+
+	if not old_index == -1:
+		_save_current_board_state(old_index)
 	_load_new_board()
 
 
@@ -80,7 +83,7 @@ func _on_current_board_changed(index: int, old_index: int) -> void:
 	_update_editor_visibility()
 
 	# Empty board list, return
-	if (index == -1):
+	if index == -1:
 		return
 
 	_save_current_board_state(old_index)

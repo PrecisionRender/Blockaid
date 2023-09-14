@@ -21,7 +21,7 @@ bg_color = Color(0.113725, 0.113725, 0.113725, 1)
 
 [sub_resource type="InputEventKey" id="InputEventKey_w0r7i"]
 device = -1
-ctrl_pressed = true
+command_or_control_autoremap = true
 keycode = 65
 
 [sub_resource type="Shortcut" id="Shortcut_nv8w1"]
@@ -29,7 +29,7 @@ events = [SubResource("InputEventKey_w0r7i")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_dbp26"]
 device = -1
-ctrl_pressed = true
+command_or_control_autoremap = true
 keycode = 79
 
 [sub_resource type="Shortcut" id="Shortcut_0famq"]

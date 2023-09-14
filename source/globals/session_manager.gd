@@ -104,14 +104,14 @@ func save_to_file(file_path: String) -> void:
 
 func load_from_file(file_path: String) -> void:
 	if !FileAccess.file_exists(file_path):
-		printerr("File path %s does not exist." % file_path)
+		push_error("File path %s does not exist." % file_path)
 		return
 
 	var save_file: FileAccess = FileAccess.open(file_path, FileAccess.READ)
 	var json = JSON.new()
 	var error: Error = json.parse(save_file.get_as_text())
 	if not error == OK:
-		printerr("Could not load file at %s" % file_path)
+		push_error("Could not load file at %s" % file_path)
 		return
 
 	var save_data: Dictionary = json.data
@@ -119,8 +119,8 @@ func load_from_file(file_path: String) -> void:
 	boards = []
 	for x in range(save_data["boards"].size()):
 		var board: Board = Board.new()
-		board.set_from_dictionary(save_data["boards"][x])
-		boards.append(board)
+		if board.set_from_dictionary(save_data["boards"][x]):
+			boards.append(board)
 
 	_current_board_index = 0 if boards.size() > 0 else -1
 	session_path = file_path

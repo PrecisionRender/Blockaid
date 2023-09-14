@@ -22,6 +22,15 @@ func _ready() -> void:
 	get_window().set_min_size(Vector2(960, 576))
 	_update_window_title(SessionManager.get_session_name())
 
+	var args: PackedStringArray = OS.get_cmdline_args()
+	for arg in args:
+		if !arg.is_absolute_path():
+			continue
+		if arg.get_extension() != "bbs":
+			OS.alert("Blockaid can't open files with extension .%s" % arg.get_extension())
+		SessionManager.load_from_file(arg)
+		break
+
 
 func save_window_state() -> void:
 	var window: Window = get_window()

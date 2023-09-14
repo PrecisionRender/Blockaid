@@ -214,7 +214,6 @@ func _on_save_menu_index_pressed(menu_item_index: int) -> void:
 
 
 func _on_board_menu_id_pressed(menu_item_id: int) -> void:
-	
 	match menu_item_id:
 		0:
 			if !SessionManager.get_current_board_index() == -1:

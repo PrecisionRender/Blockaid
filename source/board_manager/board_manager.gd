@@ -245,8 +245,8 @@ func _open_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -
 		return
 
 	var path: String = selected_paths[0]
-	if not path.ends_with(".bbs"):
-		path += ".bbs"
+	if not path.ends_with(Constants.FILE_EXTENSION):
+		path += Constants.FILE_EXTENSION
 	SessionManager.load_from_file(path)
 
 
@@ -255,6 +255,6 @@ func _save_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -
 		return
 
 	var path: String = selected_paths[0]
-	if not path.ends_with(".bbs"):
-		path += ".bbs"
+	if not path.ends_with(Constants.FILE_EXTENSION):
+		path += Constants.FILE_EXTENSION
 	SessionManager.save_to_file(path)

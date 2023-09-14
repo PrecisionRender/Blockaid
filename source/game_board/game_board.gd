@@ -1,6 +1,7 @@
 class_name GameBoard
 extends AspectRatioContainer
 
+
 const GRID_CELL: PackedScene = preload("res://source/game_board/mino/grid_cell.tscn")
 
 const PLAYFIELD_WIDTH: int = 10

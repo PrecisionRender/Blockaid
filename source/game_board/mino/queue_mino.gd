@@ -4,6 +4,7 @@ extends AspectRatioContainer
 
 const MINO: PackedScene = preload("res://source/game_board/mino/mino.tscn")
 
+
 var type: Constants.Minos = Constants.Minos.Z:
 	set(value):
 		type = value

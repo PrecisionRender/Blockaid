@@ -168,6 +168,7 @@ script = ExtResource("1_xl6wk")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="BoardManager" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -256,6 +257,12 @@ icon = ExtResource("7_2w41h")
 alignment = 0
 icon_alignment = 2
 
+[node name="SideMargin" type="Control" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.26
+
 [node name="BoardContainer" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -327,7 +334,7 @@ queue_size = 6
 [node name="EditPanel" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.25
+size_flags_stretch_ratio = 0.26
 focus_mode = 1
 script = ExtResource("4_awhx0")
 
@@ -558,12 +565,6 @@ middle_mouse_paste_enabled = false
 wrap_mode = 1
 caret_blink = true
 caret_multiple = false
-
-[node name="SideMargin" type="Control" parent="HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 1.25
 
 [connection signal="gui_input" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/SessionTitleLabel" to="HBoxContainer/BoardManager" method="_on_label_gui_input"]
 [connection signal="focus_exited" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/SessionTitleEdit" to="HBoxContainer/BoardManager" method="_on_line_edit_focus_exited"]

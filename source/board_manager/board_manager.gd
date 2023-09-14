@@ -25,6 +25,12 @@ func _ready() -> void:
 	_initialize_context_menus()
 
 
+func _shortcut_input(event: InputEvent) -> void:
+	if !event.is_pressed():
+		return
+	board_list_context_menu.activate_item_by_event(event)
+
+
 func _get_drag_data_fw(at_position: Vector2) -> Variant:
 	board_list.drop_mode_flags = board_list.DROP_MODE_INBETWEEN
 
@@ -83,66 +89,31 @@ func _initialize_context_menus() -> void:
 
 	save_button.get_popup().add_item("Save", 0, control_key | KEY_S)
 	save_button.get_popup().add_item("Save as...", 1, control_key | KEY_MASK_SHIFT | KEY_S)
+	save_button.get_popup().set_item_indent(0, 2)
+	save_button.get_popup().set_item_indent(1, 2)
 
-	save_button.get_popup().index_pressed.connect(_on_save_button_pressed)
+	save_button.get_popup().index_pressed.connect(_on_save_menu_index_pressed)
 
 	board_list_context_menu = PopupMenu.new()
 	board_list_context_menu.initial_position = Window.WINDOW_INITIAL_POSITION_ABSOLUTE
 
 	board_list_context_menu.min_size.x = 300
 
-	board_list_context_menu.add_item("Cut")
-	board_list_context_menu.add_item("Copy")
-	board_list_context_menu.add_item("Paste")
-	board_list_context_menu.add_separator()
-	board_list_context_menu.add_item("Rename")
-	board_list_context_menu.add_item("Delete")
+	board_list_context_menu.add_item("Cut", 0, control_key | KEY_X)
+	board_list_context_menu.add_item("Copy", 1, control_key | KEY_C)
+	board_list_context_menu.add_item("Paste", 2, control_key | KEY_V)
+	board_list_context_menu.add_separator("", 5)
+	board_list_context_menu.add_item("Rename", 3, KEY_F2)
+	board_list_context_menu.add_item("Delete", 4, KEY_DELETE)
 	board_list_context_menu.set_item_indent(0, 2)
 	board_list_context_menu.set_item_indent(1, 2)
 	board_list_context_menu.set_item_indent(2, 2)
 	board_list_context_menu.set_item_indent(4, 2)
 	board_list_context_menu.set_item_indent(5, 2)
 
-	board_list_context_menu.set_item_disabled(0, true)
-	board_list_context_menu.set_item_disabled(1, true)
-	board_list_context_menu.set_item_disabled(2, true)
-	board_list_context_menu.set_item_disabled(4, true)
-	board_list_context_menu.set_item_disabled(5, true)
-	board_list_context_menu.set_item_tooltip(0, "Not implemented yet")
-	board_list_context_menu.set_item_tooltip(1, "Not implemented yet")
-	board_list_context_menu.set_item_tooltip(2, "Not implemented yet")
-	board_list_context_menu.set_item_tooltip(4, "Not implemented yet")
-	board_list_context_menu.set_item_tooltip(5, "Not implemented yet")
-
-	var cut_event: InputEventKey = InputEventKey.new()
-	cut_event.keycode = KEY_X | KEY_MASK_CMD_OR_CTRL
-	var copy_event: InputEventKey = InputEventKey.new()
-	copy_event.keycode = KEY_C | KEY_MASK_CMD_OR_CTRL
-	var paste_event: InputEventKey = InputEventKey.new()
-	paste_event.keycode = KEY_V | KEY_MASK_CMD_OR_CTRL
-	var rename_event: InputEventKey = InputEventKey.new()
-	rename_event.keycode = KEY_F2
-	var delete_event: InputEventKey = InputEventKey.new()
-	delete_event.keycode = KEY_DELETE
-
-	var cut_shortcut = Shortcut.new()
-	cut_shortcut.events.append(cut_event)
-	var copy_shortcut = Shortcut.new()
-	copy_shortcut.events.append(copy_event)
-	var paste_shortcut = Shortcut.new()
-	paste_shortcut.events.append(paste_event)
-	var rename_shortcut = Shortcut.new()
-	rename_shortcut.events.append(rename_event)
-	var delete_shortcut = Shortcut.new()
-	delete_shortcut.events.append(delete_event)
-
-	board_list_context_menu.set_item_shortcut(0, cut_shortcut)
-	board_list_context_menu.set_item_shortcut(1, copy_shortcut)
-	board_list_context_menu.set_item_shortcut(2, paste_shortcut)
-	board_list_context_menu.set_item_shortcut(4, rename_shortcut)
-	board_list_context_menu.set_item_shortcut(5, delete_shortcut)
-
 	add_child(board_list_context_menu)
+	board_list_context_menu.id_pressed.connect(_on_board_menu_id_pressed)
+
 
 func _create_new_board(title: String = "New board") -> void:
 	var item = board_list.create_item(null, board_list.get_root().get_child_count())
@@ -161,13 +132,20 @@ func _update_session_title() -> void:
 	SessionManager.set_session_name(new_title)
 
 
+func _remove_current_board() -> void:
+	SessionManager.remove_current_board()
+	board_list.get_root().remove_child(board_list.get_selected())
+	if !SessionManager.get_current_board_index() == -1:
+		board_list.set_selected(board_list.get_root().get_child(SessionManager.get_current_board_index()), 0)
+
+
 func _on_session_name_changed(new_title: String) -> void:
 	session_title_label.text = new_title
 
 
 func _on_add_board_button_pressed() -> void:
 	_create_new_board()
-	SessionManager.create_new_board()
+	SessionManager.add_board()
 
 
 func _on_save_file_loaded() -> void:
@@ -179,7 +157,6 @@ func _on_save_file_loaded() -> void:
 	
 	if tree_root.get_child_count() > 0:
 		board_list.set_selected(tree_root.get_child(0), 0)
-		SessionManager.set_current_board_index(0)
 
 
 func _on_tree_item_activated() -> void:
@@ -211,7 +188,7 @@ func _on_line_edit_focus_exited() -> void:
 func _on_board_list_item_mouse_selected(position: Vector2, mouse_button_index: int) -> void:
 	if SessionManager.boards.size() - 1 < board_list.get_selected().get_index():
 		return
-	SessionManager.set_current_board_index(board_list.get_selected().get_index())
+	SessionManager.change_current_board(board_list.get_selected().get_index())
 
 	if mouse_button_index != MOUSE_BUTTON_MASK_RIGHT:
 		return
@@ -226,14 +203,40 @@ func _on_open_file_pressed() -> void:
 			DisplayServer.FILE_DIALOG_MODE_OPEN_FILE, file_extension, _open_dialogue_confirmed)
 
 
-func _on_save_button_pressed(button_menu_item_index: int) -> void:
-	if button_menu_item_index > 0 or !SessionManager.session_path.is_absolute_path():
+func _on_save_menu_index_pressed(menu_item_index: int) -> void:
+	if menu_item_index > 0 or !SessionManager.session_path.is_absolute_path():
 		var file_extension: PackedStringArray = PackedStringArray(["*" + Constants.FILE_EXTENSION])
 		DisplayServer.file_dialog_show("Save as...", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), 
 				SessionManager.get_session_name(), false, DisplayServer.FILE_DIALOG_MODE_SAVE_FILE, 
 				file_extension, _save_dialogue_confirmed)
 	else:
 		SessionManager.save_to_file(SessionManager.session_path)
+
+
+func _on_board_menu_id_pressed(menu_item_id: int) -> void:
+	
+	match menu_item_id:
+		0:
+			if !SessionManager.get_current_board_index() == -1:
+				var board_data: Dictionary = SessionManager.get_current_board().get_as_dictionary()
+				DisplayServer.clipboard_set(JSON.stringify(board_data, "", false))
+				_remove_current_board()
+		1:
+			if !SessionManager.get_current_board_index() == -1:
+				var board_data: Dictionary = SessionManager.get_current_board().get_as_dictionary()
+				DisplayServer.clipboard_set(JSON.stringify(board_data, "", false))
+		2:
+			var json: JSON = JSON.new()
+			json.parse(DisplayServer.clipboard_get())
+			var board: SessionManager.Board = SessionManager.Board.new()
+			board.set_from_dictionary(json.data)
+			SessionManager.add_board(-1, board)
+			_create_new_board(SessionManager.get_current_board().board_title)
+		3:
+			board_list.get_selected().set_editable(0, true)
+			board_list.edit_selected()
+		4:
+			_remove_current_board()
 
 
 func _open_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -> void:

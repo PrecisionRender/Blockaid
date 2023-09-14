@@ -2,7 +2,9 @@ extends Node
 
 
 signal session_name_changed(new_name: String)
-signal current_board_changed(current_board: int, old_board: int)
+signal current_board_changed(index: int, old_index: int)
+signal board_added(index: int, old_index: int)
+signal board_removed(index: int)
 signal board_order_edit_queued
 signal board_save_queued
 signal save_file_loaded
@@ -31,29 +33,39 @@ func set_session_name(new_name: String) -> void:
 	session_name_changed.emit(_session_name)
 
 
+func get_current_board() -> Board:
+	if _current_board_index < 0:
+		return null
+	return boards[_current_board_index]
+
+
 func get_current_board_index() -> int:
 	return _current_board_index
 
 
-func set_current_board_index(new_index: int) -> void:
+func change_current_board(new_index: int) -> void:
 	var old_board = _current_board_index
 	_current_board_index = new_index
 	current_board_changed.emit(new_index, old_board)
 
 
-func create_new_board(at_index: int = -1) -> void:
+func add_board(at_index: int = -1, board: Board = Board.new()) -> void:
 	if at_index == -1 or _current_board_index == -1:
-		boards.append(Board.new())
-		set_current_board_index(boards.size() - 1)
+		boards.append(board)
+		change_current_board(boards.size() - 1)
 	else:
-		boards.insert(at_index, Board.new())
-		set_current_board_index(at_index)
+		boards.insert(at_index, board)
+		change_current_board(at_index)
 
 
-func get_current_board() -> Board:
-	if _current_board_index < 0:
-		return null
-	return boards[_current_board_index]
+func remove_current_board() -> void:
+	var old_board_index: int = _current_board_index
+	boards.remove_at(_current_board_index)
+	if boards.is_empty():
+		_current_board_index = -1
+	else:
+		_current_board_index = min(_current_board_index, boards.size() - 1)
+	board_removed.emit(old_board_index)
 
 
 func move_current_board_to(to_idx: int) -> void:
@@ -107,15 +119,12 @@ func load_from_file(file_path: String) -> void:
 	boards = []
 	for x in range(save_data["boards"].size()):
 		var board: Board = Board.new()
-		board.board_title = save_data["boards"][x]["title"]
-		board.board_notes = save_data["boards"][x]["notes"]
-		board.initial_board_info.from_dictionary(save_data["boards"][x]["initial_board_info"])
-		board.solution_board_info.from_dictionary(save_data["boards"][x]["solution_board_info"])
-		board.alternate_solution_board_info.from_dictionary(save_data["boards"][x]["alternate_solution_board_info"])
+		board.set_from_dictionary(save_data["boards"][x])
 		boards.append(board)
 
 	_current_board_index = 0 if boards.size() > 0 else -1
 	session_path = file_path
+	SessionManager._current_board_index = 0
 	save_file_loaded.emit()
 
 
@@ -129,3 +138,19 @@ class Board:
 	var initial_board_info: BoardInfo = BoardInfo.new()
 	var solution_board_info: BoardInfo = BoardInfo.new()
 	var alternate_solution_board_info: BoardInfo = BoardInfo.new()
+
+	func get_as_dictionary() -> Dictionary:
+		return {
+			"title": board_title,
+			"notes": board_notes,
+			"initial_board_info": initial_board_info.to_dictionary(),
+			"solution_board_info": solution_board_info.to_dictionary(),
+			"alternate_solution_board_info": alternate_solution_board_info.to_dictionary()
+		}
+
+	func set_from_dictionary(dict: Dictionary) -> void:
+		board_title = dict["title"]
+		board_notes = dict["notes"]
+		initial_board_info.from_dictionary(dict["initial_board_info"])
+		solution_board_info.from_dictionary(dict["solution_board_info"])
+		alternate_solution_board_info.from_dictionary(dict["alternate_solution_board_info"])

@@ -30,8 +30,12 @@ var alternate_solution_board_info: BoardInfo = BoardInfo.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SessionManager.current_board_changed.connect(_on_current_board_changed)
+	SessionManager.board_added.connect(_on_board_added)
+	SessionManager.board_removed.connect(_on_board_removed)
 	SessionManager.board_order_edit_queued.connect(_save_current_board_state)
 	SessionManager.board_save_queued.connect(_save_current_board_state)
+	SessionManager.save_file_loaded.connect(_on_save_file_loaded)
+
 	edit_panel.screen_capture_requested.connect(_on_editor_screen_capture_requested)
 	edit_panel.brush_changed.connect(_on_brush_changed)
 	edit_panel.board_clear_requested.connect(_on_board_clear_requested)
@@ -64,6 +68,42 @@ func _update_game_board(state: BoardState) -> void:
 			pass
 
 
+func _on_board_added(index: int, old_index: int) -> void:
+	_save_current_board_state(old_index)
+	_load_new_board()
+
+
+func _on_current_board_changed(index: int, old_index: int) -> void:
+	_update_editor_visibility()
+
+	# Empty board list, return
+	if (index == -1):
+		return
+
+	_save_current_board_state(old_index)
+	_load_new_board()
+
+
+func _on_board_removed(index: int) -> void:
+	_update_editor_visibility()
+	if SessionManager.get_current_board_index() == -1:
+		return
+	_load_new_board()
+
+
+func _on_save_file_loaded() -> void:
+	_update_editor_visibility()
+	if SessionManager._current_board_index != -1:
+		_load_new_board()
+
+
+func _update_editor_visibility() -> void:
+	var index: int = SessionManager.get_current_board_index()
+	side_margin.visible = index == -1
+	$HBoxContainer/BoardContainer.visible = !index == -1
+	$HBoxContainer/EditPanel.visible = !index == -1
+
+
 func _save_current_board_state(board_idx: int = -1) -> void:
 	if (SessionManager.get_current_board_index() == -1):
 		return
@@ -84,18 +124,7 @@ func _save_current_board_state(board_idx: int = -1) -> void:
 			pass
 
 
-func _on_current_board_changed(_new_board: int, _old_board: int) -> void:
-	
-	side_margin.visible = _new_board == -1
-	$HBoxContainer/BoardContainer.visible = !_new_board == -1
-	$HBoxContainer/EditPanel.visible = !_new_board == -1
-
-	# Empty board list, return
-	if (_new_board == -1):
-		return
-
-	if _new_board != _old_board and _new_board != -1:
-		_save_current_board_state(_old_board)
+func _load_new_board() -> void:
 	var current_board: SessionManager.Board = SessionManager.get_current_board()
 	initial_board_info = current_board.initial_board_info
 	solution_board_info = current_board.solution_board_info

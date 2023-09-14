@@ -146,7 +146,7 @@ func _on_board_removed(index: int) -> void:
 
 
 func _on_board_moved(to_index: int, old_index: int) -> void:
-	board_list.get_root().remove_child(board_list.get_selected())
+	board_list.get_root().remove_child(board_list.get_root().get_child(old_index))
 	_add_board_item(SessionManager.get_current_board().board_title, to_index)
 
 

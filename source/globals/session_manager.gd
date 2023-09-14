@@ -73,8 +73,10 @@ func remove_current_board() -> void:
 func move_current_board_to(to_index: int) -> void:
 	UndoRedoManager.undo_redo.create_action("Move board")
 	var old_index: int = _current_board_index
-	UndoRedoManager.undo_redo.add_do_method(_move_current_board_undo_redo.bind(to_index))
-	UndoRedoManager.undo_redo.add_undo_method(_move_current_board_undo_redo.bind(old_index))
+	var current_board: Board = get_current_board()
+	UndoRedoManager.undo_redo.add_do_method(_move_board_undo_redo.bind(current_board, to_index))
+	UndoRedoManager.undo_redo.add_undo_method(_move_board_undo_redo.bind(current_board, 
+			boards.find(current_board)))
 	UndoRedoManager.undo_redo.commit_action()
 
 
@@ -156,17 +158,17 @@ func _remove_current_board_undo_redo() -> void:
 	board_removed.emit(old_board_index)
 
 
-func _move_current_board_undo_redo(to_index: int) -> void:
+func _move_board_undo_redo(board: Board, to_index: int) -> void:
 	board_order_edit_queued.emit()
-	var moved_board: Board = boards.pop_at(_current_board_index)
+	var board_index: int = boards.find(board)
+	var moved_board: Board = boards.pop_at(board_index)
 	if to_index >= boards.size():
 		boards.append(moved_board)
 		to_index = boards.size() - 1
 	else:
 		boards.insert(to_index, moved_board)
-	var old_index: int = _current_board_index
 	_current_board_index = to_index
-	board_moved.emit(_current_board_index, old_index)
+	board_moved.emit(_current_board_index, board_index)
 
 
 func _on_session_name_undo_redo() -> void:

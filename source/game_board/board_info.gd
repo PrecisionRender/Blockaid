@@ -37,6 +37,9 @@ func to_dictionary() -> Dictionary:
 
 
 func from_dictionary(dictionary: Dictionary) -> void:
+	if !dictionary.has_all(["hold_queue", "next_queue", "board", "solution_board_info"]):
+		return
+
 	hold_queue = dictionary["hold_queue"]
 	next_queue = dictionary["next_queue"]
 

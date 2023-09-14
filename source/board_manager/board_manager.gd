@@ -227,11 +227,13 @@ func _on_board_menu_id_pressed(menu_item_id: int) -> void:
 				DisplayServer.clipboard_set(JSON.stringify(board_data, "", false))
 		2:
 			var json: JSON = JSON.new()
-			json.parse(DisplayServer.clipboard_get())
+			var error: int = json.parse(DisplayServer.clipboard_get())
+			if error != OK:
+				return
 			var board: SessionManager.Board = SessionManager.Board.new()
-			board.set_from_dictionary(json.data)
-			SessionManager.add_board(-1, board)
-			_create_new_board(SessionManager.get_current_board().board_title)
+			if board.set_from_dictionary(json.data):
+				SessionManager.add_board(-1, board)
+				_create_new_board(SessionManager.get_current_board().board_title)
 		3:
 			board_list.get_selected().set_editable(0, true)
 			board_list.edit_selected()

@@ -148,9 +148,15 @@ class Board:
 			"alternate_solution_board_info": alternate_solution_board_info.to_dictionary()
 		}
 
-	func set_from_dictionary(dict: Dictionary) -> void:
+	func set_from_dictionary(dict: Dictionary) -> bool:
+		if !dict.has_all(["title", "notes", "initial_board_info", "solution_board_info", 
+				"alternate_solution_board_info"]):
+			return false
+
 		board_title = dict["title"]
 		board_notes = dict["notes"]
 		initial_board_info.from_dictionary(dict["initial_board_info"])
 		solution_board_info.from_dictionary(dict["solution_board_info"])
 		alternate_solution_board_info.from_dictionary(dict["alternate_solution_board_info"])
+
+		return true

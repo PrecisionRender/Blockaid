@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=22 format=3 uid="uid://cvuqe0agi44tm"]
+[gd_resource type="Theme" load_steps=23 format=3 uid="uid://cvuqe0agi44tm"]
 
 [ext_resource type="StyleBox" uid="uid://p1gqc67l5lb6" path="res://assets/gui/theme/focus.tres" id="1_u4nm6"]
 [ext_resource type="StyleBox" uid="uid://4o5m0weugbhk" path="res://assets/gui/theme/panel_style_box.tres" id="1_ym0q3"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dfsdg158gbtkx" path="res://assets/images/icons/check-circle.svg" id="14_3qhco"]
 [ext_resource type="StyleBox" uid="uid://dqxx5sixaleqw" path="res://assets/gui/theme/popup_menu/popup_menu_normal.tres" id="14_c3rxu"]
 [ext_resource type="Texture2D" uid="uid://c0itt00ktltec" path="res://assets/images/icons/circle.svg" id="15_go7wi"]
+[ext_resource type="FontFile" uid="uid://7an77hj7gs2c" path="res://assets/gui/fonts/roboto_mono/RobotoMono-Regular.ttf" id="18_6bkys"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6wdlw"]
 content_margin_left = 10.0
@@ -70,6 +71,7 @@ PopupMenu/styles/hover = ExtResource("2_13jcj")
 PopupMenu/styles/panel = ExtResource("14_c3rxu")
 PopupMenu/styles/panel_disabled = ExtResource("14_c3rxu")
 PopupMenu/styles/separator = SubResource("StyleBoxLine_a510o")
+RichTextLabel/fonts/mono_font = ExtResource("18_6bkys")
 TextEdit/colors/font_readonly_color = Color(0.87, 0.87, 0.87, 0.784314)
 TextEdit/styles/focus = ExtResource("9_aebub")
 TextEdit/styles/normal = ExtResource("8_h3rvb")

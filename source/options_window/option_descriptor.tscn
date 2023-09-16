@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://b667q3ky3yvpu"]
+
+[ext_resource type="Script" path="res://source/main/option_descriptor.gd" id="1_yiis2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_18tn6"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_stpog"]
+font_size = 12
+font_color = Color(0.772549, 0.772549, 0.772549, 1)
+
+[node name="OptionDescriptor" type="VBoxContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_yiis2")
+option_title = "Startup behavior"
+option_description = "Decide what happens when a new instance of Blockaid is opened."
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 2
+text = "Startup behavior"
+label_settings = SubResource("LabelSettings_18tn6")
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 2
+text = "Decide what happens when a new instance of Blockaid is opened."
+label_settings = SubResource("LabelSettings_stpog")
+autowrap_mode = 2

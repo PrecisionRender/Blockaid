@@ -1,0 +1,894 @@
+[gd_scene load_steps=10 format=3 uid="uid://baoj6704rew7g"]
+
+[ext_resource type="Script" path="res://source/options_window/options_window.gd" id="1_0dgp2"]
+[ext_resource type="Texture2D" uid="uid://ogwhs2wkn6y1" path="res://assets/images/icons/x.svg" id="2_rg3ch"]
+[ext_resource type="PackedScene" uid="uid://b667q3ky3yvpu" path="res://source/options_window/option_descriptor.tscn" id="3_fkmts"]
+[ext_resource type="StyleBox" uid="uid://dlcd0siiwrr1b" path="res://assets/gui/theme/text_edit/text_edit_normal.tres" id="4_leok3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvdvx"]
+bg_color = Color(0.152941, 0.152941, 0.152941, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.627451, 0.627451, 0.627451, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_5wvs4"]
+font_size = 18
+outline_size = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_stpog"]
+font_size = 12
+font_color = Color(0.772549, 0.772549, 0.772549, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_18tn6"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_070b4"]
+font_size = 14
+font_color = Color(0.772549, 0.772549, 0.772549, 1)
+
+[node name="OptionsWindow" type="Control" node_paths=PackedStringArray("startup_button", "skin_name_label", "choose_skn_button", "third_party_license_text")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0dgp2")
+startup_button = NodePath("")
+skin_name_label = NodePath("")
+choose_skn_button = NodePath("")
+third_party_license_text = NodePath("")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.247059)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftMargin" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopMargin" type="Control" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_lvdvx")
+
+[node name="CloseButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+icon = ExtResource("2_rg3ch")
+flat = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="CategoryMargin" type="Control" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Options" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Options" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options"]
+layout_mode = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_5wvs4")
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options"]
+layout_mode = 2
+
+[node name="StartupBehavior" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options"]
+layout_mode = 2
+
+[node name="OptionDescriptor" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/StartupBehavior" instance=ExtResource("3_fkmts")]
+layout_mode = 2
+
+[node name="StartupButton" type="OptionButton" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/StartupBehavior"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_vertical = 4
+item_count = 2
+selected = 0
+popup/item_0/text = "Create new session"
+popup/item_0/id = 0
+popup/item_1/text = "Open last session"
+popup/item_1/id = 1
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options"]
+layout_mode = 2
+
+[node name="CustomSkin" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options"]
+layout_mode = 2
+
+[node name="OptionDescriptor" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/CustomSkin" instance=ExtResource("3_fkmts")]
+layout_mode = 2
+option_title = "Custom skin"
+option_description = "Select a custom skin image. (Must be 270 x 30.)"
+
+[node name="SelectedSkin" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/CustomSkin"]
+layout_mode = 2
+text = "None (default)"
+label_settings = SubResource("LabelSettings_stpog")
+
+[node name="ChooseSkinButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/CustomSkin"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Select skin..."
+
+[node name="HSeparator3" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options"]
+layout_mode = 2
+
+[node name="CategoryMargin2" type="Control" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Development" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Development" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Development"]
+layout_mode = 2
+text = "Development"
+label_settings = SubResource("LabelSettings_5wvs4")
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Development"]
+layout_mode = 2
+
+[node name="ReportBug" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Development"]
+layout_mode = 2
+
+[node name="OptionDescriptor" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Development/ReportBug" instance=ExtResource("3_fkmts")]
+layout_mode = 2
+option_title = "Report a bug"
+option_description = "Find an issue? Report it so the developers can fix it."
+
+[node name="LinkButton" type="LinkButton" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Development/ReportBug"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Report on GitHub"
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Development"]
+layout_mode = 2
+
+[node name="SuggestFeature" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Development"]
+layout_mode = 2
+
+[node name="OptionDescriptor" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Development/SuggestFeature" instance=ExtResource("3_fkmts")]
+layout_mode = 2
+option_title = "Suggest a feature"
+option_description = "Do you have a suggestion for Blockaid? Let us know about it!"
+
+[node name="LinkButton" type="LinkButton" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Development/SuggestFeature"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Suggest on GitHub"
+
+[node name="HSeparator3" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Development"]
+layout_mode = 2
+
+[node name="CategoryMargin3" type="Control" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Credits" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Credits" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits"]
+layout_mode = 2
+text = "Credits"
+label_settings = SubResource("LabelSettings_5wvs4")
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits"]
+layout_mode = 2
+
+[node name="Author" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits"]
+layout_mode = 2
+
+[node name="AuthorTitle" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits/Author"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits/Author/AuthorTitle"]
+layout_mode = 2
+text = "PrecisionRender"
+label_settings = SubResource("LabelSettings_18tn6")
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits/Author/AuthorTitle"]
+layout_mode = 2
+text = "Author"
+label_settings = SubResource("LabelSettings_070b4")
+autowrap_mode = 2
+
+[node name="LinkButtons" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits/Author"]
+layout_mode = 2
+
+[node name="GitHub" type="LinkButton" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits/Author/LinkButtons"]
+layout_mode = 2
+text = "GitHub profile"
+uri = "https://github.com/PrecisionRender"
+
+[node name="TETRIO" type="LinkButton" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits/Author/LinkButtons"]
+layout_mode = 2
+text = "TETR.IO profile"
+uri = "https://ch.tetr.io/u/spectrix"
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits"]
+layout_mode = 2
+
+[node name="Testers" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="HBoxContainer" type="HFlowContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits/Testers"]
+layout_mode = 2
+theme_override_constants/h_separation = 30
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits/Testers/HBoxContainer"]
+layout_mode = 2
+text = "AbnormalPerson"
+label_settings = SubResource("LabelSettings_18tn6")
+
+[node name="Title2" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits/Testers/HBoxContainer"]
+layout_mode = 2
+text = "Tern_Aerikssen"
+label_settings = SubResource("LabelSettings_18tn6")
+
+[node name="Title3" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits/Testers/HBoxContainer"]
+layout_mode = 2
+text = "Zasiliss"
+label_settings = SubResource("LabelSettings_18tn6")
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits/Testers"]
+layout_mode = 2
+text = "Pre-release testers"
+label_settings = SubResource("LabelSettings_070b4")
+autowrap_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Credits"]
+layout_mode = 2
+
+[node name="CategoryMargin4" type="Control" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="License" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="License" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/License"]
+layout_mode = 2
+text = "License"
+label_settings = SubResource("LabelSettings_5wvs4")
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/License"]
+layout_mode = 2
+
+[node name="LicenseText" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/License"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/License/LicenseText"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Blockaid is available under the following license:"
+label_settings = SubResource("LabelSettings_070b4")
+autowrap_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/License/LicenseText"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/License/LicenseText/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("4_leok3")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/License/LicenseText/ScrollContainer/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/mono_font_size = 14
+bbcode_enabled = true
+text = "[code][center]
+Apache License
+Version 2.0, January 2004
+http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      \"License\" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      \"Licensor\" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      \"Legal Entity\" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      \"control\" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      \"You\" (or \"Your\") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      \"Source\" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      \"Object\" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      \"Work\" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      \"Derivative Works\" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      \"Contribution\" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, \"submitted\"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as \"Not a Contribution.\"
+
+      \"Contributor\" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a \"NOTICE\" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an \"AS IS\" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets \"[]\"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same \"printed page\" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright 2023 PrecisionRender
+
+   Licensed under the Apache License, Version 2.0 (the \"License\");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an \"AS IS\" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.[/center][/code]"
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/License"]
+layout_mode = 2
+
+[node name="CategoryMargin5" type="Control" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Third-party licenses" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Third-party licenses" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses"]
+layout_mode = 2
+text = "Third-party licenses"
+label_settings = SubResource("LabelSettings_5wvs4")
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses"]
+layout_mode = 2
+
+[node name="GodotLicense" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/GodotLicense"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Blockaid uses Godot Engine and its included components, available under the following licenses:"
+label_settings = SubResource("LabelSettings_070b4")
+autowrap_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/GodotLicense"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/GodotLicense/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("4_leok3")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/GodotLicense/ScrollContainer/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/mono_font_size = 14
+bbcode_enabled = true
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses"]
+layout_mode = 2
+
+[node name="FontLicense" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/FontLicense"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Blockaid uses the Roboto and Roboto Mono fonts, both available under the following license:"
+label_settings = SubResource("LabelSettings_070b4")
+autowrap_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/FontLicense"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/FontLicense/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("4_leok3")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/FontLicense/ScrollContainer/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/mono_font_size = 14
+bbcode_enabled = true
+text = "[center][code]
+Apache License
+http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      \"License\" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      \"Licensor\" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      \"Legal Entity\" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      \"control\" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      \"You\" (or \"Your\") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      \"Source\" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      \"Object\" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      \"Work\" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      \"Derivative Works\" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      \"Contribution\" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, \"submitted\"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as \"Not a Contribution.\"
+
+      \"Contributor\" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a \"NOTICE\" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an \"AS IS\" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets \"[]\"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same \"printed page\" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the \"License\");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an \"AS IS\" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.[/code][/center]"
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="HSeparator3" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses"]
+layout_mode = 2
+
+[node name="FeatherLicense" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/FeatherLicense"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Blockaid uses the Feather icon pack, available under the following license:"
+label_settings = SubResource("LabelSettings_070b4")
+autowrap_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/FeatherLicense"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/FeatherLicense/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("4_leok3")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/FeatherLicense/ScrollContainer/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/mono_font_size = 14
+bbcode_enabled = true
+text = "[center][code]The MIT License (MIT)
+
+Copyright (c) 2013-2023 Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.[/code][/center]"
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="HSeparator4" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses"]
+layout_mode = 2
+
+[node name="BottomMargin" type="Control" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="RightMargin" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/PanelContainer/CloseButton" to="." method="_on_close_button_pressed"]

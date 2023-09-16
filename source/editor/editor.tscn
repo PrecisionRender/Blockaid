@@ -250,9 +250,9 @@ scroll_horizontal_enabled = false
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="SettingsButton" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="OptionsButton" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-tooltip_text = "Settings"
+tooltip_text = "Options"
 icon = ExtResource("7_2w41h")
 alignment = 0
 icon_alignment = 2

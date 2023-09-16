@@ -33,6 +33,7 @@ func _refresh_cells() -> void:
 	var cell_count: int = mino_state.active_cells.size()
 
 	$AspectRatioContainer/GridContainer.columns = mino_state.grid_columns
+	@warning_ignore("integer_division")
 	$AspectRatioContainer.ratio = float(mino_state.grid_columns) / float(cell_count / mino_state.grid_columns)
 
 	for x in range(cell_count):
@@ -50,6 +51,7 @@ class QueueMinoState:
 	var grid_columns: int = 4
 	var active_cells: Array[int] = [0, 0, 0, 0, 0, 0, 0, 0]
 	
+	@warning_ignore("shadowed_variable")
 	func _init(grid_columns: int, active_cells: Array[int]) -> void:
 		self.grid_columns = grid_columns
 		self.active_cells = active_cells

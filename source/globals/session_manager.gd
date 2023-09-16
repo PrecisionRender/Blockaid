@@ -5,6 +5,7 @@ signal session_name_changed(new_name: String)
 signal current_board_changed(index: int, old_index: int)
 signal board_added(index: int, old_index: int)
 signal board_removed(index: int)
+signal board_info_changed
 signal board_order_edit_queued
 signal board_moved(to_index: int, old_index: int)
 signal board_save_queued
@@ -43,15 +44,33 @@ func set_board_info(board: Board, info_type: Constants.BoardState, info: BoardIn
 	if not boards.has(board):
 		return
 
+	UndoRedoManager.undo_redo.create_action("Edit board info")
+	var board_changed_signal: Signal = self.board_info_changed
+	var info_name: String = ""
+	var old_info: BoardInfo
+
 	match info_type:
 		Constants.BoardState.INITIAL:
-			board.initial_board_info = info
+			info_name = "initial_board_info"
+			old_info = board.initial_board_info
 		Constants.BoardState.SOLUTION:
-			board.solution_board_info = info
+			info_name = "solution_board_info"
+			old_info = board.solution_board_info
 		Constants.BoardState.ALTERNATE_SOLUTION:
-			board.alternate_solution_board_info = info
+			info_name = "alternate_solution_board_info"
+			old_info = board.alternate_solution_board_info
 		_:
 			pass
+	
+	UndoRedoManager.undo_redo.add_do_method(change_current_board.bind(board))
+	UndoRedoManager.undo_redo.add_do_property(board, info_name, info)
+	UndoRedoManager.undo_redo.add_do_method(func() -> void: board_changed_signal.emit())
+
+	UndoRedoManager.undo_redo.add_undo_method(change_current_board.bind(board))
+	UndoRedoManager.undo_redo.add_undo_property(board, info_name, old_info)
+	UndoRedoManager.undo_redo.add_undo_method(func() -> void: board_changed_signal.emit())
+
+	UndoRedoManager.undo_redo.commit_action()
 
 
 func get_current_board_index() -> int:
@@ -65,7 +84,7 @@ func change_current_board_index(new_index: int) -> void:
 
 
 func change_current_board(board: Board) -> void:
-	if not boards.has(board):
+	if not boards.has(board) or board == get_current_board():
 		return
 	var old_board = _current_board_index
 	_current_board_index = boards.find(board)
@@ -94,7 +113,6 @@ func remove_current_board() -> void:
 
 func move_current_board_to(to_index: int) -> void:
 	UndoRedoManager.undo_redo.create_action("Move board")
-	var old_index: int = _current_board_index
 	var current_board: Board = get_current_board()
 	UndoRedoManager.undo_redo.add_do_method(_move_board_undo_redo.bind(current_board, to_index))
 	UndoRedoManager.undo_redo.add_undo_method(_move_board_undo_redo.bind(current_board, 
@@ -198,32 +216,3 @@ func _move_board_undo_redo(board: Board, to_index: int) -> void:
 func _on_session_name_undo_redo() -> void:
 	session_name_changed.emit(_session_name)
 
-
-class Board:
-	var board_title: String = "New board"
-	var board_notes: String = ""
-	var initial_board_info: BoardInfo = BoardInfo.new()
-	var solution_board_info: BoardInfo = BoardInfo.new()
-	var alternate_solution_board_info: BoardInfo = BoardInfo.new()
-
-	func get_as_dictionary() -> Dictionary:
-		return {
-			"title": board_title,
-			"notes": board_notes,
-			"initial_board_info": initial_board_info.to_dictionary(),
-			"solution_board_info": solution_board_info.to_dictionary(),
-			"alternate_solution_board_info": alternate_solution_board_info.to_dictionary()
-		}
-
-	func set_from_dictionary(dict: Dictionary) -> bool:
-		if not dict.has_all(["title", "notes", "initial_board_info", "solution_board_info", 
-				"alternate_solution_board_info"]):
-			return false
-
-		board_title = dict["title"]
-		board_notes = dict["notes"]
-		initial_board_info.from_dictionary(dict["initial_board_info"])
-		solution_board_info.from_dictionary(dict["solution_board_info"])
-		alternate_solution_board_info.from_dictionary(dict["alternate_solution_board_info"])
-
-		return true

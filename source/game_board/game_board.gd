@@ -72,6 +72,7 @@ func convert_image_to_board(image: Image) -> void:
 	aspect_ratio = round(aspect_ratio)
 	aspect_ratio /= 10
 	var height: float = min(PLAYFIELD_WIDTH * aspect_ratio, PLAYFIELD_HEIGHT)
+	@warning_ignore("narrowing_conversion")
 	image.resize(PLAYFIELD_WIDTH, height, Image.INTERPOLATE_LANCZOS)
 
 	clear_board()
@@ -79,6 +80,7 @@ func convert_image_to_board(image: Image) -> void:
 	for y in range(height):
 		for x in range(PLAYFIELD_WIDTH):
 			var current_cell: GridCell = grid_cells[x][(PLAYFIELD_HEIGHT - 1) - y]
+			@warning_ignore("narrowing_conversion")
 			var current_pixel: Color = image.get_pixel(x, (height - 1) - y)
 
 			# Dark pixel, most likely empty
@@ -133,7 +135,6 @@ func _initialize_grid() -> void:
 		for x in range(PLAYFIELD_WIDTH):
 			var grid_cell: GridCell = GRID_CELL.instantiate()
 			grid_cell.id = x * 10 + y
-			grid_cell.cell_updated.connect(_on_cell_updated)
 			# Hide the top 2 rows of the grid
 			if y < PLAYFIELD_HEIGHT - 20:
 				grid_cell.hide_when_empty = true
@@ -142,7 +143,3 @@ func _initialize_grid() -> void:
 			if grid_cells.size() < x + 1:
 				grid_cells.append([])
 			grid_cells[x].append(grid_cell)
-
-
-func _on_cell_updated(id: int, type: Constants.Minos) -> void:
-	pass

@@ -4,7 +4,7 @@ extends Node
 
 var window_position: Vector2 = Vector2(0, 0)
 var window_size: Vector2 = Vector2(1366, 768)
-var window_mode: int = Window.MODE_WINDOWED
+var window_mode: Window.Mode = Window.MODE_WINDOWED
 
 var screen_texture: ImageTexture
 
@@ -60,7 +60,7 @@ func _update_window_title(is_saved: bool = false) -> void:
 	get_window().title = title
 
 
-func _on_session_name_changed(new_name: String) -> void:
+func _on_session_name_changed(_new_name: String) -> void:
 	_update_window_title()
 
 

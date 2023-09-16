@@ -40,7 +40,7 @@ func _shortcut_input(event: InputEvent) -> void:
 	board_list_context_menu.activate_item_by_event(event)
 
 
-func _get_drag_data_fw(at_position: Vector2) -> Variant:
+func _get_drag_data_fw(_at_position: Vector2) -> Variant:
 	board_list.drop_mode_flags = board_list.DROP_MODE_INBETWEEN
 
 	var preview: MarginContainer = MarginContainer.new()
@@ -57,7 +57,7 @@ func _get_drag_data_fw(at_position: Vector2) -> Variant:
 	return drag_data
 
 
-func _can_drop_data_fw(at_position: Vector2, data: Variant) -> bool:
+func _can_drop_data_fw(at_position: Vector2, _data: Variant) -> bool:
 	var tree_item: TreeItem = board_list.get_item_at_position(at_position)
 	if not tree_item:
 		return false
@@ -67,7 +67,7 @@ func _can_drop_data_fw(at_position: Vector2, data: Variant) -> bool:
 	return true
 
 
-func _drop_data_fw(at_position: Vector2, data: Variant) -> void:
+func _drop_data_fw(at_position: Vector2, _data: Variant) -> void:
 	board_list.drop_mode_flags = 0
 	
 	var item: TreeItem = board_list.get_item_at_position(at_position)
@@ -128,7 +128,7 @@ func _add_board_item(title: String, index = -1) -> void:
 	board_list.set_selected(item, 0)
 
 
-func _update_item_name_from_board(board: SessionManager.Board) -> void:
+func _update_item_name_from_board(board: Board) -> void:
 	var board_index: int = SessionManager.boards.find(board)
 	board_list.get_root().get_child(board_index).set_text(0, board.board_title)
 
@@ -142,11 +142,11 @@ func _update_session_title() -> void:
 	SessionManager.set_session_name(new_title)
 
 
-func _on_board_added(index: int, old_index: int) -> void:
+func _on_board_added(index: int, _old_index: int) -> void:
 	_add_board_item(SessionManager.get_current_board().board_title, index)
 
 
-func _on_board_removed(index: int) -> void:
+func _on_board_removed(_index: int) -> void:
 	board_list.get_root().remove_child(board_list.get_selected())
 
 	var current_board_index: int = SessionManager.get_current_board_index()
@@ -159,14 +159,14 @@ func _on_board_moved(to_index: int, old_index: int) -> void:
 	_add_board_item(SessionManager.get_current_board().board_title, to_index)
 
 
-func _on_current_board_changed(index: int, old_index: int) -> void:
+func _on_current_board_changed(index: int, _old_index: int) -> void:
 	if index == -1 or index == board_list.get_selected().get_index():
 		return
 	board_list.deselect_all()
 	board_list.set_selected(board_list.get_root().get_child(index), 0)
 
 
-func _on_session_name_changed(new_title: String) -> void:
+func _on_session_name_changed(_new_title: String) -> void:
 	_update_title_label()
 
 
@@ -193,7 +193,7 @@ func _on_tree_item_edited() -> void:
 	board_list.get_edited().set_editable(0, false)
 
 	UndoRedoManager.undo_redo.create_action("Rename board")
-	var board: SessionManager.Board = SessionManager.get_current_board()
+	var board: Board = SessionManager.get_current_board()
 	var board_item: TreeItem = board_list.get_edited()
 	UndoRedoManager.undo_redo.add_do_property(board, "board_title", board_item.get_text(0))
 	UndoRedoManager.undo_redo.add_do_method(_update_item_name_from_board.bind(board))
@@ -218,7 +218,7 @@ func _on_line_edit_text_submitted(_new_text: String) -> void:
 func _on_line_edit_focus_exited() -> void:
 	_update_session_title()
 
-
+@warning_ignore("shadowed_variable_base_class")
 func _on_board_list_item_mouse_selected(position: Vector2, mouse_button_index: int) -> void:
 	if SessionManager.boards.size() - 1 < board_list.get_selected().get_index():
 		return
@@ -264,7 +264,7 @@ func _on_board_menu_id_pressed(menu_item_id: int) -> void:
 			var error: int = json.parse(DisplayServer.clipboard_get())
 			if not error == OK:
 				return
-			var board: SessionManager.Board = SessionManager.Board.new()
+			var board: Board = Board.new()
 			if board.set_from_dictionary(json.data):
 				SessionManager.add_board(-1, board)
 		3:

@@ -25,6 +25,7 @@ func _ready() -> void:
 	SessionManager.current_board_changed.connect(_on_current_board_changed)
 	SessionManager.board_added.connect(_on_board_added)
 	SessionManager.board_removed.connect(_on_board_removed)
+	SessionManager.board_info_changed.connect(_load_board_info)
 	SessionManager.save_file_loaded.connect(_on_save_file_loaded)
 
 	game_board.board_edited.connect(_save_current_board_state)
@@ -48,7 +49,7 @@ func convert_image_to_board(image: Image) -> void:
 
 
 func _update_game_board(state: Constants.BoardState = current_board_state) -> void:
-	match current_board_state:
+	match state:
 		Constants.BoardState.INITIAL:
 			game_board.load_board(initial_board_info)
 		Constants.BoardState.SOLUTION:
@@ -59,9 +60,8 @@ func _update_game_board(state: Constants.BoardState = current_board_state) -> vo
 			pass
 
 
-func _on_board_added(index: int, old_index: int) -> void:
+func _on_board_added(_index: int, _old_index: int) -> void:
 	_update_editor_visibility()
-
 	_load_new_board()
 
 
@@ -78,7 +78,7 @@ func _on_current_board_changed(index: int, old_index: int) -> void:
 	_load_new_board()
 
 
-func _on_board_removed(index: int) -> void:
+func _on_board_removed(_index: int) -> void:
 	_update_editor_visibility()
 	if SessionManager.get_current_board_index() == -1:
 		return
@@ -98,46 +98,38 @@ func _update_editor_visibility() -> void:
 	$HBoxContainer/EditPanel.visible = not index == -1
 
 
-func _save_current_board_state(board_idx: int = -1) -> void:
+func _save_current_board_state(_board_index: int = -1) -> void:
 	if (SessionManager.get_current_board_index() == -1):
 		return
 
-	var board_to_save: SessionManager.Board = SessionManager.get_current_board()
-
-	UndoRedoManager.undo_redo.create_action("Edit board")
 	match current_board_state:
 		Constants.BoardState.INITIAL:
-			var old_board_info: BoardInfo = initial_board_info.duplicate()
-			UndoRedoManager.undo_redo.add_do_method(SessionManager.change_current_board.bind(board_to_save))
-			UndoRedoManager.undo_redo.add_do_method(test.bind(board_to_save))
-
-			UndoRedoManager.undo_redo.add_undo_method(SessionManager.change_current_board.bind(board_to_save))
-			UndoRedoManager.undo_redo.add_undo_method(SessionManager.set_board_info.bind(board_to_save,
-					Constants.BoardState.INITIAL, old_board_info))
-			print(initial_board_info.duplicate().board)
-			UndoRedoManager.undo_redo.add_undo_property(self, "initial_board_info", old_board_info)
-			UndoRedoManager.undo_redo.add_undo_method(_update_game_board)
+			game_board.save_board(initial_board_info)
+			SessionManager.set_board_info(SessionManager.get_current_board(), 
+					Constants.BoardState.INITIAL, initial_board_info)
 		Constants.BoardState.SOLUTION:
-			game_board.save_board(solution_board_info.duplicate())
-			board_to_save.solution_board_info = solution_board_info
+			game_board.save_board(solution_board_info)
+			SessionManager.set_board_info(SessionManager.get_current_board(), 
+					Constants.BoardState.SOLUTION, solution_board_info)
 		Constants.BoardState.ALTERNATE_SOLUTION:
 			game_board.save_board(alternate_solution_board_info)
-			board_to_save.alternate_solution_board_info = alternate_solution_board_info
+			SessionManager.set_board_info(SessionManager.get_current_board(), 
+					Constants.BoardState.ALTERNATE_SOLUTION, alternate_solution_board_info)
 		_:
 			pass
-	UndoRedoManager.undo_redo.commit_action()
 
-func test(board_to_save):
-	game_board.save_board(initial_board_info)
-	SessionManager.set_board_info.bind(board_to_save, Constants.BoardState.INITIAL, initial_board_info.duplicate())
 
 func _load_new_board() -> void:
-	var current_board: SessionManager.Board = SessionManager.get_current_board()
-	initial_board_info = current_board.initial_board_info
-	solution_board_info = current_board.solution_board_info
-	alternate_solution_board_info = current_board.alternate_solution_board_info
-	_update_game_board()
+	_load_board_info()
 	edit_panel.update_board_notes(SessionManager.get_current_board().board_notes)
+
+
+func _load_board_info() -> void:
+	var current_board: Board = SessionManager.get_current_board()
+	initial_board_info = current_board.initial_board_info.duplicate()
+	solution_board_info = current_board.solution_board_info.duplicate()
+	alternate_solution_board_info = current_board.alternate_solution_board_info.duplicate()
+	_update_game_board()
 
 
 func _on_mino_queue_edit_requested(queue_type: Constants.MinoQueues) -> void:
@@ -159,7 +151,7 @@ func _on_board_clear_requested() -> void:
 	game_board.clear_board()
 
 
-func _refresh_board_on_undo(board: SessionManager.Board) -> void:
+func _refresh_board_on_undo(board: Board) -> void:
 	if SessionManager.get_current_board() == board:
 		initial_board_info = SessionManager.get_current_board().initial_board_info
 		_update_game_board()
@@ -186,7 +178,7 @@ func _on_queue_input_dialogue_queue_sumbitted(queue: Constants.MinoQueues, types
 	game_board.update_mino_queue(queue, mino_queue)
 
 
-func _on_board_state_change_requested(state: int) -> void:
+func _on_board_state_change_requested(state: Constants.BoardState) -> void:
 	if state == current_board_state:
 		return
 

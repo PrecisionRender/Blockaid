@@ -1,4 +1,4 @@
-class_name BoardInfo
+class_name BoardInfo 
 extends Resource
 
 

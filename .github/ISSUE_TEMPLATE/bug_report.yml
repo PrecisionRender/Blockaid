@@ -1,0 +1,58 @@
+name: Bug report
+description: Report unintended behavior or problems in Blockaid
+labels: bug
+body:
+- type: checkboxes
+  attributes:
+    label: Checklist
+    description: Perform these required steps before filling out a bug report.
+    options:
+      - label: I have checked **[both open and closed issues](https://github.com/PrecisionRender/Blockaid/issues?q=is%3Aissue)** to ensure this is the first instance of this bug being reported.
+        required: true
+      - label: I am using the **latest release** version of Blockaid.
+        required: true
+      - label: I am not using a **custom build** or **fork** of Blockaid.
+        required: true
+      - label: I am sure that this a **bug**, not a feature suggestion.
+        required: true
+
+- type: input
+  attributes:
+    label: Blockaid version
+    description:
+      Specify the version of Blockaid you are using.
+    placeholder: 1.0.0.0
+  validations:
+    required: true
+
+- type: input
+  attributes:
+    label: System information
+    description: |
+      - OS version
+      - CPU model
+      - GPU model and driver version
+      - Memory size
+    placeholder: Windows 10 - Intel Core i7-10750H CPU @ 2.60GHz - NVIDIA GeForce RTX 2060 with Max-Q Design (536.67) - 16.0 GB RAM
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Bug description
+    description: 
+      Please breifly describe what the issue is, and what you expect the intended behavior should be. Pictures and videos can be attached.
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Steps to reproduce
+    description: |
+      List the steps that produce this bug.
+    placeholder: |
+      1. Click edit mode button
+      2. Draw on board
+      3. Save board
+  validations:
+    required: true

@@ -5,7 +5,7 @@ extends Control
 @export var startup_button: OptionButton
 @export_category("Skin")
 @export var skin_name_label: Label
-@export var choose_skn_button: Button
+@export var choose_skin_button: Button
 @export_category("Licenses")
 @export var third_party_license_text: RichTextLabel
 
@@ -24,11 +24,6 @@ func _ready() -> void:
 		third_party_license_text.newline()
 		third_party_license_text.newline()
 		third_party_license_text.newline()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func _on_close_button_pressed() -> void:

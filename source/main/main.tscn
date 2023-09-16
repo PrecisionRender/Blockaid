@@ -11,7 +11,6 @@ script = ExtResource("1_6c76s")
 [node name="Editor" parent="." instance=ExtResource("2_jyck0")]
 
 [node name="OptionsWindow" parent="." instance=ExtResource("4_epf5a")]
-visible = false
 
 [node name="ScreenCaptureTool" parent="." instance=ExtResource("3_cjlud")]
 visible = false

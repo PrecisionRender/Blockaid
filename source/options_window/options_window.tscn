@@ -32,7 +32,7 @@ font_size = 18
 font_size = 14
 font_color = Color(0.772549, 0.772549, 0.772549, 1)
 
-[node name="OptionsWindow" type="Control" node_paths=PackedStringArray("startup_button", "skin_name_label", "choose_skn_button", "third_party_license_text")]
+[node name="OptionsWindow" type="Control" node_paths=PackedStringArray("startup_button", "skin_name_label", "choose_skin_button", "third_party_license_text")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,10 +40,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0dgp2")
-startup_button = NodePath("")
-skin_name_label = NodePath("")
-choose_skn_button = NodePath("")
-third_party_license_text = NodePath("")
+startup_button = NodePath("HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/StartupBehavior/StartupButton")
+skin_name_label = NodePath("HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/CustomSkin/SelectedSkin")
+choose_skin_button = NodePath("HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/CustomSkin/ChooseSkinButton")
+third_party_license_text = NodePath("HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/GodotLicense/ScrollContainer/PanelContainer/RichTextLabel")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

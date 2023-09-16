@@ -3,6 +3,4 @@ A replay analysis, note-taker, and studying tool for block stacker games.
 
 ---
 
-Unfortunately, Blockaid depends on [a feature](https://github.com/godotengine/godot/pull/81621) not yet merged into Godot. 
-If you want to contribute to Blockaid, you'll have to build [this custom fork of Godot](https://github.com/PrecisionRender/godot/tree/fix-popup-menu-accelerators) 
-from source.
+If you want to look at an *actual* block stacker game I've built, check out [Tetracal](https://scratch.mit.edu/projects/821763803) on Scratch!

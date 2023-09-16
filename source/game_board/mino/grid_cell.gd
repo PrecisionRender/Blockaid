@@ -9,7 +9,7 @@ var id: int = -1
 
 var brush: Constants.Minos = Constants.Minos.GARBAGE
 var is_occupied: bool = false
-var is_editable: bool = true
+var is_editable: bool = false
 
 
 func change_brush(brush_type: Constants.Minos) -> void:

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://source/game_board/mino/grid_cell.gd" id="1_nhv0k"]
 
-[node name="GridCell" type="TextureRect" groups=["grid_cells"]]
+[node name="GridCell" type="TextureRect" groups=["playfield_grid"]]
 texture_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -17,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 action_mode = 0
 button_mask = 3
 keep_pressed_outside = true

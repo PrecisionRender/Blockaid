@@ -19,6 +19,7 @@ func _ready() -> void:
 	SessionManager.board_added.connect(_on_board_added)
 	SessionManager.board_removed.connect(_on_board_removed)
 	SessionManager.board_moved.connect(_on_board_moved)
+	SessionManager.current_board_changed.connect(_on_current_board_changed)
 	SessionManager.save_file_loaded.connect(_on_save_file_loaded)
 	UndoRedoManager.saved_state_changed.connect(_update_title_label)
 	session_title_label.text = SessionManager.get_session_name()
@@ -158,6 +159,13 @@ func _on_board_moved(to_index: int, old_index: int) -> void:
 	_add_board_item(SessionManager.get_current_board().board_title, to_index)
 
 
+func _on_current_board_changed(index: int, old_index: int) -> void:
+	if index == -1 or index == board_list.get_selected().get_index():
+		return
+	board_list.deselect_all()
+	board_list.set_selected(board_list.get_root().get_child(index), 0)
+
+
 func _on_session_name_changed(new_title: String) -> void:
 	_update_title_label()
 
@@ -214,7 +222,7 @@ func _on_line_edit_focus_exited() -> void:
 func _on_board_list_item_mouse_selected(position: Vector2, mouse_button_index: int) -> void:
 	if SessionManager.boards.size() - 1 < board_list.get_selected().get_index():
 		return
-	SessionManager.change_current_board(board_list.get_selected().get_index())
+	SessionManager.change_current_board_index(board_list.get_selected().get_index())
 
 	if not mouse_button_index == MOUSE_BUTTON_MASK_RIGHT:
 		return

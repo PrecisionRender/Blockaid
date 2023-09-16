@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func _shortcut_input(event: InputEvent) -> void:
-	if not event is InputEventKey or not event.is_pressed():
+	if not event is InputEventKey or not event.is_pressed() or event.is_echo():
 		return
 
 	if event.keycode == KEY_Y and event.is_command_or_control_pressed():

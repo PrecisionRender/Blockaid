@@ -39,14 +39,37 @@ func get_current_board() -> Board:
 	return boards[_current_board_index]
 
 
+func set_board_info(board: Board, info_type: Constants.BoardState, info: BoardInfo) -> void:
+	if not boards.has(board):
+		return
+
+	match info_type:
+		Constants.BoardState.INITIAL:
+			board.initial_board_info = info
+		Constants.BoardState.SOLUTION:
+			board.solution_board_info = info
+		Constants.BoardState.ALTERNATE_SOLUTION:
+			board.alternate_solution_board_info = info
+		_:
+			pass
+
+
 func get_current_board_index() -> int:
 	return _current_board_index
 
 
-func change_current_board(new_index: int) -> void:
+func change_current_board_index(new_index: int) -> void:
 	var old_board = _current_board_index
 	_current_board_index = new_index
 	current_board_changed.emit(new_index, old_board)
+
+
+func change_current_board(board: Board) -> void:
+	if not boards.has(board):
+		return
+	var old_board = _current_board_index
+	_current_board_index = boards.find(board)
+	current_board_changed.emit(_current_board_index, old_board)
 
 
 func add_board(at_index: int = -1, board: Board = Board.new()) -> void:

@@ -36,7 +36,7 @@ func update_board_notes(new_text: String) -> void:
 func _on_edit_mode_button_toggled(button_pressed: bool) -> void:
 	board_editor.visible = button_pressed
 	notes_edit.editable = button_pressed
-	get_tree().call_group("grid_cells", "set_editable", button_pressed)
+	get_tree().call_group("playfield_grid", "set_editable", button_pressed)
 
 
 func _on_brush_button_pressed(index: int) -> void:

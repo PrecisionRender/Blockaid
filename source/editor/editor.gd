@@ -5,18 +5,10 @@ extends PanelContainer
 signal screen_capture_requested
 
 
-enum BoardState
-{
-	INITIAL,
-	SOLUTION,
-	ALTERNATE_SOLUTION,
-}
-
-
 const QUEUE_INPUT_DIALOGUE: PackedScene = preload("res://source/editor/queue_input_dialogue.tscn")
 
 
-var current_board_state: BoardState = BoardState.INITIAL
+var current_board_state: Constants.BoardState = Constants.BoardState.INITIAL
 var initial_board_info: BoardInfo = BoardInfo.new()
 var solution_board_info: BoardInfo = BoardInfo.new()
 var alternate_solution_board_info: BoardInfo = BoardInfo.new()
@@ -33,11 +25,9 @@ func _ready() -> void:
 	SessionManager.current_board_changed.connect(_on_current_board_changed)
 	SessionManager.board_added.connect(_on_board_added)
 	SessionManager.board_removed.connect(_on_board_removed)
-	SessionManager.board_order_edit_queued.connect(_save_current_board_state)
-	SessionManager.board_save_queued.connect(_save_current_board_state)
 	SessionManager.save_file_loaded.connect(_on_save_file_loaded)
 
-	board_manager.board_cut_queued.connect(_save_current_board_state)
+	game_board.board_edited.connect(_save_current_board_state)
 
 	edit_panel.screen_capture_requested.connect(_on_editor_screen_capture_requested)
 	edit_panel.brush_changed.connect(_on_brush_changed)
@@ -50,22 +40,20 @@ func _ready() -> void:
 		side_margin.show()
 		$HBoxContainer/BoardContainer.hide()
 		$HBoxContainer/EditPanel.hide()
-	_update_game_board(current_board_state)
+	_update_game_board()
 
 
 func convert_image_to_board(image: Image) -> void:
 	game_board.convert_image_to_board(image)
 
 
-func _update_game_board(state: BoardState) -> void:
-	current_board_state = state
-
+func _update_game_board(state: Constants.BoardState = current_board_state) -> void:
 	match current_board_state:
-		BoardState.INITIAL:
+		Constants.BoardState.INITIAL:
 			game_board.load_board(initial_board_info)
-		BoardState.SOLUTION:
+		Constants.BoardState.SOLUTION:
 			game_board.load_board(solution_board_info)
-		BoardState.ALTERNATE_SOLUTION:
+		Constants.BoardState.ALTERNATE_SOLUTION:
 			game_board.load_board(alternate_solution_board_info)
 		_:
 			pass
@@ -74,19 +62,19 @@ func _update_game_board(state: BoardState) -> void:
 func _on_board_added(index: int, old_index: int) -> void:
 	_update_editor_visibility()
 
-	if not old_index == -1:
-		_save_current_board_state(old_index)
 	_load_new_board()
 
 
 func _on_current_board_changed(index: int, old_index: int) -> void:
+	if index == old_index:
+		return
+
 	_update_editor_visibility()
 
 	# Empty board list, return
 	if index == -1:
 		return
 
-	_save_current_board_state(old_index)
 	_load_new_board()
 
 
@@ -114,28 +102,41 @@ func _save_current_board_state(board_idx: int = -1) -> void:
 	if (SessionManager.get_current_board_index() == -1):
 		return
 
-	var board_to_save: int = board_idx if board_idx >= 0 else SessionManager.get_current_board_index()
+	var board_to_save: SessionManager.Board = SessionManager.get_current_board()
 
+	UndoRedoManager.undo_redo.create_action("Edit board")
 	match current_board_state:
-		BoardState.INITIAL:
-			game_board.save_board(initial_board_info)
-			SessionManager.boards[board_to_save].initial_board_info = initial_board_info
-		BoardState.SOLUTION:
-			game_board.save_board(solution_board_info)
-			SessionManager.boards[board_to_save].solution_board_info = solution_board_info
-		BoardState.ALTERNATE_SOLUTION:
+		Constants.BoardState.INITIAL:
+			var old_board_info: BoardInfo = initial_board_info.duplicate()
+			UndoRedoManager.undo_redo.add_do_method(SessionManager.change_current_board.bind(board_to_save))
+			UndoRedoManager.undo_redo.add_do_method(test.bind(board_to_save))
+
+			UndoRedoManager.undo_redo.add_undo_method(SessionManager.change_current_board.bind(board_to_save))
+			UndoRedoManager.undo_redo.add_undo_method(SessionManager.set_board_info.bind(board_to_save,
+					Constants.BoardState.INITIAL, old_board_info))
+			print(initial_board_info.duplicate().board)
+			UndoRedoManager.undo_redo.add_undo_property(self, "initial_board_info", old_board_info)
+			UndoRedoManager.undo_redo.add_undo_method(_update_game_board)
+		Constants.BoardState.SOLUTION:
+			game_board.save_board(solution_board_info.duplicate())
+			board_to_save.solution_board_info = solution_board_info
+		Constants.BoardState.ALTERNATE_SOLUTION:
 			game_board.save_board(alternate_solution_board_info)
-			SessionManager.boards[board_to_save].alternate_solution_board_info = alternate_solution_board_info
+			board_to_save.alternate_solution_board_info = alternate_solution_board_info
 		_:
 			pass
+	UndoRedoManager.undo_redo.commit_action()
 
+func test(board_to_save):
+	game_board.save_board(initial_board_info)
+	SessionManager.set_board_info.bind(board_to_save, Constants.BoardState.INITIAL, initial_board_info.duplicate())
 
 func _load_new_board() -> void:
 	var current_board: SessionManager.Board = SessionManager.get_current_board()
 	initial_board_info = current_board.initial_board_info
 	solution_board_info = current_board.solution_board_info
 	alternate_solution_board_info = current_board.alternate_solution_board_info
-	_update_game_board(current_board_state)
+	_update_game_board()
 	edit_panel.update_board_notes(SessionManager.get_current_board().board_notes)
 
 
@@ -151,11 +152,17 @@ func _on_editor_screen_capture_requested() -> void:
 
 
 func _on_brush_changed(type: Constants.Minos) -> void:
-	get_tree().call_group("grid_cells", "change_brush", type)
+	get_tree().call_group("playfield_grid", "change_brush", type)
 
 
 func _on_board_clear_requested() -> void:
 	game_board.clear_board()
+
+
+func _refresh_board_on_undo(board: SessionManager.Board) -> void:
+	if SessionManager.get_current_board() == board:
+		initial_board_info = SessionManager.get_current_board().initial_board_info
+		_update_game_board()
 
 
 func _on_queue_input_dialogue_queue_sumbitted(queue: Constants.MinoQueues, types: String) -> void:
@@ -184,7 +191,8 @@ func _on_board_state_change_requested(state: int) -> void:
 		return
 
 	_save_current_board_state()
-	_update_game_board(state)
+	current_board_state = state
+	_update_game_board()
 
 
 func _on_board_notes_changed(new_text: String) -> void:

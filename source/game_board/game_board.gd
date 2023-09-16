@@ -2,6 +2,9 @@ class_name GameBoard
 extends AspectRatioContainer
 
 
+signal board_edited
+
+
 const GRID_CELL: PackedScene = preload("res://source/game_board/mino/grid_cell.tscn")
 
 const PLAYFIELD_WIDTH: int = 10
@@ -9,6 +12,7 @@ const PLAYFIELD_HEIGHT: int = 22
 
 
 var grid_cells: Array[Array] = []
+var _is_editable: bool = false
 
 
 @onready var playfield_grid: GridContainer = $HBoxContainer/Playfield/PlayfieldGrid
@@ -19,6 +23,18 @@ var grid_cells: Array[Array] = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_initialize_grid()
+
+
+func _on_playfield_grid_gui_input(event: InputEvent) -> void:
+	if not _is_editable:
+		return
+	if (event is InputEventMouseButton and event.is_released() and
+			(event.button_index == MOUSE_BUTTON_LEFT or event.button_index == MOUSE_BUTTON_RIGHT)):
+				board_edited.emit()
+
+
+func set_editable(is_editable: bool) -> void:
+	_is_editable = is_editable
 
 
 func clear_board() -> void:
@@ -103,8 +119,10 @@ func update_mino_queue(queue: Constants.MinoQueues, types: Array[Constants.Minos
 	match queue:
 		Constants.MinoQueues.HOLD:
 			hold_queue.update_mino_queue(types)
+			board_edited.emit()
 		Constants.MinoQueues.NEXT:
 			next_queue.update_mino_queue(types)
+			board_edited.emit()
 		_:
 			pass
 
@@ -124,10 +142,6 @@ func _initialize_grid() -> void:
 			if grid_cells.size() < x + 1:
 				grid_cells.append([])
 			grid_cells[x].append(grid_cell)
-
-
-func _is_value_between(value: float, a: float, b: float) -> bool:
-	return value >= a and value <= b
 
 
 func _on_cell_updated(id: int, type: Constants.Minos) -> void:

@@ -2,6 +2,9 @@ class_name MinoQueue
 extends PanelContainer
 
 
+signal queue_edited
+
+
 const QUEUE_MINO: PackedScene = preload("res://source/game_board/mino/queue_mino.tscn")
 
 
@@ -26,3 +29,4 @@ func update_mino_queue(types: Array) -> void:
 	assert(types.size() == queue_size, "Incorrect quantity of mino types supplied!")
 	for x in range(queue_size):
 		queue_minos[x].type = types[x]
+	queue_edited.emit()

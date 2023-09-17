@@ -3,7 +3,7 @@ A replay analysis, note-taker, and studying tool for block stacker games.
 
 ---
 
-Unfortunateyl, this project depends on [a bugfix](https://github.com/godotengine/godot/issues/81781) not yet merged in Godot. If you want to contribute to this project, you'll have to build [this custom fork of Godot](https://github.com/PrecisionRender/godot/tree/fix-windows-file-dialogue-file-seperators) from source.
+Unfortunately, this project depends on [a bugfix](https://github.com/godotengine/godot/issues/81781) not yet merged in Godot. If you want to contribute to this project, you'll have to build [this custom fork of Godot](https://github.com/PrecisionRender/godot/tree/fix-windows-file-dialogue-file-seperators) from source.
 
 ---
 

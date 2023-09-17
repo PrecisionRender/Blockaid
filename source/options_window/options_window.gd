@@ -1,3 +1,4 @@
+class_name OptionsWindow
 extends Control
 
 
@@ -12,6 +13,13 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Settings.settings_loaded.connect(_on_settings_loaded)
+	Settings.startup_behavior_changed.connect(_on_startup_behavior_changed)
+	Settings.skin_changed.connect(_on_skin_changed)
+
+	_update_skin_name_label()
+	startup_button.selected = Settings.startup_behavior
+
 	third_party_license_text.push_mono()
 	var licenses: Array = []
 
@@ -26,5 +34,59 @@ func _ready() -> void:
 		third_party_license_text.newline()
 
 
+func _update_skin_name_label() -> void:
+	var skin_name: String = Settings.custom_skin_path.get_file()
+	if skin_name.is_empty():
+		skin_name_label.text = "None (default)"
+		choose_skin_button.text = "Choose skin"
+	else:
+		skin_name_label.text = skin_name
+		choose_skin_button.text = "Remove skin"
+
+
+func _on_settings_loaded() -> void:
+	startup_button.selected = Settings.startup_behavior
+	_update_skin_name_label()
+
+
+func _on_startup_behavior_changed(new_behavior: Settings.StartupBehavior) -> void:
+	if startup_button.selected == new_behavior:
+		return
+	startup_button.selected = new_behavior
+
+
+func _on_skin_changed(_skin: Image) -> void:
+	_update_skin_name_label()
+
+
 func _on_close_button_pressed() -> void:
-	pass # Replace with function body.
+	hide()
+
+
+func _on_color_rect_gui_input(event: InputEvent) -> void:
+	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT 
+			and event.is_pressed()):
+		hide()
+
+
+@warning_ignore("int_as_enum_without_cast")
+func _on_startup_button_item_selected(index: int) -> void:
+	Settings.startup_behavior = index
+
+
+func _on_choose_skin_button_pressed() -> void:
+	if not Settings.custom_skin_path.is_empty():
+		Settings.custom_skin_path = ""
+		return
+
+	var file_extensions: Array[String] = [ "*.png,*.jpg,*.jpeg,*.bmp;All Supported files",
+			"*.png;PNG", "*.jpg,*.jpeg;JPEG", "*.bmp;BMP"]
+	DisplayServer.file_dialog_show("Select skin", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), "", 
+			false, DisplayServer.FILE_DIALOG_MODE_OPEN_FILE, file_extensions, 
+			_on_open_dialogue_confirmed)
+
+
+func _on_open_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -> void: 
+	if not status:
+		return
+	Settings.custom_skin_path = selected_paths[0]

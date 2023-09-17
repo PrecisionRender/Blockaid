@@ -42,7 +42,7 @@ grow_vertical = 2
 script = ExtResource("1_0dgp2")
 startup_button = NodePath("HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/StartupBehavior/StartupButton")
 skin_name_label = NodePath("HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/CustomSkin/SelectedSkin")
-choose_skin_button = NodePath("HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/CustomSkin/ChooseSkinButton")
+choose_skin_button = NodePath("HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/CustomSkin/ChangeSkinButton")
 third_party_license_text = NodePath("HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/GodotLicense/ScrollContainer/PanelContainer/RichTextLabel")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -61,33 +61,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="LeftMargin" type="Control" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="TopMargin" type="Control" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+mouse_filter = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_lvdvx")
-
-[node name="CloseButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-icon = ExtResource("2_rg3ch")
-flat = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
@@ -156,11 +153,11 @@ layout_mode = 2
 text = "None (default)"
 label_settings = SubResource("LabelSettings_stpog")
 
-[node name="ChooseSkinButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/CustomSkin"]
+[node name="ChangeSkinButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/CustomSkin"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 size_flags_vertical = 4
-text = "Select skin..."
+text = "Choose skin"
 
 [node name="HSeparator3" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options"]
 layout_mode = 2
@@ -193,6 +190,7 @@ option_description = "Find an issue? Report it so the developers can fix it."
 layout_mode = 2
 size_flags_vertical = 4
 text = "Report on GitHub"
+uri = "https://github.com/PrecisionRender/Blockaid/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml"
 
 [node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Development"]
 layout_mode = 2
@@ -209,6 +207,7 @@ option_description = "Do you have a suggestion for Blockaid? Let us know about i
 layout_mode = 2
 size_flags_vertical = 4
 text = "Suggest on GitHub"
+uri = "https://github.com/PrecisionRender/Blockaid/issues/new?assignees=&labels=suggestion&projects=&template=feature_suggestion.yml"
 
 [node name="HSeparator3" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Development"]
 layout_mode = 2
@@ -336,6 +335,7 @@ theme_override_styles/panel = ExtResource("4_leok3")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/License/LicenseText/ScrollContainer/PanelContainer"]
 layout_mode = 2
+mouse_force_pass_scroll_events = false
 theme_override_font_sizes/mono_font_size = 14
 bbcode_enabled = true
 text = "[code][center]
@@ -586,6 +586,7 @@ theme_override_styles/panel = ExtResource("4_leok3")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/GodotLicense/ScrollContainer/PanelContainer"]
 layout_mode = 2
+mouse_force_pass_scroll_events = false
 theme_override_font_sizes/mono_font_size = 14
 bbcode_enabled = true
 shortcut_keys_enabled = false
@@ -618,6 +619,7 @@ theme_override_styles/panel = ExtResource("4_leok3")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/FontLicense/ScrollContainer/PanelContainer"]
 layout_mode = 2
+mouse_force_pass_scroll_events = false
 theme_override_font_sizes/mono_font_size = 14
 bbcode_enabled = true
 text = "[center][code]
@@ -851,6 +853,7 @@ theme_override_styles/panel = ExtResource("4_leok3")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses/FeatherLicense/ScrollContainer/PanelContainer"]
 layout_mode = 2
+mouse_force_pass_scroll_events = false
 theme_override_font_sizes/mono_font_size = 14
 bbcode_enabled = true
 text = "[center][code]The MIT License (MIT)
@@ -881,14 +884,26 @@ drag_and_drop_selection_enabled = false
 [node name="HSeparator4" type="HSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Third-party licenses"]
 layout_mode = 2
 
+[node name="CloseButton" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+icon = ExtResource("2_rg3ch")
+flat = true
+
 [node name="BottomMargin" type="Control" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+mouse_filter = 2
 
 [node name="RightMargin" type="Control" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
+mouse_filter = 2
 
+[connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/StartupBehavior/StartupButton" to="." method="_on_startup_button_item_selected"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/Options/CustomSkin/ChangeSkinButton" to="." method="_on_choose_skin_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/PanelContainer/CloseButton" to="." method="_on_close_button_pressed"]

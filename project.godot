@@ -11,6 +11,8 @@ config_version=5
 [application]
 
 config/name="Blockaid"
+config/description="Blockaid: A replay analysis, note-taker, and studying tool for block stacker games."
+config/version="1.0.0"
 run/main_scene="res://source/main/main.tscn"
 config/use_custom_user_dir=true
 config/features=PackedStringArray("4.2", "Mobile")

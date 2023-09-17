@@ -2,6 +2,7 @@ class_name Editor
 extends PanelContainer
 
 
+signal open_options_requested
 signal screen_capture_requested
 
 
@@ -27,6 +28,8 @@ func _ready() -> void:
 	SessionManager.board_removed.connect(_on_board_removed)
 	SessionManager.board_info_changed.connect(_load_board_info)
 	SessionManager.save_file_loaded.connect(_on_save_file_loaded)
+
+	board_manager.open_options_requested.connect(_on_open_options_requested)
 
 	game_board.board_edited.connect(_save_current_board_state)
 
@@ -189,3 +192,7 @@ func _on_board_state_change_requested(state: Constants.BoardState) -> void:
 
 func _on_board_notes_changed(new_text: String) -> void:
 	SessionManager.get_current_board().board_notes = new_text
+
+
+func _on_open_options_requested() -> void:
+	open_options_requested.emit()

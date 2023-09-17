@@ -1,14 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://crfedg2jxu4tl"]
+[gd_scene load_steps=3 format=3 uid="uid://crfedg2jxu4tl"]
 
-[ext_resource type="Script" path="res://source/game_board/game_board.gd" id="1_galjm"]
+[ext_resource type="Script" path="res://source/game_board/game_board.gd" id="1_jynvf"]
+[ext_resource type="PackedScene" uid="uid://d0snh5yocg5hr" path="res://source/game_board/mino_queue.tscn" id="2_r6lf6"]
 
-[node name="GameBoard" type="AspectRatioContainer"]
-offset_right = 8.0
+[node name="GameBoard" type="AspectRatioContainer" groups=["playfield_grid"]]
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 ratio = 0.9
-stretch_mode = 1
-script = ExtResource("1_galjm")
+script = ExtResource("1_jynvf")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -29,9 +28,9 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment_vertical = 0
 
-[node name="Panel" type="Panel" parent="HBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer"]
+[node name="HoldQueue" parent="HBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer" instance=ExtResource("2_r6lf6")]
 layout_mode = 2
-size_flags_vertical = 3
+focus_mode = 1
 
 [node name="Playfield" type="AspectRatioContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -57,9 +56,12 @@ size_flags_stretch_ratio = 0.4
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-ratio = 0.333
+ratio = 0.25
 alignment_vertical = 0
 
-[node name="Panel" type="Panel" parent="HBoxContainer/VBoxContainer/AspectRatioContainer"]
+[node name="NextQueue" parent="HBoxContainer/VBoxContainer/AspectRatioContainer" instance=ExtResource("2_r6lf6")]
 layout_mode = 2
-size_flags_vertical = 3
+focus_mode = 1
+queue_size = 6
+
+[connection signal="gui_input" from="HBoxContainer/Playfield/PlayfieldGrid" to="." method="_on_playfield_grid_gui_input"]

@@ -1,16 +1,15 @@
-[gd_scene load_steps=48 format=3 uid="uid://cvumy8oxxhyeu"]
+[gd_scene load_steps=47 format=3 uid="uid://cvumy8oxxhyeu"]
 
 [ext_resource type="Script" path="res://source/editor/editor.gd" id="1_xl6wk"]
-[ext_resource type="Script" path="res://source/game_board/game_board.gd" id="2_6r8gu"]
 [ext_resource type="Script" path="res://source/board_manager/board_manager.gd" id="2_msfw6"]
 [ext_resource type="FontFile" uid="uid://wxcifpkw68ul" path="res://assets/gui/fonts/roboto/ROBOTO-BOLD.TTF" id="3_a2hql"]
-[ext_resource type="PackedScene" uid="uid://d0snh5yocg5hr" path="res://source/game_board/mino_queue.tscn" id="3_wpwhj"]
 [ext_resource type="Texture2D" uid="uid://c6xujbsy6647c" path="res://assets/images/icons/edit.svg" id="4_86qqq"]
 [ext_resource type="Script" path="res://source/edit_panel/edit_panel.gd" id="4_awhx0"]
 [ext_resource type="Texture2D" uid="uid://ch0oy3vaw3nr3" path="res://assets/images/icons/plus-square.svg" id="4_i38qm"]
 [ext_resource type="Texture2D" uid="uid://gtqbvj5jj5vi" path="res://assets/images/icons/save.svg" id="5_c666q"]
 [ext_resource type="Texture2D" uid="uid://c7q0570jykohd" path="res://assets/images/icons/folder.svg" id="6_j6b8h"]
 [ext_resource type="Texture2D" uid="uid://bfago1xqpsify" path="res://assets/images/icons/settings.svg" id="7_2w41h"]
+[ext_resource type="PackedScene" uid="uid://crfedg2jxu4tl" path="res://source/game_board/game_board.tscn" id="8_h4ux7"]
 [ext_resource type="Texture2D" uid="uid://3jl1750g3ygm" path="res://assets/images/icons/maximize.svg" id="10_nnygt"]
 [ext_resource type="Texture2D" uid="uid://bbkftdsjdnut4" path="res://assets/images/icons/toggle-right.svg" id="11_myc1d"]
 [ext_resource type="Texture2D" uid="uid://dglhhbuuminyq" path="res://assets/images/icons/trash-2.svg" id="11_t37f3"]
@@ -269,67 +268,8 @@ size_flags_horizontal = 3
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="GameBoard" type="AspectRatioContainer" parent="HBoxContainer/BoardContainer" groups=["playfield_grid"]]
+[node name="GameBoard" parent="HBoxContainer/BoardContainer" instance=ExtResource("8_h4ux7")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
-ratio = 0.9
-script = ExtResource("2_6r8gu")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/BoardContainer/GameBoard"]
-layout_mode = 2
-alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.4
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment_vertical = 0
-
-[node name="HoldQueue" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer" instance=ExtResource("3_wpwhj")]
-layout_mode = 2
-focus_mode = 1
-
-[node name="Playfield" type="AspectRatioContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-ratio = 0.4545
-alignment_vertical = 0
-
-[node name="BackgroundColor" type="ColorRect" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/Playfield"]
-layout_mode = 2
-color = Color(0.243137, 0.243137, 0.243137, 1)
-
-[node name="PlayfieldGrid" type="GridContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/Playfield"]
-layout_mode = 2
-theme_override_constants/h_separation = 1
-theme_override_constants/v_separation = 1
-columns = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.4
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-ratio = 0.25
-alignment_vertical = 0
-
-[node name="NextQueue" parent="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/VBoxContainer/AspectRatioContainer" instance=ExtResource("3_wpwhj")]
-layout_mode = 2
-focus_mode = 1
-queue_size = 6
 
 [node name="EditPanel" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -574,7 +514,7 @@ caret_multiple = false
 [connection signal="item_activated" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_tree_item_activated"]
 [connection signal="item_edited" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_tree_item_edited"]
 [connection signal="item_mouse_selected" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_board_list_item_mouse_selected"]
-[connection signal="gui_input" from="HBoxContainer/BoardContainer/GameBoard/HBoxContainer/Playfield/PlayfieldGrid" to="HBoxContainer/BoardContainer/GameBoard" method="_on_playfield_grid_gui_input"]
+[connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/HBoxContainer/OptionsButton" to="HBoxContainer/BoardManager" method="_on_options_button_pressed"]
 [connection signal="toggled" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/EditModeButton" to="HBoxContainer/EditPanel" method="_on_edit_mode_button_toggled"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ScreenCaptureButton" to="HBoxContainer/EditPanel" method="_on_screen_capture_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ClearBoardButton" to="HBoxContainer/EditPanel" method="_on_clear_board_button_pressed"]

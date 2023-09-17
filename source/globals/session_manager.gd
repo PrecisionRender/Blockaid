@@ -18,6 +18,11 @@ var _session_name: String = "Untitled"
 var _current_board_index: int = -1
 
 
+func load_from_last_session() -> void:
+	if Settings.startup_behavior == Settings.StartupBehavior.LOAD_LAST_SESSION:
+		load_from_file(Settings.last_opened_session)
+
+
 func get_session_name() -> String:
 	return _session_name
 
@@ -146,9 +151,13 @@ func save_to_file(file_path: String) -> void:
 	save_file.store_line(JSON.stringify(save_data, "", false))
 	session_path = file_path
 	UndoRedoManager.save_version = UndoRedoManager.undo_redo.get_version()
+	Settings.last_opened_session = file_path
 
 
 func load_from_file(file_path: String) -> void:
+	if file_path.is_empty():
+		return
+
 	if not FileAccess.file_exists(file_path):
 		push_error("File path %s does not exist." % file_path)
 		return
@@ -173,6 +182,7 @@ func load_from_file(file_path: String) -> void:
 	SessionManager._current_board_index = 0
 	UndoRedoManager.undo_redo.clear_history()
 	UndoRedoManager.save_version = UndoRedoManager.undo_redo.get_version()
+	Settings.last_opened_session = file_path
 	save_file_loaded.emit()
 
 

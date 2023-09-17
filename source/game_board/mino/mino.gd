@@ -21,6 +21,8 @@ var atlas_texture: AtlasTexture:
 
 
 func _ready() -> void:
+	Settings.skin_changed.connect(_on_skin_changed)
+
 	texture = atlas_texture
 	_update_texture()
 
@@ -36,6 +38,10 @@ func _update_texture() -> void:
 	atlas_texture.region.size = Vector2(cell_width, cell_width)
 
 	_update_texture_region()
+
+
+func _on_skin_changed(_skin: Image) -> void:
+	_update_texture()
 
 
 func _update_texture_region() -> void:

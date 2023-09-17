@@ -11,12 +11,14 @@ var screen_texture: ImageTexture
 
 @onready var editor: Editor = $Editor
 @onready var screen_capture_tool: ScreenCaptureTool = $ScreenCaptureTool
+@onready var options_window: OptionsWindow = $OptionsWindow 
 
 
 func _ready() -> void:
 	SessionManager.session_name_changed.connect(_on_session_name_changed)
 	UndoRedoManager.saved_state_changed.connect(_update_window_title)
 	editor.screen_capture_requested.connect(_on_screen_capture_requested)
+	editor.open_options_requested.connect(_on_open_options_requested)
 	screen_capture_tool.screen_captured.connect(_on_screen_captured)
 	screen_capture_tool.screen_capture_canceled.connect(_on_screen_capture_canceled)
 
@@ -53,7 +55,8 @@ func restore_window_state() -> void:
 	window.size = window_size
 
 
-func _update_window_title(is_saved: bool = false) -> void:
+func _update_window_title() -> void:
+	var is_saved: bool = UndoRedoManager.save_version == UndoRedoManager.undo_redo.get_version()
 	var title: String = "Blockaid - %s" % SessionManager.get_session_name()
 	if not is_saved:
 		title += "*"
@@ -79,3 +82,7 @@ func _on_screen_captured(result_image: Image) -> void:
 func _on_screen_capture_canceled() -> void:
 	restore_window_state()
 	editor.show()
+
+
+func _on_open_options_requested() -> void:
+	options_window.show()

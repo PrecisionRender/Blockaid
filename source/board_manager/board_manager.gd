@@ -3,6 +3,7 @@ extends PanelContainer
 
 
 signal board_cut_queued
+signal open_options_requested
 
 
 var board_list_context_menu: PopupMenu
@@ -32,6 +33,8 @@ func _ready() -> void:
 
 	_initialize_context_menus()
 	_update_title_label()
+
+	SessionManager.load_from_last_session()
 
 
 func _shortcut_input(event: InputEvent) -> void:
@@ -292,3 +295,7 @@ func _save_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -
 	if not path.ends_with(Constants.FILE_EXTENSION):
 		path += Constants.FILE_EXTENSION
 	SessionManager.save_to_file(path)
+
+
+func _on_options_button_pressed() -> void:
+	open_options_requested.emit()

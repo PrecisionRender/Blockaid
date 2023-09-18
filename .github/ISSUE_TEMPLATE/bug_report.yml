@@ -21,7 +21,7 @@ body:
     label: Blockaid version
     description:
       Specify the version of Blockaid you are using.
-    placeholder: 1.0.0.0
+    placeholder: 0.1a.0
   validations:
     required: true
 

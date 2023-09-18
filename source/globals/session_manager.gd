@@ -22,7 +22,9 @@ var _file_save_dialogue: ConfirmationDialog
 
 func _ready() -> void:
 	_initialize_file_save_dialogue()
-	get_viewport().size_changed.connect(func() -> void: _file_save_dialogue.popup_centered())
+	get_viewport().size_changed.connect(func() -> void:
+		if _file_save_dialogue.visible:
+			_file_save_dialogue.popup_centered())
 
 
 func load_from_last_session() -> void:

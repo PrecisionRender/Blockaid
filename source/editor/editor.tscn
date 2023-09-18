@@ -521,4 +521,5 @@ caret_multiple = false
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/EditHoldQueue" to="HBoxContainer/EditPanel" method="_on_edit_hold_queue_pressed"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/EditNextQueue" to="HBoxContainer/EditPanel" method="_on_edit_next_queue_pressed"]
 [connection signal="item_selected" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardStateMenu/BoardStateDropdown" to="HBoxContainer/EditPanel" method="_on_board_state_dropdown_item_selected"]
+[connection signal="focus_exited" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardStateMenu/NotesEdit" to="HBoxContainer/EditPanel" method="_on_notes_edit_focus_exited"]
 [connection signal="text_changed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardStateMenu/NotesEdit" to="HBoxContainer/EditPanel" method="_on_notes_edit_text_changed"]

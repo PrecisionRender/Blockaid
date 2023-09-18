@@ -191,6 +191,16 @@ func _on_board_state_change_requested(state: Constants.BoardState) -> void:
 
 
 func _on_board_notes_changed(new_text: String) -> void:
+	UndoRedoManager.undo_redo.create_action("Edit board notes")
+	var current_board: Board = SessionManager.get_current_board()
+	UndoRedoManager.undo_redo.add_do_method(SessionManager.change_current_board.bind(current_board))
+	UndoRedoManager.undo_redo.add_do_property(current_board, "board_notes", new_text)
+	UndoRedoManager.undo_redo.add_do_method(edit_panel.update_board_notes.bind(new_text))
+	UndoRedoManager.undo_redo.add_do_reference(current_board)
+	UndoRedoManager.undo_redo.add_undo_method(SessionManager.change_current_board.bind(current_board))
+	UndoRedoManager.undo_redo.add_undo_property(current_board, "board_notes", current_board.board_notes)
+	UndoRedoManager.undo_redo.add_undo_method(edit_panel.update_board_notes.bind(current_board.board_notes))
+	UndoRedoManager.undo_redo.commit_action(false)
 	SessionManager.get_current_board().board_notes = new_text
 
 

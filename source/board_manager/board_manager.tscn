@@ -1,0 +1,120 @@
+[gd_scene load_steps=11 format=3 uid="uid://qderush58gmd"]
+
+[ext_resource type="Script" path="res://source/board_manager/board_manager.gd" id="1_6sekc"]
+[ext_resource type="FontFile" uid="uid://wxcifpkw68ul" path="res://assets/gui/fonts/roboto/ROBOTO-BOLD.TTF" id="2_allh4"]
+[ext_resource type="Texture2D" uid="uid://ch0oy3vaw3nr3" path="res://assets/images/icons/plus-square.svg" id="3_b3sjs"]
+[ext_resource type="Texture2D" uid="uid://c7q0570jykohd" path="res://assets/images/icons/folder.svg" id="4_r0ctd"]
+[ext_resource type="Texture2D" uid="uid://gtqbvj5jj5vi" path="res://assets/images/icons/save.svg" id="5_dmcxf"]
+[ext_resource type="Texture2D" uid="uid://bfago1xqpsify" path="res://assets/images/icons/settings.svg" id="6_7jvfq"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_w0r7i"]
+device = -1
+command_or_control_autoremap = true
+keycode = 65
+
+[sub_resource type="Shortcut" id="Shortcut_nv8w1"]
+events = [SubResource("InputEventKey_w0r7i")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_dbp26"]
+device = -1
+command_or_control_autoremap = true
+keycode = 79
+
+[sub_resource type="Shortcut" id="Shortcut_0famq"]
+events = [SubResource("InputEventKey_dbp26")]
+
+[node name="BoardManager" type="PanelContainer"]
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+focus_mode = 1
+script = ExtResource("1_6sekc")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+theme_override_constants/separation = 15
+
+[node name="SessionTitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_allh4")
+text = "Untitled"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="SessionTitleEdit" type="LineEdit" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_allh4")
+text = "CZSmall TETR.IO Cup 15*"
+alignment = 1
+virtual_keyboard_enabled = false
+caret_blink = true
+
+[node name="ButtonBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddBoardButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonBar"]
+layout_mode = 2
+tooltip_text = "Add board"
+shortcut = SubResource("Shortcut_nv8w1")
+shortcut_feedback = false
+icon = ExtResource("3_b3sjs")
+icon_alignment = 1
+
+[node name="Margin" type="Control" parent="MarginContainer/VBoxContainer/ButtonBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OpenFile" type="Button" parent="MarginContainer/VBoxContainer/ButtonBar"]
+layout_mode = 2
+tooltip_text = "Open"
+shortcut = SubResource("Shortcut_0famq")
+shortcut_feedback = false
+icon = ExtResource("4_r0ctd")
+text_overrun_behavior = 3
+icon_alignment = 1
+
+[node name="SaveFile" type="MenuButton" parent="MarginContainer/VBoxContainer/ButtonBar"]
+layout_mode = 2
+tooltip_text = "Save..."
+icon = ExtResource("5_dmcxf")
+flat = false
+
+[node name="BoardList" type="Tree" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+allow_rmb_select = true
+allow_search = false
+hide_root = true
+scroll_horizontal_enabled = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Options"
+icon = ExtResource("6_7jvfq")
+alignment = 0
+icon_alignment = 2
+
+[connection signal="gui_input" from="MarginContainer/VBoxContainer/SessionTitleLabel" to="." method="_on_label_gui_input"]
+[connection signal="focus_exited" from="MarginContainer/VBoxContainer/SessionTitleEdit" to="." method="_on_line_edit_focus_exited"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/SessionTitleEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonBar/AddBoardButton" to="." method="_on_add_board_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonBar/OpenFile" to="." method="_on_open_file_pressed"]
+[connection signal="item_activated" from="MarginContainer/VBoxContainer/BoardList" to="." method="_on_tree_item_activated"]
+[connection signal="item_edited" from="MarginContainer/VBoxContainer/BoardList" to="." method="_on_tree_item_edited"]
+[connection signal="item_mouse_selected" from="MarginContainer/VBoxContainer/BoardList" to="." method="_on_board_list_item_mouse_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]

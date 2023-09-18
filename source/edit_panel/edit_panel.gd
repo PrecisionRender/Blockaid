@@ -13,6 +13,9 @@ signal board_notes_changed(new_text: String)
 const DEFAULT_BRUSH: Constants.Minos = Constants.Minos.GARBAGE
 
 
+var _is_notes_dirty = false
+
+
 @onready var board_editor: Control = $MarginContainer/VBoxContainer/BoardEditor
 @onready var edit_mode_button: CheckButton = $MarginContainer/VBoxContainer/EditModeButton
 @onready var notes_edit: TextEdit = $MarginContainer/VBoxContainer/BoardStateMenu/NotesEdit
@@ -64,4 +67,10 @@ func _on_board_state_dropdown_item_selected(index: int) -> void:
 
 
 func _on_notes_edit_text_changed() -> void:
-	board_notes_changed.emit(notes_edit.text)
+	_is_notes_dirty = true
+
+
+func _on_notes_edit_focus_exited() -> void:
+	if _is_notes_dirty:
+		board_notes_changed.emit(notes_edit.text)
+		_is_notes_dirty = false

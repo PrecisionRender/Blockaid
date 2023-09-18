@@ -152,6 +152,7 @@ func _on_brush_changed(type: Constants.Minos) -> void:
 
 func _on_board_clear_requested() -> void:
 	game_board.clear_board()
+	_save_current_board_state()
 
 
 func _refresh_board_on_undo(board: Board) -> void:

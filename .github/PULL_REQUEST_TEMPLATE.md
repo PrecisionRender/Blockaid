@@ -1,6 +1,6 @@
 ## Checklist
-- [ ] I have read and followed the project's contribution guidelines.
-- [ ] My code follows the project's coding style and conventions.
+- [ ] I have read and followed the project's [contribution guidelines](https://github.com/PrecisionRender/Blockaid#contributing).
+- [ ] My code follows the project's [coding style and conventions](https://github.com/PrecisionRender/Blockaid#coding-conventions).
 - [ ] I have tested my changes locally.
 - [ ] The code is ready for review.
 

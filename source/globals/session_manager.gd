@@ -149,7 +149,7 @@ func save_to_file(file_path: String) -> void:
 	if not file_path.is_absolute_path():
 		return
 
-	if not file_path.to_lower().ends_with(".bbs"):
+	if not file_path.get_extension() == "bbs":
 		file_path += ".bbs"
 
 	board_save_queued.emit()
@@ -181,7 +181,8 @@ func load_from_file(file_path: String) -> void:
 	if file_path.is_empty():
 		return
 
-	if not UndoRedoManager.undo_redo.get_version() == UndoRedoManager.save_version:
+	var undo_version: int = UndoRedoManager.undo_redo.get_version()
+	if not undo_version == UndoRedoManager.save_version and not undo_version == 1:
 		_show_unsaved_work_dialogue()
 		var should_continue_file_load = await _unsaved_work_dialogue_closed
 		if not should_continue_file_load:

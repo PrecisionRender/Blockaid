@@ -15,6 +15,7 @@ var screen_texture: ImageTexture
 
 
 func _ready() -> void:
+	get_window().files_dropped.connect(_on_files_dropped)
 	SessionManager.session_name_changed.connect(_on_session_name_changed)
 	UndoRedoManager.saved_state_changed.connect(_update_window_title)
 	editor.screen_capture_requested.connect(_on_screen_capture_requested)
@@ -53,6 +54,18 @@ func restore_window_state() -> void:
 		return
 	window.position = window_position
 	window.size = window_size
+
+
+func _on_files_dropped(files: PackedStringArray) -> void:
+	if files.size() > 1:
+		OS.alert("Blockaid doesn't support opening multiple files at once.")
+		return
+
+	if not files[0].get_extension() == "bbs":
+		OS.alert("Blockaid doesn't support file type .%s" % files[0].get_extension())
+		return
+
+	SessionManager.load_from_file(files[0])
 
 
 func _update_window_title() -> void:

@@ -27,6 +27,17 @@ func _ready() -> void:
 			_file_save_dialogue.popup_centered())
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		var undo_version: int = UndoRedoManager.undo_redo.get_version()
+		if not undo_version == UndoRedoManager.save_version and not undo_version == 1:
+			_show_unsaved_work_dialogue()
+			var should_continue_file_load = await _unsaved_work_dialogue_closed
+			if not should_continue_file_load:
+				return
+		get_tree().quit()
+
+
 func load_from_last_session() -> void:
 	if Settings.startup_behavior == Settings.StartupBehavior.LOAD_LAST_SESSION:
 		load_from_file(Settings.last_opened_session)
@@ -137,6 +148,9 @@ func move_current_board_to(to_index: int) -> void:
 func save_to_file(file_path: String) -> void:
 	if not file_path.is_absolute_path():
 		return
+
+	if not file_path.to_lower().ends_with(".bbs"):
+		file_path += ".bbs"
 
 	board_save_queued.emit()
 

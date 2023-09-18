@@ -15,6 +15,7 @@ config/description="Blockaid: A replay analysis, note-taker, and studying tool f
 config/version="0.1a.0"
 run/main_scene="res://source/main/main.tscn"
 config/use_custom_user_dir=true
+config/auto_accept_quit=false
 config/features=PackedStringArray("4.2", "Mobile")
 run/low_processor_mode=true
 boot_splash/bg_color=Color(0, 0, 0, 1)

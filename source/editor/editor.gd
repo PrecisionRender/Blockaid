@@ -107,14 +107,20 @@ func _save_current_board_state(_board_index: int = -1) -> void:
 
 	match current_board_state:
 		Constants.BoardState.INITIAL:
+			if game_board.is_similar(initial_board_info):
+				return
 			game_board.save_board(initial_board_info)
 			SessionManager.set_board_info(SessionManager.get_current_board(), 
 					Constants.BoardState.INITIAL, initial_board_info)
 		Constants.BoardState.SOLUTION:
+			if game_board.is_similar(solution_board_info):
+				return
 			game_board.save_board(solution_board_info)
 			SessionManager.set_board_info(SessionManager.get_current_board(), 
 					Constants.BoardState.SOLUTION, solution_board_info)
 		Constants.BoardState.ALTERNATE_SOLUTION:
+			if game_board.is_similar(alternate_solution_board_info):
+				return
 			game_board.save_board(alternate_solution_board_info)
 			SessionManager.set_board_info(SessionManager.get_current_board(), 
 					Constants.BoardState.ALTERNATE_SOLUTION, alternate_solution_board_info)

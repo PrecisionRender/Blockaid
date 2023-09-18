@@ -129,6 +129,14 @@ func update_mino_queue(queue: Constants.MinoQueues, types: Array[Constants.Minos
 			pass
 
 
+func is_similar(other: BoardInfo) -> bool:
+	var this_board: BoardInfo = BoardInfo.new()
+	save_board(this_board)
+
+	return (other.board == this_board.board and other.hold_queue == this_board.hold_queue
+			and other.next_queue == this_board.next_queue)
+
+
 func _initialize_grid() -> void:
 	grid_cells = []
 	for y in range(PLAYFIELD_HEIGHT):

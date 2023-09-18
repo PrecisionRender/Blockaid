@@ -1,30 +1,43 @@
-[gd_scene load_steps=27 format=3 uid="uid://civnu80bpedr0"]
+[gd_scene load_steps=34 format=3 uid="uid://civnu80bpedr0"]
 
-[ext_resource type="Script" path="res://source/edit_panel/edit_panel.gd" id="1_bkeeq"]
-[ext_resource type="ButtonGroup" uid="uid://cy78cc7jkv7k1" path="res://source/edit_panel/color_palette_button_group.tres" id="1_mtiji"]
+[ext_resource type="Script" path="res://source/edit_panel/edit_panel.gd" id="1_qlbky"]
+[ext_resource type="Texture2D" uid="uid://bbkftdsjdnut4" path="res://assets/images/icons/toggle-right.svg" id="2_j6fpe"]
+[ext_resource type="Texture2D" uid="uid://d0fs08vvskov" path="res://assets/images/icons/toggle-left.svg" id="3_imbcn"]
+[ext_resource type="Texture2D" uid="uid://3jl1750g3ygm" path="res://assets/images/icons/maximize.svg" id="4_whnr0"]
+[ext_resource type="Texture2D" uid="uid://dglhhbuuminyq" path="res://assets/images/icons/trash-2.svg" id="5_kcp3k"]
+[ext_resource type="Texture2D" uid="uid://c6xujbsy6647c" path="res://assets/images/icons/edit.svg" id="6_anoem"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_t50ew"]
+device = -1
+keycode = 4194306
+
+[sub_resource type="Shortcut" id="Shortcut_0x6sb"]
+events = [SubResource("InputEventKey_t50ew")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4lp7g"]
-bg_color = Color(0.6, 0, 0, 1)
+bg_color = Color(0.53, 0.0689, 0.0919551, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxdel"]
-bg_color = Color(1, 0, 0, 1)
+bg_color = Color(0.933333, 0.12549, 0.160784, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8wtd"]
-bg_color = Color(1, 0, 0, 1)
+bg_color = Color(0.933333, 0.12549, 0.160784, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_ds0b1"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uq8lo"]
-bg_color = Color(0.6, 0.33, 0, 1)
+bg_color = Color(0.53, 0.267208, 0.0795, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jg74t"]
-bg_color = Color(0.996094, 0.542969, 0, 1)
+bg_color = Color(0.933333, 0.470588, 0.141176, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oiexk"]
-bg_color = Color(0.996094, 0.542969, 0, 1)
+bg_color = Color(0.933333, 0.470588, 0.141176, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -32,13 +45,13 @@ border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6o2y"]
-bg_color = Color(0.6, 0.56, 0, 1)
+bg_color = Color(0.56, 0.476933, 0.0616, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwvfu"]
-bg_color = Color(0.996094, 0.929688, 0, 1)
+bg_color = Color(0.964706, 0.823529, 0.105882, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bk235"]
-bg_color = Color(0.996094, 0.929688, 0, 1)
+bg_color = Color(0.964706, 0.823529, 0.105882, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -49,10 +62,10 @@ border_color = Color(1, 1, 1, 1)
 bg_color = Color(0.1683, 0.51, 0.1683, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7umg5"]
-bg_color = Color(0.300781, 0.90625, 0.296875, 1)
+bg_color = Color(0.301961, 0.909804, 0.298039, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v13hd"]
-bg_color = Color(0.300781, 0.90625, 0.296875, 1)
+bg_color = Color(0.301961, 0.909804, 0.298039, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -63,10 +76,10 @@ border_color = Color(1, 1, 1, 1)
 bg_color = Color(0, 0.454333, 0.58, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16fbm"]
-bg_color = Color(0, 0.757813, 0.976563, 1)
+bg_color = Color(0, 0.756863, 0.976471, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4qvr"]
-bg_color = Color(0, 0.757813, 0.976563, 1)
+bg_color = Color(0, 0.756863, 0.976471, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -77,10 +90,10 @@ border_color = Color(1, 1, 1, 1)
 bg_color = Color(0.132, 0.3036, 0.6, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ymad"]
-bg_color = Color(0.214844, 0.507813, 0.996094, 1)
+bg_color = Color(0.215686, 0.509804, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n02v0"]
-bg_color = Color(0.214844, 0.507813, 0.996094, 1)
+bg_color = Color(0.215686, 0.509804, 1, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -88,13 +101,13 @@ border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nvgyr"]
-bg_color = Color(0.26496, 0.1728, 0.48, 1)
+bg_color = Color(0.36261, 0.1458, 0.54, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_11x3a"]
-bg_color = Color(0.480469, 0.316406, 0.878906, 1)
+bg_color = Color(0.627451, 0.25098, 0.941176, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpupo"]
-bg_color = Color(0.480469, 0.316406, 0.878906, 1)
+bg_color = Color(0.627451, 0.25098, 0.941176, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -115,193 +128,245 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
-[node name="EditPanel" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="EditPanel" type="PanelContainer"]
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.25
-script = ExtResource("1_bkeeq")
+size_flags_stretch_ratio = 0.26
+focus_mode = 1
+script = ExtResource("1_qlbky")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="LeftMargin" type="Control" parent="HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.1
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_constants/separation = 5
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer"]
+[node name="EditModeButton" type="CheckButton" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.02
-
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.08
+tooltip_text = "Toggle board edit mode"
 focus_mode = 0
-text = "Capture board"
+theme_override_icons/checked = ExtResource("2_j6fpe")
+theme_override_icons/unchecked = ExtResource("3_imbcn")
+shortcut = SubResource("Shortcut_0x6sb")
+shortcut_feedback = false
+text = "Edit mode"
 
-[node name="Control4" type="Control" parent="HBoxContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BoardEditor" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.02
 
-[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/BoardEditor"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
+size_flags_stretch_ratio = 0.3
+theme_override_constants/separation = 5
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="ScreenCaptureButton" type="Button" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+tooltip_text = "Capture board from the screen"
+focus_mode = 1
+text = "Screen capture"
+icon = ExtResource("4_whnr0")
+alignment = 0
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Margin" type="Control" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="ColorPalette" type="HBoxContainer" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="ColorSelector" type="GridContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
-columns = 3
-
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
+focus_mode = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_4lp7g")
 theme_override_styles/hover = SubResource("StyleBoxFlat_lxdel")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_m8wtd")
 toggle_mode = true
-button_group = ExtResource("1_mtiji")
+button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button2" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_mode = 0
+focus_mode = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_uq8lo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jg74t")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_oiexk")
 toggle_mode = true
-button_group = ExtResource("1_mtiji")
+button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button3" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_mode = 0
+focus_mode = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_m6o2y")
 theme_override_styles/hover = SubResource("StyleBoxFlat_bwvfu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_bk235")
 toggle_mode = true
-button_group = ExtResource("1_mtiji")
+button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button4" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button4" type="Button" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_mode = 0
+focus_mode = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_7fbvb")
 theme_override_styles/hover = SubResource("StyleBoxFlat_7umg5")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_v13hd")
 toggle_mode = true
-button_group = ExtResource("1_mtiji")
+button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button5" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button5" type="Button" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_mode = 0
+focus_mode = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_0aip8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_16fbm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q4qvr")
 toggle_mode = true
-button_group = ExtResource("1_mtiji")
+button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button6" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button6" type="Button" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_mode = 0
+focus_mode = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_iq7af")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0ymad")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_n02v0")
 toggle_mode = true
-button_group = ExtResource("1_mtiji")
+button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button7" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button7" type="Button" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_mode = 0
+focus_mode = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_nvgyr")
 theme_override_styles/hover = SubResource("StyleBoxFlat_11x3a")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_gpupo")
 toggle_mode = true
-button_group = ExtResource("1_mtiji")
+button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button8" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector" groups=["brush_buttons"]]
+[node name="Button8" type="Button" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/MarginContainer/ColorPalette" groups=["brush_buttons"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_mode = 0
+focus_mode = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_j42hs")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0hwfr")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ns780")
 toggle_mode = true
 button_pressed = true
-button_group = ExtResource("1_mtiji")
+button_group = SubResource("ButtonGroup_ds0b1")
 
-[node name="Button9" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/ColorSelector"]
+[node name="ClearBoardButton" type="Button" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Remove all minos from the board"
+focus_mode = 1
+text = "Clear board"
+icon = ExtResource("5_kcp3k")
+alignment = 0
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="EditHoldQueue" type="Button" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+tooltip_text = "Edit the mino in the Hold Queue"
+focus_mode = 1
+text = "Edit Hold Queue"
+icon = ExtResource("6_anoem")
+alignment = 0
+text_overrun_behavior = 3
+clip_text = true
+
+[node name="EditNextQueue" type="Button" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+tooltip_text = "Edit the minos in the Next Queue"
+focus_mode = 1
+text = "Edit Next Queue"
+icon = ExtResource("6_anoem")
+alignment = 0
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ToolSeperator" type="Control" parent="MarginContainer/VBoxContainer/BoardEditor"]
+layout_mode = 2
 size_flags_vertical = 3
-focus_mode = 0
+mouse_filter = 2
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="BoardStateMenu" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.2
+theme_override_constants/separation = 15
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="BoardStateDropdown" type="OptionButton" parent="MarginContainer/VBoxContainer/BoardStateMenu"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
+tooltip_text = "Current board state"
+focus_mode = 1
+text_overrun_behavior = 3
+item_count = 3
+selected = 0
+fit_to_longest_item = false
+popup/item_0/text = "Initial board"
+popup/item_0/id = 0
+popup/item_1/text = "Solution"
+popup/item_1/id = 1
+popup/item_2/text = "Alternate solution"
+popup/item_2/id = 2
 
-[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Control3" type="Control" parent="HBoxContainer/VBoxContainer"]
+[node name="NotesEdit" type="TextEdit" parent="MarginContainer/VBoxContainer/BoardStateMenu"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
+focus_mode = 1
+placeholder_text = "Extra notes."
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
+caret_blink = true
+caret_multiple = false
 
-[node name="Control2" type="Control" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.25
-
-[node name="RightMargin" type="Control" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.1
+[connection signal="toggled" from="MarginContainer/VBoxContainer/EditModeButton" to="." method="_on_edit_mode_button_toggled"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ScreenCaptureButton" to="." method="_on_screen_capture_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ClearBoardButton" to="." method="_on_clear_board_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/EditHoldQueue" to="." method="_on_edit_hold_queue_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/EditNextQueue" to="." method="_on_edit_next_queue_pressed"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/BoardStateMenu/BoardStateDropdown" to="." method="_on_board_state_dropdown_item_selected"]
+[connection signal="focus_exited" from="MarginContainer/VBoxContainer/BoardStateMenu/NotesEdit" to="." method="_on_notes_edit_focus_exited"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/BoardStateMenu/NotesEdit" to="." method="_on_notes_edit_text_changed"]

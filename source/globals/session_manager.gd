@@ -149,8 +149,8 @@ func save_to_file(file_path: String) -> void:
 	if not file_path.is_absolute_path():
 		return
 
-	if not file_path.get_extension() == "bbs":
-		file_path += ".bbs"
+	if not file_path.to_lower().ends_with(Constants.FILE_EXTENSION):
+		file_path += Constants.FILE_EXTENSION
 
 	board_save_queued.emit()
 

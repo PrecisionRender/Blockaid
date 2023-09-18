@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b667q3ky3yvpu"]
 
-[ext_resource type="Script" path="res://source/main/option_descriptor.gd" id="1_yiis2"]
+[ext_resource type="Script" path="res://source/options_window/option_descriptor.gd" id="1_yiis2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_18tn6"]
 font_size = 18

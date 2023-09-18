@@ -92,7 +92,7 @@ func convert_image_to_board(image: Image) -> void:
 			else:
 				var hue: float = current_pixel.h
 				# Red
-				if hue < 0.03 or hue > 0.9192:
+				if hue < 0.05 or hue > 0.9192:
 					current_cell.update_cell_type(Constants.Minos.Z)
 				#Orange
 				elif hue < 0.1114:
@@ -107,7 +107,7 @@ func convert_image_to_board(image: Image) -> void:
 				elif hue < 0.5766:
 					current_cell.update_cell_type(Constants.Minos.I)
 				# Dark blue
-				elif hue < 0.7715:
+				elif hue < 0.7325:
 					current_cell.update_cell_type(Constants.Minos.J)
 				# Purple
 				elif hue < 0.9192:

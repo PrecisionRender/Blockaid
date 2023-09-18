@@ -50,3 +50,4 @@ ui_focus_next={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+limits/auto_accept_quit=false

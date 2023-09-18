@@ -21,13 +21,13 @@ keycode = 4194306
 events = [SubResource("InputEventKey_t50ew")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4lp7g"]
-bg_color = Color(0.6, 0, 0, 1)
+bg_color = Color(0.53, 0.0689, 0.0919551, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxdel"]
-bg_color = Color(1, 0, 0, 1)
+bg_color = Color(0.933333, 0.12549, 0.160784, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8wtd"]
-bg_color = Color(1, 0, 0, 1)
+bg_color = Color(0.933333, 0.12549, 0.160784, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -37,13 +37,13 @@ border_color = Color(1, 1, 1, 1)
 [sub_resource type="ButtonGroup" id="ButtonGroup_ds0b1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uq8lo"]
-bg_color = Color(0.6, 0.33, 0, 1)
+bg_color = Color(0.53, 0.267208, 0.0795, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jg74t"]
-bg_color = Color(0.996094, 0.542969, 0, 1)
+bg_color = Color(0.933333, 0.470588, 0.141176, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oiexk"]
-bg_color = Color(0.996094, 0.542969, 0, 1)
+bg_color = Color(0.933333, 0.470588, 0.141176, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -51,13 +51,13 @@ border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6o2y"]
-bg_color = Color(0.6, 0.56, 0, 1)
+bg_color = Color(0.56, 0.476933, 0.0616, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwvfu"]
-bg_color = Color(0.996094, 0.929688, 0, 1)
+bg_color = Color(0.964706, 0.823529, 0.105882, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bk235"]
-bg_color = Color(0.996094, 0.929688, 0, 1)
+bg_color = Color(0.964706, 0.823529, 0.105882, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -68,10 +68,10 @@ border_color = Color(1, 1, 1, 1)
 bg_color = Color(0.1683, 0.51, 0.1683, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7umg5"]
-bg_color = Color(0.300781, 0.90625, 0.296875, 1)
+bg_color = Color(0.301961, 0.909804, 0.298039, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v13hd"]
-bg_color = Color(0.300781, 0.90625, 0.296875, 1)
+bg_color = Color(0.301961, 0.909804, 0.298039, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -82,10 +82,10 @@ border_color = Color(1, 1, 1, 1)
 bg_color = Color(0, 0.454333, 0.58, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16fbm"]
-bg_color = Color(0, 0.757813, 0.976563, 1)
+bg_color = Color(0, 0.756863, 0.976471, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4qvr"]
-bg_color = Color(0, 0.757813, 0.976563, 1)
+bg_color = Color(0, 0.756863, 0.976471, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -96,10 +96,10 @@ border_color = Color(1, 1, 1, 1)
 bg_color = Color(0.132, 0.3036, 0.6, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ymad"]
-bg_color = Color(0.214844, 0.507813, 0.996094, 1)
+bg_color = Color(0.215686, 0.509804, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n02v0"]
-bg_color = Color(0.214844, 0.507813, 0.996094, 1)
+bg_color = Color(0.215686, 0.509804, 1, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -107,13 +107,13 @@ border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nvgyr"]
-bg_color = Color(0.26496, 0.1728, 0.48, 1)
+bg_color = Color(0.36261, 0.1458, 0.54, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_11x3a"]
-bg_color = Color(0.480469, 0.316406, 0.878906, 1)
+bg_color = Color(0.627451, 0.25098, 0.941176, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpupo"]
-bg_color = Color(0.480469, 0.316406, 0.878906, 1)
+bg_color = Color(0.627451, 0.25098, 0.941176, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1

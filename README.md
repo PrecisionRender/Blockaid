@@ -23,8 +23,7 @@ To use a custom skin, Go to `Options > Custom skin > Choose skin` and select a s
 
 When creating a custom skin, you can use this image as a reference:
 
-<img width="300" alt="skin" src="https://github.com/PrecisionRender/Blockaid/assets/89754713/3fdcc160-58b1-4ac6-bfcc-737645f59449">
-
+<img width="300" alt="skin" src="https://github.com/PrecisionRender/Blockaid/assets/89754713/446838d8-4e8a-449c-983f-2b62f33ee9b6">
 
 ## Building
 Blockaid is built using [Godot Engine](https://github.com/godotengine/godot). Unfortunately, Blockaid depends on [a bugfix](https://github.com/godotengine/godot/pull/81782) not yet merged in Godot. If you want to contribute to this project, you'll have to build [this custom fork of Godot](https://github.com/PrecisionRender/godot/tree/fix-windows-file-dialogue-file-seperators) from source. See [this guide](https://docs.godotengine.org/en/stable/contributing/development/compiling/index.html) to learn how to build Godot.

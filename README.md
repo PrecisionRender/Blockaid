@@ -16,8 +16,8 @@ Theoretically, it *should* support all 3 desktop platforms. However, as a Window
 
 Blockaid supports the use of custom skins. Skin images should:
 - Be `270 x 30` exactly
-- Be `.png`, `.jpg`, `.jpeg`, or `.bmp` files.
-- Follow a `Z-L-O-S-I-J-T-Garbage-Empty` patterm
+- Be `.png`, `.jpg`, `.jpeg`, or `.bmp` files
+- Follow a `Z-L-O-S-I-J-T-Garbage-Empty` pattern
 
 To use a custom skin, Go to `Options > Custom skin > Choose skin` and select a skin image.
 

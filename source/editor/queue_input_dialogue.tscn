@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfajn2hhaj2bj"]
+[gd_scene load_steps=3 format=3 uid="uid://bfajn2hhaj2bj"]
 
 [ext_resource type="Script" path="res://source/editor/queue_input_dialogue.gd" id="1_7clfj"]
+[ext_resource type="StyleBox" uid="uid://dlcd0siiwrr1b" path="res://assets/gui/theme/text_edit/text_edit_normal.tres" id="2_ob2d4"]
 
 [node name="QueueInputDialogue" type="ConfirmationDialog"]
 disable_3d = true
@@ -21,6 +22,9 @@ offset_right = 290.0
 offset_bottom = 41.0
 size_flags_vertical = 3
 focus_mode = 1
+theme_override_styles/normal = ExtResource("2_ob2d4")
+theme_override_styles/focus = ExtResource("2_ob2d4")
+theme_override_styles/read_only = ExtResource("2_ob2d4")
 placeholder_text = "Enter queue..."
 caret_blink = true
 

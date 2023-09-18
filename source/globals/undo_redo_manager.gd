@@ -1,7 +1,7 @@
 extends Node
 
 
-signal saved_state_changed(is_saved: bool)
+signal saved_state_changed()
 
 
 var undo_redo: UndoRedo = UndoRedo.new()
@@ -10,7 +10,7 @@ var save_version: int = 0:
 		var old_save_version: int = save_version
 		save_version = value
 		if not save_version == old_save_version:
-			saved_state_changed.emit((undo_redo.get_version() == value))
+			saved_state_changed.emit()
 
 
 func _ready() -> void:
@@ -33,4 +33,4 @@ func _shortcut_input(event: InputEvent) -> void:
 
 
 func _on_version_changed() -> void:
-	saved_state_changed.emit(undo_redo.get_version() == save_version)
+	saved_state_changed.emit()

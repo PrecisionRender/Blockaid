@@ -10,12 +10,19 @@ signal board_order_edit_queued
 signal board_moved(to_index: int, old_index: int)
 signal board_save_queued
 signal save_file_loaded
+signal _unsaved_work_dialogue_closed(should_load_file: bool)
 
 
 var session_path: String = ""
 var boards: Array[Board]
 var _session_name: String = "Untitled"
 var _current_board_index: int = -1
+var _file_save_dialogue: ConfirmationDialog
+
+
+func _ready() -> void:
+	_initialize_file_save_dialogue()
+	get_viewport().size_changed.connect(func() -> void: _file_save_dialogue.popup_centered())
 
 
 func load_from_last_session() -> void:
@@ -158,6 +165,12 @@ func load_from_file(file_path: String) -> void:
 	if file_path.is_empty():
 		return
 
+	if not UndoRedoManager.undo_redo.get_version() == UndoRedoManager.save_version:
+		_show_unsaved_work_dialogue()
+		var should_continue_file_load = await _unsaved_work_dialogue_closed
+		if not should_continue_file_load:
+			return
+
 	if not FileAccess.file_exists(file_path):
 		push_error("File path %s does not exist." % file_path)
 		return
@@ -184,6 +197,21 @@ func load_from_file(file_path: String) -> void:
 	UndoRedoManager.save_version = UndoRedoManager.undo_redo.get_version()
 	Settings.last_opened_session = file_path
 	save_file_loaded.emit()
+
+
+func _initialize_file_save_dialogue() -> void:
+	_file_save_dialogue = ConfirmationDialog.new()
+	_file_save_dialogue.add_button("Save", false, "Save")
+	_file_save_dialogue.ok_button_text = "Don't save"
+	_file_save_dialogue.cancel_button_text = "Cancel"
+	_file_save_dialogue.dialog_hide_on_ok = true
+	_file_save_dialogue.initial_position = Window.WINDOW_INITIAL_POSITION_CENTER_PRIMARY_SCREEN
+	_file_save_dialogue.borderless = true
+	_file_save_dialogue.popup_window = true
+	_file_save_dialogue.confirmed.connect(_on_file_save_dialogue_confirmed)
+	_file_save_dialogue.custom_action.connect(_on_file_save_dialogue_confirmed)
+	_file_save_dialogue.canceled.connect(func() -> void: _unsaved_work_dialogue_closed.emit(false))
+	add_child(_file_save_dialogue)
 
 
 func _add_board_undo_redo(at_index: int = -1, board: Board = Board.new()) -> void:
@@ -226,3 +254,32 @@ func _move_board_undo_redo(board: Board, to_index: int) -> void:
 func _on_session_name_undo_redo() -> void:
 	session_name_changed.emit(_session_name)
 
+
+func _show_unsaved_work_dialogue() -> void:
+	_file_save_dialogue.dialog_text = "There are unsaved changes to %s." % SessionManager.get_session_name()
+	_file_save_dialogue.popup_centered()
+	_file_save_dialogue.visible = true
+
+
+func _on_file_save_dialogue_confirmed(action_name: String = "") -> void:
+	if action_name == "Save":
+		_file_save_dialogue.hide()
+		if not SessionManager.session_path.is_absolute_path():
+			var file_extension: PackedStringArray = PackedStringArray(
+					["*" + Constants.FILE_EXTENSION])
+			DisplayServer.file_dialog_show("Save as...", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), 
+					get_session_name(), false, DisplayServer.FILE_DIALOG_MODE_SAVE_FILE, 
+					file_extension, _save_dialogue_confirmed)
+		else:
+			SessionManager.save_to_file(SessionManager.session_path)
+			_unsaved_work_dialogue_closed.emit(true)
+	else:
+		_unsaved_work_dialogue_closed.emit(true)
+
+
+func _save_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -> void:
+	if status == false:
+		_unsaved_work_dialogue_closed.emit(false)
+		return
+	save_to_file(selected_paths[0])
+	_unsaved_work_dialogue_closed.emit(true)

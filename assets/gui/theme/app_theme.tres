@@ -26,6 +26,11 @@ content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
 bg_color = Color(0.152941, 0.152941, 0.152941, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.627451, 0.627451, 0.627451, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_a510o"]
 color = Color(0.345098, 0.345098, 0.345098, 1)
@@ -41,6 +46,7 @@ border_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
 [resource]
 AcceptDialog/styles/panel = SubResource("StyleBoxFlat_6wdlw")
 Button/constants/h_separation = 10
+Button/styles/disabled = ExtResource("2_vska6")
 Button/styles/focus = ExtResource("1_u4nm6")
 Button/styles/hover = ExtResource("2_13jcj")
 Button/styles/normal = ExtResource("2_vska6")

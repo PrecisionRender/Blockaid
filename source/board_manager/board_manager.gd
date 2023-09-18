@@ -116,7 +116,8 @@ func _initialize_context_menus() -> void:
 	board_list_context_menu.id_pressed.connect(_on_board_menu_id_pressed)
 
 
-func _update_title_label(is_saved: bool = false) -> void:
+func _update_title_label() -> void:
+	var is_saved: bool = UndoRedoManager.save_version == UndoRedoManager.undo_redo.get_version()
 	session_title_label.text = SessionManager.get_session_name()
 	if not is_saved:
 		session_title_label.text += "*"
@@ -235,14 +236,16 @@ func _on_board_list_item_mouse_selected(position: Vector2, mouse_button_index: i
 
 
 func _on_open_file_pressed() -> void:
-	var file_extension: PackedStringArray = PackedStringArray(["*" + Constants.FILE_EXTENSION])
+	var file_extension: PackedStringArray = PackedStringArray(
+				["*" + Constants.FILE_EXTENSION + ";Blockaid Board Session"])
 	DisplayServer.file_dialog_show("Open", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), "", false, 
 			DisplayServer.FILE_DIALOG_MODE_OPEN_FILE, file_extension, _open_dialogue_confirmed)
 
 
 func _on_save_menu_index_pressed(menu_item_index: int) -> void:
 	if menu_item_index > 0 or not SessionManager.session_path.is_absolute_path():
-		var file_extension: PackedStringArray = PackedStringArray(["*" + Constants.FILE_EXTENSION])
+		var file_extension: PackedStringArray = PackedStringArray(
+				["*" + Constants.FILE_EXTENSION])
 		DisplayServer.file_dialog_show("Save as...", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), 
 				SessionManager.get_session_name(), false, DisplayServer.FILE_DIALOG_MODE_SAVE_FILE, 
 				file_extension, _save_dialogue_confirmed)

@@ -50,7 +50,7 @@ In order to maintain clean, readable, and maintainable code, all pull requests s
 - Always use [static typing](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/static_typing.html) when possible
 - The code should follow the the recommended [best practices](https://docs.godotengine.org/en/stable/tutorials/best_practices/index.html) set out by the Godot Engine team
 - The code should follow the the [GDQuest guide on code cleanliness](https://www.gdquest.com/tutorial/godot/best-practices/code-cleanliness/)
-- Avoid creating new Autoloads. In Godot, they normally act as singletons, which are infamous for creating messy code.
+- Avoid creating unnecessary Autoloads. In Godot, they normally act as singletons, which are infamous for creating messy code.
 - Application code should **only** be written in GDScript. The use of GDExtension is allowed when using third-party libraries.
 - If you want to go the extra mile, document your code using `#comments` if necessary.
 

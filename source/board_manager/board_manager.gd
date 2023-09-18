@@ -13,6 +13,8 @@ var board_list_context_menu: PopupMenu
 @onready var session_title_edit: LineEdit = $MarginContainer/VBoxContainer/SessionTitleEdit
 @onready var save_button: MenuButton = $MarginContainer/VBoxContainer/ButtonBar/SaveFile
 @onready var board_list: Tree = $MarginContainer/VBoxContainer/BoardList
+@onready var version_label: Label = $MarginContainer/VBoxContainer/HBoxContainer/VersionLabel
+
 
 
 func _ready() -> void:
@@ -33,6 +35,8 @@ func _ready() -> void:
 
 	_initialize_context_menus()
 	_update_title_label()
+
+	version_label.text = "v%s" % ProjectSettings.get_setting("application/config/version")
 
 	SessionManager.load_from_last_session()
 

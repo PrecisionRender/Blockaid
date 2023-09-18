@@ -1,14 +1,9 @@
-[gd_scene load_steps=47 format=3 uid="uid://cvumy8oxxhyeu"]
+[gd_scene load_steps=38 format=3 uid="uid://cvumy8oxxhyeu"]
 
 [ext_resource type="Script" path="res://source/editor/editor.gd" id="1_xl6wk"]
-[ext_resource type="Script" path="res://source/board_manager/board_manager.gd" id="2_msfw6"]
-[ext_resource type="FontFile" uid="uid://wxcifpkw68ul" path="res://assets/gui/fonts/roboto/ROBOTO-BOLD.TTF" id="3_a2hql"]
+[ext_resource type="PackedScene" uid="uid://qderush58gmd" path="res://source/board_manager/board_manager.tscn" id="2_yn71k"]
 [ext_resource type="Texture2D" uid="uid://c6xujbsy6647c" path="res://assets/images/icons/edit.svg" id="4_86qqq"]
 [ext_resource type="Script" path="res://source/edit_panel/edit_panel.gd" id="4_awhx0"]
-[ext_resource type="Texture2D" uid="uid://ch0oy3vaw3nr3" path="res://assets/images/icons/plus-square.svg" id="4_i38qm"]
-[ext_resource type="Texture2D" uid="uid://gtqbvj5jj5vi" path="res://assets/images/icons/save.svg" id="5_c666q"]
-[ext_resource type="Texture2D" uid="uid://c7q0570jykohd" path="res://assets/images/icons/folder.svg" id="6_j6b8h"]
-[ext_resource type="Texture2D" uid="uid://bfago1xqpsify" path="res://assets/images/icons/settings.svg" id="7_2w41h"]
 [ext_resource type="PackedScene" uid="uid://crfedg2jxu4tl" path="res://source/game_board/game_board.tscn" id="8_h4ux7"]
 [ext_resource type="Texture2D" uid="uid://3jl1750g3ygm" path="res://assets/images/icons/maximize.svg" id="10_nnygt"]
 [ext_resource type="Texture2D" uid="uid://bbkftdsjdnut4" path="res://assets/images/icons/toggle-right.svg" id="11_myc1d"]
@@ -17,22 +12,6 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuf2m"]
 bg_color = Color(0.113725, 0.113725, 0.113725, 1)
-
-[sub_resource type="InputEventKey" id="InputEventKey_w0r7i"]
-device = -1
-command_or_control_autoremap = true
-keycode = 65
-
-[sub_resource type="Shortcut" id="Shortcut_nv8w1"]
-events = [SubResource("InputEventKey_w0r7i")]
-
-[sub_resource type="InputEventKey" id="InputEventKey_dbp26"]
-device = -1
-command_or_control_autoremap = true
-keycode = 79
-
-[sub_resource type="Shortcut" id="Shortcut_0famq"]
-events = [SubResource("InputEventKey_dbp26")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_t50ew"]
 device = -1
@@ -169,92 +148,8 @@ script = ExtResource("1_xl6wk")
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="BoardManager" type="PanelContainer" parent="HBoxContainer"]
+[node name="BoardManager" parent="HBoxContainer" instance=ExtResource("2_yn71k")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.25
-focus_mode = 1
-script = ExtResource("2_msfw6")
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/BoardManager"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/BoardManager/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.25
-theme_override_constants/separation = 15
-
-[node name="SessionTitleLabel" type="Label" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
-layout_mode = 2
-mouse_filter = 1
-theme_override_fonts/font = ExtResource("3_a2hql")
-text = "Untitled"
-horizontal_alignment = 1
-clip_text = true
-text_overrun_behavior = 3
-
-[node name="SessionTitleEdit" type="LineEdit" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-focus_mode = 1
-theme_override_fonts/font = ExtResource("3_a2hql")
-text = "CZSmall TETR.IO Cup 15*"
-alignment = 1
-virtual_keyboard_enabled = false
-caret_blink = true
-
-[node name="ButtonBar" type="HBoxContainer" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="AddBoardButton" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
-layout_mode = 2
-tooltip_text = "Add board"
-shortcut = SubResource("Shortcut_nv8w1")
-shortcut_feedback = false
-icon = ExtResource("4_i38qm")
-icon_alignment = 1
-
-[node name="Margin" type="Control" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="OpenFile" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
-layout_mode = 2
-tooltip_text = "Open"
-shortcut = SubResource("Shortcut_0famq")
-shortcut_feedback = false
-icon = ExtResource("6_j6b8h")
-text_overrun_behavior = 3
-icon_alignment = 1
-
-[node name="SaveFile" type="MenuButton" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar"]
-layout_mode = 2
-tooltip_text = "Save..."
-icon = ExtResource("5_c666q")
-flat = false
-
-[node name="BoardList" type="Tree" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-allow_rmb_select = true
-allow_search = false
-hide_root = true
-scroll_horizontal_enabled = false
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="OptionsButton" type="Button" parent="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Options"
-icon = ExtResource("7_2w41h")
-alignment = 0
-icon_alignment = 2
 
 [node name="SideMargin" type="Control" parent="HBoxContainer"]
 visible = false
@@ -506,15 +401,6 @@ wrap_mode = 1
 caret_blink = true
 caret_multiple = false
 
-[connection signal="gui_input" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/SessionTitleLabel" to="HBoxContainer/BoardManager" method="_on_label_gui_input"]
-[connection signal="focus_exited" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/SessionTitleEdit" to="HBoxContainer/BoardManager" method="_on_line_edit_focus_exited"]
-[connection signal="text_submitted" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/SessionTitleEdit" to="HBoxContainer/BoardManager" method="_on_line_edit_text_submitted"]
-[connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar/AddBoardButton" to="HBoxContainer/BoardManager" method="_on_add_board_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/ButtonBar/OpenFile" to="HBoxContainer/BoardManager" method="_on_open_file_pressed"]
-[connection signal="item_activated" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_tree_item_activated"]
-[connection signal="item_edited" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_tree_item_edited"]
-[connection signal="item_mouse_selected" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/BoardList" to="HBoxContainer/BoardManager" method="_on_board_list_item_mouse_selected"]
-[connection signal="pressed" from="HBoxContainer/BoardManager/MarginContainer/VBoxContainer/HBoxContainer/OptionsButton" to="HBoxContainer/BoardManager" method="_on_options_button_pressed"]
 [connection signal="toggled" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/EditModeButton" to="HBoxContainer/EditPanel" method="_on_edit_mode_button_toggled"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ScreenCaptureButton" to="HBoxContainer/EditPanel" method="_on_screen_capture_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/EditPanel/MarginContainer/VBoxContainer/BoardEditor/VBoxContainer/ClearBoardButton" to="HBoxContainer/EditPanel" method="_on_clear_board_button_pressed"]

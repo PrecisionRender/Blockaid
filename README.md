@@ -41,7 +41,7 @@ Before opening a pull request, you should generally do the following:
 - Make sure you have a basic understanding of the code you are changing
 - Follows the project's style guide and coding conventions (see below)
 
-Even if your pull request meets all of these recommendations, there is no guarantee it'll get merged. If I feel like your PR doesn't add any significant value to the project, it may be dismissed or given new requirements before it can be merged.
+Even if your pull request meets all of these recommendations, there is no guarantee it'll get merged. If I feel like your PR doesn't add any significant value to the project, it may be dismissed or given new requirements before we take it further.
 
 ### Coding conventions
 In order to maintain clean, readable, and maintainable code, all pull requests should follow these conventions. Spending a little extra effort to keep code clean in the short term saves hours of work in the future.

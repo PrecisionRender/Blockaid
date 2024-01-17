@@ -28,7 +28,7 @@ When creating a custom skin, you can use this image as a reference:
 ## Building
 Blockaid is built using [Godot Engine](https://github.com/godotengine/godot) version 4.2.1 stable. You can download it [here](https://godotengine.org/download/archive/4.2.1-stable/).
 
-After you download Godot, clone the repository: `git clone https://github.com/PrecisionRender/Blockaid.git`
+After you download Godot, clone this repository: `git clone https://github.com/PrecisionRender/Blockaid.git`
 
 Once cloned, you can open the project in Godot. To be able to build binaries of Blockaid, you'll once again have to use that custom fork of Godot, this time to [build export templates](https://docs.godotengine.org/en/stable/contributing/development/compiling/introduction_to_the_buildsystem.html#export-templates).
 

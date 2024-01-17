@@ -81,12 +81,17 @@ func _on_choose_skin_button_pressed() -> void:
 
 	var file_extensions: Array[String] = [ "*.png,*.jpg,*.jpeg,*.bmp;All Supported files",
 			"*.png;PNG", "*.jpg,*.jpeg;JPEG", "*.bmp;BMP"]
-	DisplayServer.file_dialog_show("Select skin", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), "", 
+	var current_directory: String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
+	if Settings.is_valid_path(Settings.last_skin_directory):
+		current_directory = Settings.last_skin_directory
+	DisplayServer.file_dialog_show("Select skin", current_directory, "", 
 			false, DisplayServer.FILE_DIALOG_MODE_OPEN_FILE, file_extensions, 
 			_on_open_dialogue_confirmed)
 
 
-func _on_open_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -> void: 
+func _on_open_dialogue_confirmed(status: bool, selected_paths: PackedStringArray, 
+		_selected_filter_index: int) -> void: 
 	if not status:
 		return
 	Settings.custom_skin_path = selected_paths[0]
+	Settings.last_skin_directory = selected_paths[0].get_base_dir()

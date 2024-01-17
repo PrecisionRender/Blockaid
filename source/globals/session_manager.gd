@@ -60,7 +60,7 @@ func set_session_name(new_name: String) -> void:
 
 
 func get_current_board() -> Board:
-	if _current_board_index < 0:
+	if _current_board_index < 0 or boards.is_empty():
 		return null
 	return boards[_current_board_index]
 
@@ -175,6 +175,7 @@ func save_to_file(file_path: String) -> void:
 	session_path = file_path
 	UndoRedoManager.save_version = UndoRedoManager.undo_redo.get_version()
 	Settings.last_opened_session = file_path
+	Settings.last_working_directory = save_file.get_path_absolute().get_base_dir()
 
 
 func load_from_file(file_path: String) -> void:
@@ -207,12 +208,12 @@ func load_from_file(file_path: String) -> void:
 		if board.set_from_dictionary(save_data["boards"][x]):
 			boards.append(board)
 
-	_current_board_index = 0 if boards.size() > 0 else -1
+	_current_board_index = 0 if !boards.is_empty() else -1
 	session_path = file_path
-	SessionManager._current_board_index = 0
 	UndoRedoManager.undo_redo.clear_history()
 	UndoRedoManager.save_version = UndoRedoManager.undo_redo.get_version()
 	Settings.last_opened_session = file_path
+	Settings.last_working_directory = file_path.get_base_dir()
 	save_file_loaded.emit()
 
 
@@ -283,8 +284,11 @@ func _on_file_save_dialogue_confirmed(action_name: String = "") -> void:
 		_file_save_dialogue.hide()
 		if not SessionManager.session_path.is_absolute_path():
 			var file_extension: PackedStringArray = PackedStringArray(
-					["*" + Constants.FILE_EXTENSION])
-			DisplayServer.file_dialog_show("Save as...", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), 
+					["*" + Constants.FILE_EXTENSION + ";Blockaid Board Session"])
+			var current_directory: String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
+			if Settings.is_valid_path(Settings.last_working_directory):
+				current_directory = Settings.last_working_directory
+			DisplayServer.file_dialog_show("Save as...", current_directory, 
 					get_session_name(), false, DisplayServer.FILE_DIALOG_MODE_SAVE_FILE, 
 					file_extension, _save_dialogue_confirmed)
 		else:

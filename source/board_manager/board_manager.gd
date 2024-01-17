@@ -278,7 +278,10 @@ func _on_open_file_pressed() -> void:
 	# Show the open file dialogue
 	var file_extension: PackedStringArray = PackedStringArray(
 				["*" + Constants.FILE_EXTENSION + ";Blockaid Board Session"])
-	DisplayServer.file_dialog_show("Open", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), "", false, 
+	var current_directory: String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
+	if Settings.is_valid_path(Settings.last_working_directory):
+		current_directory = Settings.last_working_directory
+	DisplayServer.file_dialog_show("Open", current_directory, "", false, 
 			DisplayServer.FILE_DIALOG_MODE_OPEN_FILE, file_extension, _open_dialogue_confirmed)
 
 
@@ -286,8 +289,11 @@ func _on_save_menu_index_pressed(menu_item_index: int) -> void:
 	# Show the save file dialogue if there isn't a currently opened file
 	if menu_item_index > 0 or not SessionManager.session_path.is_absolute_path():
 		var file_extension: PackedStringArray = PackedStringArray(
-				["*" + Constants.FILE_EXTENSION])
-		DisplayServer.file_dialog_show("Save as...", OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), 
+				["*" + Constants.FILE_EXTENSION + ";Blockaid Board Session"])
+		var current_directory: String = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
+		if Settings.is_valid_path(Settings.last_working_directory):
+			current_directory = Settings.last_working_directory
+		DisplayServer.file_dialog_show("Save as...", current_directory, 
 				SessionManager.get_session_name(), false, DisplayServer.FILE_DIALOG_MODE_SAVE_FILE, 
 				file_extension, _save_dialogue_confirmed)
 	else:
@@ -336,7 +342,8 @@ func _on_board_menu_id_pressed(menu_item_id: int) -> void:
 			SessionManager.remove_current_board()
 
 
-func _open_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -> void:
+func _open_dialogue_confirmed(status: bool, selected_paths: PackedStringArray, 
+		_selected_filter_index: int) -> void:
 	# Do nothing if the file dialogue was cancelled
 	if not status:
 		return
@@ -349,7 +356,8 @@ func _open_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -
 	SessionManager.load_from_file(path)
 
 
-func _save_dialogue_confirmed(status: bool, selected_paths: PackedStringArray) -> void:
+func _save_dialogue_confirmed(status: bool, selected_paths: PackedStringArray, 
+		_selected_filter_index: int) -> void:
 	# Do nothing if the file dialogue was cancelled
 	if not status:
 		return
